@@ -12,7 +12,12 @@ namespace TP_Final.Modelo
 
         public void simulacion(double cantSimulacion, double minDesde, double filaDesde, double mediaLlegadas, double limiteInfAtencionA, double limiteSupAtencionA, double mediaAtencionB, double DesvEstAtencionB)
         {
+            
+        }
 
+        public List<String> getColumnas()
+        {
+            fila.getColumnas();
         }
     }
 }

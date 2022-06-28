@@ -87,8 +87,9 @@ namespace TPFinal.Presentacion
                 activarParametros(false);
                 Taller taller = new Taller();
                 taller.simulacion((double)nud_cant_minutos_simulacion.Value, (double)nud_mostrar_desde_minutos.Value, (double)nud_mostrar_desde_filas.Value, (double)nud_tiempo_medio_llegadas.Value, (double)nud_tiempo_limite_inf_atencionA.Value, (double)nud_tiempo_limite_sup_atencionA.Value, (double)nud_media_atencionB.Value, (double)nud_DE_atencionB.Value);
+
                 var tabla = taller.tablaM;
-                var columnas = getColumnas();
+                var columnas = taller.getColumnas();
                 this.dgv_simulacion.ColumnCount = tabla[0].Length;
                 for (int i = 0; i < columnas.Count(); i++)
                 {
@@ -128,62 +129,6 @@ namespace TPFinal.Presentacion
         private void btn_restablecer_Click(object sender, EventArgs e)
         {
             activarParametros(true);
-        }
-
-        private List<String> getColumnas()
-        {
-            List<string> columnas = new List<string>(67);
-            columnas.Add("Evento");
-            columnas.Add("Reloj (min)");
-
-            //EVENTOS
-            columnas.Add("RND Llegadas entre trabajos");
-            columnas.Add("Tiempo entre llegadas trabajo");
-            columnas.Add("Próxima Llegada Trabajo");
-
-            columnas.Add("RND Atención Centro A");
-            columnas.Add("Tiempo Atención Centro A");
-            columnas.Add("Próximo Fin Atención A");
-
-            columnas.Add("RND1 Atención Centro B");
-            columnas.Add("RND2 Atención Centro B");
-            columnas.Add("Tiempo Atención Centro B");
-            columnas.Add("Próximo Fin Atención B");
-
-            columnas.Add("Tiempo Fin Secado");
-            columnas.Add("Próximo Fin Secado");
-
-            //SERVIDORES
-            columnas.Add("Estado Centro A");
-            columnas.Add("Estado Centro B");
-            columnas.Add("Estado Equipo1");
-            columnas.Add("Fin secado1 Equipo1");
-            columnas.Add("Fin secado2 Equipo1");
-            columnas.Add("Fin secado1 Equipo2");
-            columnas.Add("Fin secado2 Equipo2");
-            columnas.Add("Fin secado1 Equipo3");
-            columnas.Add("Fin secado2 Equipo3");
-            columnas.Add("Fin secado1 Equipo4");
-            columnas.Add("Fin secado2 Equipo4");
-            columnas.Add("Fin secado1 Equipo5");
-            columnas.Add("Fin secado2 Equipo5");
-
-            //COLAS
-            columnas.Add("Cola de Llegadas");
-            columnas.Add("Cola de Centro B");
-
-            //ESTADÍSTICAS
-            columnas.Add("Contador de trabajos en sistema");
-            columnas.Add("Cant. Máx de trabajos en sistema");
-            columnas.Add("Tiempo AC Centro A detenido");
-            columnas.Add("Contador trabajos finalizados");
-            columnas.Add("Tiempo AC trabajos finalizados");
-
-            //OBJETOS TEMPORALES
-            //TODO: ver como agg
-            columnas.Add("Trabajos");
-
-            return columnas;
         }
     }
 }
