@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sistemas_de_Colas.Modelo
+namespace TPFinal.Modelo
 {
     class RungeKutta
     {
-        private string tipo;
         private double h;
 
         public const String unTrabajo = "1 trabajo";
@@ -17,9 +16,9 @@ namespace Sistemas_de_Colas.Modelo
 
         public DataTable tabla;
 
-        public RungeKutta(string tipo)
+        public RungeKutta()
         {
-            this.h = 0.01;
+            this.h = 1;
         }
 
         public double integracionNumerica(double reloj, string tipo) //rndB es opcional (solo se usa para instante_bloqueo)
@@ -39,12 +38,12 @@ namespace Sistemas_de_Colas.Modelo
                 case unTrabajo:
                     while (true)
                     {
-                        fila.K1 = truncar(1000 * ecuacionDiferencialUnTrabajo(fila.Tiempo, fila.IndiceSecado));
-                        fila.K2 = truncar(1000 * ecuacionDiferencialUnTrabajo(fila.Tiempo + h/2, fila.IndiceSecado + h/(2*fila.K1)));
-                        fila.K3 = truncar(1000 * ecuacionDiferencialUnTrabajo(fila.Tiempo + h/2, fila.IndiceSecado + h/(2*fila.K2)));
-                        fila.K4 = truncar(1000 * ecuacionDiferencialUnTrabajo(fila.Tiempo + h, fila.IndiceSecado + h*fila.K3));
-                        fila.TiempoSiguiente = truncar(1000 * (fila.Tiempo + h));
-                        fila.IndiceSecadoSiguiente = truncar(1000 * (fila.IndiceSecado + (h/6) * (fila.K1 + 2*fila.K2 + 2*fila.K3 + fila.K4)));
+                        fila.K1 = ecuacionDiferencialUnTrabajo(fila.Tiempo, fila.IndiceSecado);
+                        fila.K2 = ecuacionDiferencialUnTrabajo(fila.Tiempo + h/2, fila.IndiceSecado + h/2*fila.K1);
+                        fila.K3 = ecuacionDiferencialUnTrabajo(fila.Tiempo + h/2, fila.IndiceSecado + h/2*fila.K2);
+                        fila.K4 = ecuacionDiferencialUnTrabajo(fila.Tiempo + h, fila.IndiceSecado + h*fila.K3);
+                        fila.TiempoSiguiente = (fila.Tiempo + h);
+                        fila.IndiceSecadoSiguiente = (fila.IndiceSecado + (h/6) * (fila.K1 + 2*fila.K2 + 2*fila.K3 + fila.K4));
 
                         agregarFilaTabla(fila);
 
@@ -62,12 +61,12 @@ namespace Sistemas_de_Colas.Modelo
                 case dosTrabajos: 
                     while (true)
                     {
-                        fila.K1 = truncar(ecuacionDiferencialDosTrabajos(fila.Tiempo, fila.IndiceSecado));
-                        fila.K2 = truncar(1000 * ecuacionDiferencialDosTrabajos(fila.Tiempo + h/2, fila.IndiceSecado + h/(2*fila.K1)));
-                        fila.K3 = truncar(1000 * ecuacionDiferencialDosTrabajos(fila.Tiempo + h/2, fila.IndiceSecado + h/(2*fila.K2)));
-                        fila.K4 = truncar(1000 * ecuacionDiferencialDosTrabajos(fila.Tiempo + h, fila.IndiceSecado + h*fila.K3));
-                        fila.TiempoSiguiente = truncar(1000 * (fila.Tiempo + h));
-                        fila.IndiceSecadoSiguiente = truncar(1000 * (fila.IndiceSecado + (h/6) * (fila.K1 + 2 * fila.K2 + 2 * fila.K3 + fila.K4)));
+                        fila.K1 = ecuacionDiferencialDosTrabajos(fila.Tiempo, fila.IndiceSecado);
+                        fila.K2 = ecuacionDiferencialDosTrabajos(fila.Tiempo + h/2, fila.IndiceSecado + h/2*fila.K1);
+                        fila.K3 = ecuacionDiferencialDosTrabajos(fila.Tiempo + h/2, fila.IndiceSecado + h/2*fila.K2);
+                        fila.K4 = ecuacionDiferencialDosTrabajos(fila.Tiempo + h, fila.IndiceSecado + h*fila.K3);
+                        fila.TiempoSiguiente = (fila.Tiempo + h);
+                        fila.IndiceSecadoSiguiente = (fila.IndiceSecado + (h/6) * (fila.K1 + 2 * fila.K2 + 2 * fila.K3 + fila.K4));
 
                         agregarFilaTabla(fila);
 
@@ -114,7 +113,7 @@ namespace Sistemas_de_Colas.Modelo
 
         private void agregarFilaTabla(Fila fila)
         { 
-            this.tabla.Rows.Add(fila.Tiempo, fila.IndiceSecado, fila.K1, fila.K2, fila.K3, fila.K4, fila.TiempoSiguiente, fila.IndiceSecadoSiguiente);
+            this.tabla.Rows.Add(truncar(fila.Tiempo), truncar(fila.IndiceSecado), truncar(fila.K1), truncar(fila.K2), truncar(fila.K3), truncar(fila.K4), truncar(fila.TiempoSiguiente), truncar(fila.IndiceSecadoSiguiente));
         }
 
         internal class Fila

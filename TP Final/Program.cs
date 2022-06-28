@@ -1,11 +1,12 @@
-﻿using Sistemas_de_Colas.Presentacion;
+﻿using TPFinal.Presentacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TPFinal.Modelo;
 
-namespace Sistemas_de_Colas
+namespace TPFinal
 {
     static class Program
     {
@@ -17,7 +18,7 @@ namespace Sistemas_de_Colas
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frm_splash_screen());
+            Application.Run(new frm_principal());
         }
     }
 }

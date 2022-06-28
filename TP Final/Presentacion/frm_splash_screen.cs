@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Sistemas_de_Colas.Presentacion;
+using TPFinal.Presentacion;
 
-namespace Sistemas_de_Colas.Presentacion
+namespace TPFinal.Presentacion
 {
     public partial class frm_splash_screen : Form
     {

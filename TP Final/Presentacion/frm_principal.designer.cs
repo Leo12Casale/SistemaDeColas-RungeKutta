@@ -1,5 +1,5 @@
 ﻿
-namespace Sistemas_de_Colas.Presentacion
+namespace TPFinal.Presentacion
 {
     partial class frm_principal
 {

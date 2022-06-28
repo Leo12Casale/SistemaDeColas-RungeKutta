@@ -1,11 +1,11 @@
-﻿using Sistemas_de_Colas.Modelo;
+﻿using TPFinal.Modelo;
 using System;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using TP_Final.Modelo;
 
-namespace Sistemas_de_Colas.Presentacion
+namespace TPFinal.Presentacion
 {
     public partial class frm_principal : Form
     {
