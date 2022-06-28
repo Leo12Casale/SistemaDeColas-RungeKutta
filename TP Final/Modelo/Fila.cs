@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,10 +9,27 @@ namespace TP_Final.Modelo
 {
     internal class Fila
     {
-        //ESTADOS POSIBLES
+        //ESTADOS POSIBLES SERVIDORES
         public const string estadoLibre = "Libre";
         public const string estadoOcupado = "Ocupado";
         public const string estadoDetenido = "Detenido";
+        //ESTADOS POSIBLES TRABAJOS
+        public const string estadoEsperandoAtencionA = "EAA";
+        public const string estadoSiendoAtendidoA = "SAA";
+        public const string estadoDetenidoCentroA = "DA";
+        public const string estadoEsperandoAtencionB = "EAB";
+        public const string estadoSiendoAtendidoB = "SAB";
+        public const string estadoDetenidoCentroB = "DB";
+        public const string estadoSiendoAtendidoSecado = "SAS";
+        public const string estadoDestruido = "X";
+        private int contadorTrabajosLlegados = 0;
+        //Nombres de Eventos
+        public const string eventoLlegadaTrabajo = "Llegada Trabajo";
+        public const string eventoFinAtencionA = "Fin Atención A";
+        public const string eventoDetencionAtencionA = "Detención Atención A";
+        public const string eventoFinAtencionB = "Fin Atención B";
+        public const string eventoDetencionAtencionB = "Detención Atención B";
+        public const string eventoFinSecado = "Fin Secado";
 
         //Vector estado
         private string evento;
@@ -51,8 +69,7 @@ namespace TP_Final.Modelo
         private double tiempoACTrabajosFinalizados;
 
         //OBJETOS TEMPORALES
-        //TODO: ver como manejarlo
-        private string trabajos;
+        private List<Trabajo> trabajos;
 
         public string Evento { get => evento; set => evento = value; }
         public double Reloj { get => reloj; set => reloj = value; }
@@ -77,11 +94,12 @@ namespace TP_Final.Modelo
         public double TiempoACCentroADetenido { get => tiempoACCentroADetenido; set => tiempoACCentroADetenido = value; }
         public int ContadorTrabajosFinalizados { get => contadorTrabajosFinalizados; set => contadorTrabajosFinalizados = value; }
         public double TiempoACTrabajosFinalizados { get => tiempoACTrabajosFinalizados; set => tiempoACTrabajosFinalizados = value; }
-        public string Trabajos { get => trabajos; set => trabajos = value; }
         internal EquipoSecado[] EquiposSecado { get => equiposSecado; set => equiposSecado = value; }
+        internal List<Trabajo> Trabajos { get => trabajos; set => trabajos = value; }
 
-        public Fila()
+        public Fila(double reloj)
         {
+            Reloj = reloj;
             ColaLlegadas = 0;
             ColaCentroB = 0;
             ContadorTrabajosEnSistema = 0;
@@ -94,11 +112,119 @@ namespace TP_Final.Modelo
             {
                 EquiposSecado[i] = new EquipoSecado();
             }
+            Trabajos = new List<Trabajo>();
         }
 
-        public List<String> getColumnas()
+        public Fila copiarFila()
         {
-            List<string> columnas = new List<string>(67);
+            Fila filaClon = (Fila)this.MemberwiseClone();
+
+            filaClon.equiposSecado = new EquipoSecado[equiposSecado.Length];
+            for (int i = 0; i < equiposSecado.Length; i++)
+            {
+                EquipoSecado equipoClon = new EquipoSecado(equiposSecado[i].Estado, equiposSecado[i].FinSecado1, equiposSecado[i].FinSecado2);
+                filaClon.equiposSecado[i] = equipoClon;
+            }
+
+            filaClon.Trabajos = new List<Trabajo>(Trabajos.Count);
+            for (int i = 0; i < Trabajos.Count; i++)
+            {
+                Trabajo trabajoClon = new Trabajo(Trabajos[i].Estado, Trabajos[i].TiempoLlegada);
+                filaClon.Trabajos[i] = trabajoClon;
+            }
+
+            return filaClon;
+        }
+
+        public double calcularProximoTiempo()
+        {
+            double proximaLlegada = double.MaxValue, proximoFinAtencionA = double.MaxValue, proximoFinAtencionB = double.MaxValue, proximoFinSecado = double.MaxValue;
+            if (ProximaLlegadaTrabajo != 0)
+                proximaLlegada = ProximaLlegadaTrabajo;
+            if (ProximoFinAtencionA != 0)
+                proximoFinAtencionA = ProximoFinAtencionA;
+            if (ProximoFinAtencionB != 0)
+                proximoFinAtencionB = ProximoFinAtencionB;
+            if (tiempoMinimoEquipoSecado() != 0)
+                proximoFinSecado = tiempoMinimoEquipoSecado();
+            return Math.Min(proximaLlegada, Math.Min(proximoFinAtencionA, Math.Min(proximoFinAtencionB, proximoFinSecado)));
+        }
+
+        private double tiempoMinimoEquipoSecado()
+        {
+            double tiempoMin = double.MaxValue;
+            double tiempoMenorEquipo;
+            for (int i = 0; i < this.equiposSecado.Length; i++)
+            {
+                tiempoMenorEquipo = equiposSecado[i].getTiempoFinSecadoMenor();
+                if (tiempoMenorEquipo < tiempoMin)
+                    tiempoMin = tiempoMenorEquipo;
+            }
+            return tiempoMin;
+        }
+
+        //EVENTOS
+        public void llegadaTrabajo(Random generadorRNDLlegadaTrabajos, double mediaLlegadas, Random generadorRNDAtencionA, double limiteInfAtencionA, double limiteSupAtencionA, DataTable tablaSimulacion)
+        {
+            //Setteo de Evento y Reloj
+            this.Evento = eventoLlegadaTrabajo;
+            this.Reloj = proximaLlegadaTrabajo;
+
+            //Calculo de la proxima llegada
+            RNDLlegadaTrabajo = generadorRNDLlegadaTrabajos.NextDouble();
+            TiempoEntreLlegadas = calcularTiempoEntreLlegadas(mediaLlegadas, RNDLlegadaTrabajo);
+            ProximaLlegadaTrabajo = Reloj + TiempoEntreLlegadas;
+
+
+            //Atencion de A
+            if(estadoCentroA == estadoLibre)
+            {
+                RNDAtencionA = generadorRNDAtencionA.NextDouble();
+                TiempoAtencionA = calcularTiempoAtencionA(limiteInfAtencionA, limiteSupAtencionA, RNDAtencionA);
+                proximoFinAtencionA = Reloj + TiempoAtencionA;
+
+                //Agrego el trabajo a la fila
+                agregarTrabajoFila(estadoSiendoAtendidoA, Reloj, tablaSimulacion);
+            }
+            else //El trabajo va a la colaLlegada
+            {
+                //TODO: SEGUIR ACA
+            }
+        }
+
+        private void agregarTrabajoFila(string estadoTrabajo, double reloj, DataTable tablaSimulacion)
+        {
+            Trabajo nuevoTrabajo = new Trabajo(estadoTrabajo, reloj);
+            Trabajos.Add(nuevoTrabajo);
+            contadorTrabajosLlegados++;
+            tablaSimulacion.Columns.Add("Estado Trabajo" + contadorTrabajosLlegados);
+            tablaSimulacion.Columns.Add("Llegada Trabajo" + contadorTrabajosLlegados);
+            
+        }
+
+        //Eventos asociadas a DISTRIBUCIONES
+        private double calcularTiempoEntreLlegadas(double mediaLlegadas, double RND)
+        {
+            return -mediaLlegadas * Math.Log(1 - RND);
+        }
+
+        private double calcularTiempoAtencionA(double limiteInf, double limiteSup, double RND)
+        {
+            return limiteInf + RND * (limiteSup - limiteInf);
+        }
+
+        private double calcularTiempoAtencionB(double media, double DesvEstandar, double RND1, double RND2, bool segundoCalculo)
+        {
+            if (!segundoCalculo)
+            {
+                return (Math.Sqrt(-2 * Math.Log(RND1)) * Math.Cos(2 * Math.PI * RND2)) * DesvEstandar + media;
+            }
+            return (Math.Sqrt(-2 * Math.Log(RND1)) * Math.Sin(2 * Math.PI * RND2)) * DesvEstandar + media;
+        }
+
+        public static List<String> getColumnas()
+        {
+            List<string> columnas = new List<string>(38);
             columnas.Add("Evento");
             columnas.Add("Reloj (min)");
 
@@ -125,12 +251,16 @@ namespace TP_Final.Modelo
             columnas.Add("Estado Equipo1");
             columnas.Add("Fin secado1 Equipo1");
             columnas.Add("Fin secado2 Equipo1");
+            columnas.Add("Estado Equipo2");
             columnas.Add("Fin secado1 Equipo2");
             columnas.Add("Fin secado2 Equipo2");
+            columnas.Add("Estado Equipo3");
             columnas.Add("Fin secado1 Equipo3");
             columnas.Add("Fin secado2 Equipo3");
+            columnas.Add("Estado Equipo4");
             columnas.Add("Fin secado1 Equipo4");
             columnas.Add("Fin secado2 Equipo4");
+            columnas.Add("Estado Equipo5");
             columnas.Add("Fin secado1 Equipo5");
             columnas.Add("Fin secado2 Equipo5");
 
@@ -146,8 +276,6 @@ namespace TP_Final.Modelo
             columnas.Add("Tiempo AC trabajos finalizados");
 
             //OBJETOS TEMPORALES
-            //TODO: ver como agg
-            columnas.Add("Trabajos");
 
             return columnas;
         }
@@ -165,7 +293,38 @@ namespace TP_Final.Modelo
 
         public EquipoSecado()
         {
-            Estado = 
+            Estado = Fila.estadoLibre;
+            FinSecado1 = 0;
+            FinSecado2 = 0;
+        }
+
+        public EquipoSecado(string estado, double finSecado1, double finSecado2)
+        {
+            Estado = estado;
+            FinSecado1 = finSecado1;
+            FinSecado2 = finSecado2;
+        }
+
+        public double getTiempoFinSecadoMenor()
+        {
+            if (this.finSecado1 < this.finSecado2)
+                return finSecado1;
+            return finSecado2;
+        }
+    }
+
+    internal class Trabajo
+    {
+        private string estado;
+        private double tiempoLlegada;
+
+        public string Estado { get => estado; set => estado = value; }
+        public double TiempoLlegada { get => tiempoLlegada; set => tiempoLlegada = value; }
+
+        public Trabajo(string estado, double tiempoLlegada)
+        {
+            Estado = estado;
+            TiempoLlegada = tiempoLlegada;
         }
     }
 }

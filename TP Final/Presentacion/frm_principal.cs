@@ -35,6 +35,7 @@ namespace TPFinal.Presentacion
         {
             if (activar)
             {
+                //Simulacion
                 nud_cant_minutos_simulacion.Enabled = true;
                 nud_mostrar_desde_minutos.Enabled = true;
                 nud_mostrar_desde_filas.Enabled = true;
@@ -50,8 +51,8 @@ namespace TPFinal.Presentacion
                 btn_restablecer.Enabled = false;
                 gb_metricas.Visible = false;
                 
+                //Limpieza tablas
                 dgv_simulacion.Columns.Clear();
-
                 tab_RK_1trabajo.Show();
                 tab_RK_2trabajos.Show();
                 dgv_rk_1trabajo.Columns.Clear();
@@ -88,33 +89,12 @@ namespace TPFinal.Presentacion
                 Taller taller = new Taller();
                 taller.simulacion((double)nud_cant_minutos_simulacion.Value, (double)nud_mostrar_desde_minutos.Value, (double)nud_mostrar_desde_filas.Value, (double)nud_tiempo_medio_llegadas.Value, (double)nud_tiempo_limite_inf_atencionA.Value, (double)nud_tiempo_limite_sup_atencionA.Value, (double)nud_media_atencionB.Value, (double)nud_DE_atencionB.Value);
 
-                var tabla = taller.tablaM;
-                var columnas = taller.getColumnas();
-                this.dgv_simulacion.ColumnCount = tabla[0].Length;
-                for (int i = 0; i < columnas.Count(); i++)
-                {
-                    dgv_simulacion.Columns[i].Name = columnas[i];
-                }
-                this.dgv_simulacion.Columns[dgv_simulacion.ColumnCount - 1].Width = 1000;
-                for (int r = 0; r < tabla.Length; r++)
-                {
-                    DataGridViewRow row = new DataGridViewRow();
-                    row.CreateCells(dgv_simulacion);
-                    if (tabla[r][1] == null)
-                        continue;
-                    for (int c = 0; c < tabla[r].Length; c++)
-                    {
-                        row.Cells[c].Value = tabla[r][c];
-                    }
-
-                    this.dgv_simulacion.Rows.Add(row);
-                }
+                this.dgv_simulacion.DataSource = taller.tablaSimulacion;
 
                 foreach (DataGridViewColumn dgvc in dgv_simulacion.Columns)
                 {
                     dgvc.SortMode = DataGridViewColumnSortMode.NotSortable;
                 }
-                dgv_simulacion.Columns[dgv_simulacion.Columns.Count - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
                 //lbl_cant_maxima_trabajos_value.Text = (Math.Truncate(1000 * taller.fila.CantidadMaxColaLavado) / 1000).ToString();
                 //lbl_tiempo_parada_centroA_value.Text = (Math.Truncate(10000 * taller.fila.maximoTiempoOciosoLavadores()) / 100).ToString() + "%";
