@@ -1,9 +1,4 @@
-﻿using TPFinal.Modelo;
-using System;
-using System.Data;
-using System.Linq;
-using System.Windows.Forms;
-using TP_Final.Modelo;
+﻿using TP_Final.Modelo;
 
 namespace TPFinal.Presentacion
 {
@@ -14,6 +9,7 @@ namespace TPFinal.Presentacion
         {
             InitializeComponent();          
         }
+
         private void frm_principal_Load(object sender, EventArgs e)
         {
             btn_restablecer.Enabled = false;
@@ -22,29 +18,14 @@ namespace TPFinal.Presentacion
         
         private bool validarParametros()
         {
-            if (nud_cant_minutos_simulacion.Value == 0)
-            {
-                MessageBox.Show("La cantidad de simulaciones a generar debe ser mayor a 0.", "Generación de Simulación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
             if (nud_mostrar_desde_minutos.Value > nud_cant_minutos_simulacion.Value)
             {
-                MessageBox.Show("El día a partir del cual mostrar debe ser menor a la cantidad de días de simulación.", "Generación de Simulación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El minuto a partir del cual mostrar debe ser menor a la cantidad de minutos de simulación.", "Generación de Simulación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (nud_tiempo_medio_llegadas.Value == 0)
+            if(nud_tiempo_limite_sup_atencionA.Value < nud_tiempo_limite_inf_atencionA.Value)
             {
-                MessageBox.Show("El tiempo medio entre llegadas de camiones debe ser mayor a 0.", "Generación de Simulación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (nud_tiempo_limite_inf_atencionA.Value == 0)
-            {
-                MessageBox.Show("El tiempo medio de mantenimiento debe ser mayor a 0.", "Generación de Simulación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (nud_media_atencionB.Value == 0)
-            {
-                MessageBox.Show("El tiempo medio de lavado debe ser mayor a 0.", "Generación de Simulación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El tiempo límite superior de Atención del Centro A debe ser mayor al límite inferior del mismo.", "Generación de Simulación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             return true;
@@ -57,9 +38,12 @@ namespace TPFinal.Presentacion
                 nud_cant_minutos_simulacion.Enabled = true;
                 nud_mostrar_desde_minutos.Enabled = true;
                 nud_mostrar_desde_filas.Enabled = true;
+                //Distribuciones eventos
                 nud_tiempo_medio_llegadas.Enabled = true;
                 nud_tiempo_limite_inf_atencionA.Enabled = true;
+                nud_tiempo_limite_sup_atencionA.Enabled = true;
                 nud_media_atencionB.Enabled = true;
+                nud_DE_atencionB.Enabled = true;
 
 
                 btn_generar.Enabled = true;
@@ -70,8 +54,8 @@ namespace TPFinal.Presentacion
 
                 tab_RK_1trabajo.Show();
                 tab_RK_2trabajos.Show();
-                dgv_rk_instante_bloqueo.Columns.Clear();
-                dgv_rk_bloqueo_llegadas.Columns.Clear();
+                dgv_rk_1trabajo.Columns.Clear();
+                dgv_rk_2trabajos.Columns.Clear();
             }
             else
             {
@@ -80,7 +64,9 @@ namespace TPFinal.Presentacion
                 nud_mostrar_desde_filas.Enabled = false;
                 nud_tiempo_medio_llegadas.Enabled = false;
                 nud_tiempo_limite_inf_atencionA.Enabled = false;
+                nud_tiempo_limite_sup_atencionA.Enabled = false;
                 nud_media_atencionB.Enabled = false;
+                nud_DE_atencionB.Enabled = false;
 
                 btn_generar.Enabled = false;
                 btn_restablecer.Enabled = true;
@@ -100,9 +86,9 @@ namespace TPFinal.Presentacion
             {
                 activarParametros(false);
                 Taller taller = new Taller();
-                taller.simulacion((double)nud_cant_minutos_simulacion.Value, (int)nud_mostrar_desde_minutos.Value, (int)nud_mostrar_desde_filas.Value, (int)nud_tiempo_medio_llegadas.Value, (double)nud_tiempo_limite_inf_atencionA.Value, (double)nud_tiempo_limite_sup_atencionA.Value, (double)nud_media_atencionB.Value, (double)nud_DE_atencionB.Value);
+                taller.simulacion((double)nud_cant_minutos_simulacion.Value, (double)nud_mostrar_desde_minutos.Value, (double)nud_mostrar_desde_filas.Value, (double)nud_tiempo_medio_llegadas.Value, (double)nud_tiempo_limite_inf_atencionA.Value, (double)nud_tiempo_limite_sup_atencionA.Value, (double)nud_media_atencionB.Value, (double)nud_DE_atencionB.Value);
                 var tabla = taller.tablaM;
-                var columnas = taller.getColumnas();
+                var columnas = getColumnas();
                 this.dgv_simulacion.ColumnCount = tabla[0].Length;
                 for (int i = 0; i < columnas.Count(); i++)
                 {
@@ -142,6 +128,62 @@ namespace TPFinal.Presentacion
         private void btn_restablecer_Click(object sender, EventArgs e)
         {
             activarParametros(true);
+        }
+
+        private List<String> getColumnas()
+        {
+            List<string> columnas = new List<string>(67);
+            columnas.Add("Evento");
+            columnas.Add("Reloj (min)");
+
+            //EVENTOS
+            columnas.Add("RND Llegadas entre trabajos");
+            columnas.Add("Tiempo entre llegadas trabajo");
+            columnas.Add("Próxima Llegada Trabajo");
+
+            columnas.Add("RND Atención Centro A");
+            columnas.Add("Tiempo Atención Centro A");
+            columnas.Add("Próximo Fin Atención A");
+
+            columnas.Add("RND1 Atención Centro B");
+            columnas.Add("RND2 Atención Centro B");
+            columnas.Add("Tiempo Atención Centro B");
+            columnas.Add("Próximo Fin Atención B");
+
+            columnas.Add("Tiempo Fin Secado");
+            columnas.Add("Próximo Fin Secado");
+
+            //SERVIDORES
+            columnas.Add("Estado Centro A");
+            columnas.Add("Estado Centro B");
+            columnas.Add("Estado Equipo1");
+            columnas.Add("Fin secado1 Equipo1");
+            columnas.Add("Fin secado2 Equipo1");
+            columnas.Add("Fin secado1 Equipo2");
+            columnas.Add("Fin secado2 Equipo2");
+            columnas.Add("Fin secado1 Equipo3");
+            columnas.Add("Fin secado2 Equipo3");
+            columnas.Add("Fin secado1 Equipo4");
+            columnas.Add("Fin secado2 Equipo4");
+            columnas.Add("Fin secado1 Equipo5");
+            columnas.Add("Fin secado2 Equipo5");
+
+            //COLAS
+            columnas.Add("Cola de Llegadas");
+            columnas.Add("Cola de Centro B");
+
+            //ESTADÍSTICAS
+            columnas.Add("Contador de trabajos en sistema");
+            columnas.Add("Cant. Máx de trabajos en sistema");
+            columnas.Add("Tiempo AC Centro A detenido");
+            columnas.Add("Contador trabajos finalizados");
+            columnas.Add("Tiempo AC trabajos finalizados");
+
+            //OBJETOS TEMPORALES
+            //TODO: ver como agg
+            columnas.Add("Trabajos");
+
+            return columnas;
         }
     }
 }

@@ -29,7 +29,7 @@ namespace TPFinal.Presentacion
     /// </summary>
     private void InitializeComponent()
     {
-            System.Windows.Forms.NumericUpDown nud_tiempo_limite_sup_atencionA;
+            this.nud_tiempo_limite_sup_atencionA = new System.Windows.Forms.NumericUpDown();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -73,9 +73,9 @@ namespace TPFinal.Presentacion
             this.panel4 = new System.Windows.Forms.Panel();
             this.dgv_simulacion = new System.Windows.Forms.DataGridView();
             this.tab_RK_1trabajo = new System.Windows.Forms.TabPage();
-            this.dgv_rk_instante_bloqueo = new System.Windows.Forms.DataGridView();
+            this.dgv_rk_1trabajo = new System.Windows.Forms.DataGridView();
             this.tab_RK_2trabajos = new System.Windows.Forms.TabPage();
-            this.dgv_rk_bloqueo_llegadas = new System.Windows.Forms.DataGridView();
+            this.dgv_rk_2trabajos = new System.Windows.Forms.DataGridView();
             nud_tiempo_limite_sup_atencionA = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(nud_tiempo_limite_sup_atencionA)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -94,9 +94,9 @@ namespace TPFinal.Presentacion
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_simulacion)).BeginInit();
             this.tab_RK_1trabajo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_rk_instante_bloqueo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_rk_1trabajo)).BeginInit();
             this.tab_RK_2trabajos.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_rk_bloqueo_llegadas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_rk_2trabajos)).BeginInit();
             this.SuspendLayout();
             // 
             // nud_tiempo_limite_sup_atencionA
@@ -110,7 +110,7 @@ namespace TPFinal.Presentacion
             nud_tiempo_limite_sup_atencionA.Location = new System.Drawing.Point(244, 257);
             nud_tiempo_limite_sup_atencionA.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             nud_tiempo_limite_sup_atencionA.Maximum = new decimal(new int[] {
-            10,
+            60,
             0,
             0,
             0});
@@ -403,6 +403,11 @@ namespace TPFinal.Presentacion
             0,
             0,
             0});
+            this.nud_media_atencionB.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             this.nud_media_atencionB.Name = "nud_media_atencionB";
             this.nud_media_atencionB.Size = new System.Drawing.Size(88, 23);
             this.nud_media_atencionB.TabIndex = 5;
@@ -420,6 +425,11 @@ namespace TPFinal.Presentacion
             this.nud_cant_minutos_simulacion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nud_cant_minutos_simulacion.Maximum = new decimal(new int[] {
             200000,
+            0,
+            0,
+            0});
+            this.nud_cant_minutos_simulacion.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
@@ -454,10 +464,15 @@ namespace TPFinal.Presentacion
             this.nud_tiempo_medio_llegadas.Location = new System.Drawing.Point(244, 176);
             this.nud_tiempo_medio_llegadas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nud_tiempo_medio_llegadas.Maximum = new decimal(new int[] {
-            30,
+            60,
             0,
             0,
             0});
+            this.nud_tiempo_medio_llegadas.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             this.nud_tiempo_medio_llegadas.Name = "nud_tiempo_medio_llegadas";
             this.nud_tiempo_medio_llegadas.Size = new System.Drawing.Size(88, 23);
             this.nud_tiempo_medio_llegadas.TabIndex = 3;
@@ -599,7 +614,7 @@ namespace TPFinal.Presentacion
             // 
             // tab_RK_1trabajo
             // 
-            this.tab_RK_1trabajo.Controls.Add(this.dgv_rk_instante_bloqueo);
+            this.tab_RK_1trabajo.Controls.Add(this.dgv_rk_1trabajo);
             this.tab_RK_1trabajo.Location = new System.Drawing.Point(4, 24);
             this.tab_RK_1trabajo.Name = "tab_RK_1trabajo";
             this.tab_RK_1trabajo.Padding = new System.Windows.Forms.Padding(3);
@@ -610,15 +625,15 @@ namespace TPFinal.Presentacion
             // 
             // dgv_rk_instante_bloqueo
             // 
-            this.dgv_rk_instante_bloqueo.AllowUserToAddRows = false;
-            this.dgv_rk_instante_bloqueo.AllowUserToDeleteRows = false;
-            this.dgv_rk_instante_bloqueo.AllowUserToResizeRows = false;
+            this.dgv_rk_1trabajo.AllowUserToAddRows = false;
+            this.dgv_rk_1trabajo.AllowUserToDeleteRows = false;
+            this.dgv_rk_1trabajo.AllowUserToResizeRows = false;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.dgv_rk_instante_bloqueo.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgv_rk_instante_bloqueo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgv_rk_1trabajo.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgv_rk_1trabajo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgv_rk_instante_bloqueo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgv_rk_1trabajo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ActiveBorder;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -626,8 +641,8 @@ namespace TPFinal.Presentacion
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_rk_instante_bloqueo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            this.dgv_rk_instante_bloqueo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_rk_1trabajo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dgv_rk_1trabajo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -635,22 +650,22 @@ namespace TPFinal.Presentacion
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv_rk_instante_bloqueo.DefaultCellStyle = dataGridViewCellStyle6;
-            this.dgv_rk_instante_bloqueo.Location = new System.Drawing.Point(202, 17);
-            this.dgv_rk_instante_bloqueo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dgv_rk_instante_bloqueo.Name = "dgv_rk_instante_bloqueo";
-            this.dgv_rk_instante_bloqueo.ReadOnly = true;
-            this.dgv_rk_instante_bloqueo.RowHeadersVisible = false;
-            this.dgv_rk_instante_bloqueo.RowHeadersWidth = 51;
-            this.dgv_rk_instante_bloqueo.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgv_rk_instante_bloqueo.RowTemplate.Height = 24;
-            this.dgv_rk_instante_bloqueo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_rk_instante_bloqueo.Size = new System.Drawing.Size(1034, 824);
-            this.dgv_rk_instante_bloqueo.TabIndex = 63;
+            this.dgv_rk_1trabajo.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dgv_rk_1trabajo.Location = new System.Drawing.Point(202, 17);
+            this.dgv_rk_1trabajo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgv_rk_1trabajo.Name = "dgv_rk_instante_bloqueo";
+            this.dgv_rk_1trabajo.ReadOnly = true;
+            this.dgv_rk_1trabajo.RowHeadersVisible = false;
+            this.dgv_rk_1trabajo.RowHeadersWidth = 51;
+            this.dgv_rk_1trabajo.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgv_rk_1trabajo.RowTemplate.Height = 24;
+            this.dgv_rk_1trabajo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv_rk_1trabajo.Size = new System.Drawing.Size(1034, 824);
+            this.dgv_rk_1trabajo.TabIndex = 63;
             // 
             // tab_RK_2trabajos
             // 
-            this.tab_RK_2trabajos.Controls.Add(this.dgv_rk_bloqueo_llegadas);
+            this.tab_RK_2trabajos.Controls.Add(this.dgv_rk_2trabajos);
             this.tab_RK_2trabajos.Location = new System.Drawing.Point(4, 24);
             this.tab_RK_2trabajos.Name = "tab_RK_2trabajos";
             this.tab_RK_2trabajos.Size = new System.Drawing.Size(1438, 857);
@@ -660,15 +675,15 @@ namespace TPFinal.Presentacion
             // 
             // dgv_rk_bloqueo_llegadas
             // 
-            this.dgv_rk_bloqueo_llegadas.AllowUserToAddRows = false;
-            this.dgv_rk_bloqueo_llegadas.AllowUserToDeleteRows = false;
-            this.dgv_rk_bloqueo_llegadas.AllowUserToResizeRows = false;
+            this.dgv_rk_2trabajos.AllowUserToAddRows = false;
+            this.dgv_rk_2trabajos.AllowUserToDeleteRows = false;
+            this.dgv_rk_2trabajos.AllowUserToResizeRows = false;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.dgv_rk_bloqueo_llegadas.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
-            this.dgv_rk_bloqueo_llegadas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgv_rk_2trabajos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            this.dgv_rk_2trabajos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgv_rk_bloqueo_llegadas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgv_rk_2trabajos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.ActiveBorder;
             dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
@@ -676,8 +691,8 @@ namespace TPFinal.Presentacion
             dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_rk_bloqueo_llegadas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
-            this.dgv_rk_bloqueo_llegadas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_rk_2trabajos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            this.dgv_rk_2trabajos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -685,18 +700,18 @@ namespace TPFinal.Presentacion
             dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
             dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv_rk_bloqueo_llegadas.DefaultCellStyle = dataGridViewCellStyle9;
-            this.dgv_rk_bloqueo_llegadas.Location = new System.Drawing.Point(202, 17);
-            this.dgv_rk_bloqueo_llegadas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dgv_rk_bloqueo_llegadas.Name = "dgv_rk_bloqueo_llegadas";
-            this.dgv_rk_bloqueo_llegadas.ReadOnly = true;
-            this.dgv_rk_bloqueo_llegadas.RowHeadersVisible = false;
-            this.dgv_rk_bloqueo_llegadas.RowHeadersWidth = 51;
-            this.dgv_rk_bloqueo_llegadas.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.dgv_rk_bloqueo_llegadas.RowTemplate.Height = 24;
-            this.dgv_rk_bloqueo_llegadas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_rk_bloqueo_llegadas.Size = new System.Drawing.Size(1034, 824);
-            this.dgv_rk_bloqueo_llegadas.TabIndex = 64;
+            this.dgv_rk_2trabajos.DefaultCellStyle = dataGridViewCellStyle9;
+            this.dgv_rk_2trabajos.Location = new System.Drawing.Point(202, 17);
+            this.dgv_rk_2trabajos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgv_rk_2trabajos.Name = "dgv_rk_bloqueo_llegadas";
+            this.dgv_rk_2trabajos.ReadOnly = true;
+            this.dgv_rk_2trabajos.RowHeadersVisible = false;
+            this.dgv_rk_2trabajos.RowHeadersWidth = 51;
+            this.dgv_rk_2trabajos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgv_rk_2trabajos.RowTemplate.Height = 24;
+            this.dgv_rk_2trabajos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgv_rk_2trabajos.Size = new System.Drawing.Size(1034, 824);
+            this.dgv_rk_2trabajos.TabIndex = 64;
             // 
             // frm_principal
             // 
@@ -732,9 +747,9 @@ namespace TPFinal.Presentacion
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_simulacion)).EndInit();
             this.tab_RK_1trabajo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_rk_instante_bloqueo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_rk_1trabajo)).EndInit();
             this.tab_RK_2trabajos.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_rk_bloqueo_llegadas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_rk_2trabajos)).EndInit();
             this.ResumeLayout(false);
 
     }
@@ -769,8 +784,8 @@ namespace TPFinal.Presentacion
         private System.Windows.Forms.DataGridView dgv_simulacion;
         private System.Windows.Forms.TabPage tab_RK_1trabajo;
         private System.Windows.Forms.TabPage tab_RK_2trabajos;
-        private System.Windows.Forms.DataGridView dgv_rk_instante_bloqueo;
-        private System.Windows.Forms.DataGridView dgv_rk_bloqueo_llegadas;
+        private System.Windows.Forms.DataGridView dgv_rk_1trabajo;
+        private System.Windows.Forms.DataGridView dgv_rk_2trabajos;
         private System.Windows.Forms.NumericUpDown nud_mostrar_desde_filas;
         private System.Windows.Forms.Label lbl_mostrar_desde_filas;
         private Label label1;

@@ -14,10 +14,5 @@ namespace TP_Final.Modelo
         {
 
         }
-
-        public List<String> getColumnas()
-        {
-            return new List<string>();
-        }
     }
 }
