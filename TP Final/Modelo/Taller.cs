@@ -41,15 +41,24 @@ namespace TP_Final.Modelo
             double proximoTiempo;
             double promedioTiempoTrabajos = 0;
 
-            while (fila.Reloj < cantSimulacion)
+            //while (fila.Reloj < cantSimulacion)
+            while (contadorFilas <= 2)
             {
                 //Reiniciar RNDs y Tiempos en la nueva fila
                 fila.RNDLlegadaTrabajo = 0;
                 fila.TiempoEntreLlegadas = 0;
                 fila.RNDAtencionA = 0;
+                if (filaAnterior.CrearRNDsNormal)
+                {
+                    fila.RND1AtencionB = 0;
+                    fila.RND2AtencionB = 0;
+                }
+                else
+                {
+                    fila.RND1AtencionB = filaAnterior.RND1AtencionB;
+                    fila.RND2AtencionB = filaAnterior.RND2AtencionB;
+                }
                 fila.TiempoAtencionA = 0;
-                fila.RND1AtencionB = 0;
-                fila.RND2AtencionB = 0;
                 fila.TiempoAtencionB = 0;
                 fila.TiempoFinSecado = 0;
 
@@ -75,10 +84,10 @@ namespace TP_Final.Modelo
                 if (fila.Reloj < cantSimulacion && contadorFilas < cantidadFilasAMostrar)
                 {
                     agregarFilaTabla(fila);
+                    contadorFilas++;
                 }
                 else
                     break;
-                break;
             }
             if (fila.ContadorTrabajosFinalizados != 0)
                 promedioTiempoTrabajos = fila.TiempoACTrabajosFinalizados / fila.ContadorTrabajosFinalizados;
