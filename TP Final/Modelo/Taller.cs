@@ -5,15 +5,24 @@ namespace TP_Final.Modelo
 {
     class Taller
     {
-        public DataTable tablaSimulacion;
+        public static DataTable tablaSimulacion;
+        public static Random generadorRNDLlegadaTrabajos = new Random();
+        public static Random generadorRNDAtencionA = new Random();
+        public static Random generadorRNDAtencionB = new Random();
+        public static RungeKutta rungeKutta = new RungeKutta();
+        public static double mediaLlegadas;
+        public static double limiteInfAtencionA;
+        public static double limiteSupAtencionA;
+        public static double mediaAtencionB;
+        public static double desvEstandarAtencionB;
 
-        public void simulacion(double cantSimulacion, double minDesde, double filaDesde, double mediaLlegadas, double limiteInfAtencionA, double limiteSupAtencionA, double mediaAtencionB, double DesvEstAtencionB)
+        public void simulacion(double cantSimulacion, double minDesde, double cantidadFilasAMostrar, double mediaLlegadas, double limiteInfAtencionA, double limiteSupAtencionA, double mediaAtencionB, double desvEstAtencionB)
         {
-            Random generadorRNDLlegadaTrabajos = new Random();
-            Random generadorRNDAtencionA = new Random();
-            Random generadorRNDAtencionB = new Random();
-
-            RungeKutta rungeKutta = new RungeKutta();
+            Taller.mediaLlegadas = mediaLlegadas;
+            Taller.limiteInfAtencionA = limiteInfAtencionA;
+            Taller.limiteSupAtencionA = limiteSupAtencionA;
+            Taller.mediaAtencionB = mediaAtencionB;
+            Taller.desvEstandarAtencionB = desvEstAtencionB;
 
             generarTabla();
 
@@ -30,6 +39,7 @@ namespace TP_Final.Modelo
             //Variables auxiliares
             int contadorFilas = 0;
             double proximoTiempo;
+            double promedioTiempoTrabajos = 0;
 
             while (fila.Reloj < cantSimulacion)
             {
@@ -49,12 +59,29 @@ namespace TP_Final.Modelo
                 // ------------ Evento LLEGADA TRABAJO
                 if(proximoTiempo == fila.ProximaLlegadaTrabajo)
                 {
-                    fila.llegadaTrabajo(generadorRNDLlegadaTrabajos, mediaLlegadas, generadorRNDAtencionA, limiteInfAtencionA, limiteSupAtencionA, tablaSimulacion);
-                   
+                    fila.llegadaTrabajo();
                 }
-                agregarFilaTabla(fila);
+                // ------------ Evento FIN ATENCION A
+                if(proximoTiempo == fila.ProximoFinAtencionA)
+                {
+                    fila.finAtencionA();
+                }
+
+                //----------------------------------------------------------- ESTADISTICAS
+                //Cantidad maxima de Trabajos en Sistema
+                if (filaAnterior.CantidadMaximaTrabajosEnSistema < fila.ContadorTrabajosEnSistema)
+                    fila.CantidadMaximaTrabajosEnSistema = fila.ContadorTrabajosEnSistema;
+
+                if (fila.Reloj < cantSimulacion && contadorFilas < cantidadFilasAMostrar)
+                {
+                    agregarFilaTabla(fila);
+                }
+                else
+                    break;
                 break;
             }
+            if (fila.ContadorTrabajosFinalizados != 0)
+                promedioTiempoTrabajos = fila.TiempoACTrabajosFinalizados / fila.ContadorTrabajosFinalizados;
         }
 
         private void generarTabla()
@@ -69,7 +96,7 @@ namespace TP_Final.Modelo
 
         private void agregarFilaTabla(Fila fila)
         {
-            int tamañoFilaTabla = 38 + fila.Trabajos.Count;
+            int tamañoFilaTabla = 38 + 2 * fila.Trabajos.Count;
             string[] filaTabla = new string[tamañoFilaTabla];
             int indice = 0;
             filaTabla[indice++] = fila.Evento;

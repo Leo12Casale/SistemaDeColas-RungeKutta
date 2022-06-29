@@ -89,7 +89,7 @@ namespace TPFinal.Presentacion
                 Taller taller = new Taller();
                 taller.simulacion((double)nud_cant_minutos_simulacion.Value, (double)nud_mostrar_desde_minutos.Value, (double)nud_mostrar_desde_filas.Value, (double)nud_tiempo_medio_llegadas.Value, (double)nud_tiempo_limite_inf_atencionA.Value, (double)nud_tiempo_limite_sup_atencionA.Value, (double)nud_media_atencionB.Value, (double)nud_DE_atencionB.Value);
 
-                this.dgv_simulacion.DataSource = taller.tablaSimulacion;
+                dgv_simulacion.DataSource = Taller.tablaSimulacion;
 
                 foreach (DataGridViewColumn dgvc in dgv_simulacion.Columns)
                 {

@@ -100,6 +100,8 @@ namespace TP_Final.Modelo
         public Fila(double reloj)
         {
             Reloj = reloj;
+            estadoCentroA = estadoLibre;
+            estadoCentroB = estadoLibre;
             ColaLlegadas = 0;
             ColaCentroB = 0;
             ContadorTrabajosEnSistema = 0;
@@ -163,44 +165,68 @@ namespace TP_Final.Modelo
             return tiempoMin;
         }
 
-        //EVENTOS
-        public void llegadaTrabajo(Random generadorRNDLlegadaTrabajos, double mediaLlegadas, Random generadorRNDAtencionA, double limiteInfAtencionA, double limiteSupAtencionA, DataTable tablaSimulacion)
+
+
+        //---------------------------------------------------------------- EVENTOS
+        //--------------------- Evento LLEGADA TRABAJO
+        public void llegadaTrabajo()
         {
             //Setteo de Evento y Reloj
             this.Evento = eventoLlegadaTrabajo;
             this.Reloj = proximaLlegadaTrabajo;
 
             //Calculo de la proxima llegada
-            RNDLlegadaTrabajo = generadorRNDLlegadaTrabajos.NextDouble();
-            TiempoEntreLlegadas = calcularTiempoEntreLlegadas(mediaLlegadas, RNDLlegadaTrabajo);
+            RNDLlegadaTrabajo = Taller.generadorRNDLlegadaTrabajos.NextDouble();
+            TiempoEntreLlegadas = calcularTiempoEntreLlegadas(Taller.mediaLlegadas, RNDLlegadaTrabajo);
             ProximaLlegadaTrabajo = Reloj + TiempoEntreLlegadas;
 
+            //Estadisticas
+            contadorTrabajosEnSistema++;
 
             //Atencion de A
             if(estadoCentroA == estadoLibre)
             {
-                RNDAtencionA = generadorRNDAtencionA.NextDouble();
-                TiempoAtencionA = calcularTiempoAtencionA(limiteInfAtencionA, limiteSupAtencionA, RNDAtencionA);
+                estadoCentroA = estadoOcupado;
+                RNDAtencionA = Taller.generadorRNDAtencionA.NextDouble();
+                TiempoAtencionA = calcularTiempoAtencionA(Taller.limiteInfAtencionA, Taller.limiteSupAtencionA, RNDAtencionA);
                 proximoFinAtencionA = Reloj + TiempoAtencionA;
 
                 //Agrego el trabajo a la fila
-                agregarTrabajoFila(estadoSiendoAtendidoA, Reloj, tablaSimulacion);
+                agregarTrabajoFila(estadoSiendoAtendidoA, Reloj);
             }
             else //El trabajo va a la colaLlegada
             {
-                //TODO: SEGUIR ACA
+                colaLlegadas++;
+                agregarTrabajoFila(estadoEsperandoAtencionA, Reloj);
             }
         }
 
-        private void agregarTrabajoFila(string estadoTrabajo, double reloj, DataTable tablaSimulacion)
+        private void agregarTrabajoFila(string estadoTrabajo, double reloj)
         {
             Trabajo nuevoTrabajo = new Trabajo(estadoTrabajo, reloj);
             Trabajos.Add(nuevoTrabajo);
             contadorTrabajosLlegados++;
-            tablaSimulacion.Columns.Add("Estado Trabajo" + contadorTrabajosLlegados);
-            tablaSimulacion.Columns.Add("Llegada Trabajo" + contadorTrabajosLlegados);
-            
+            Taller.tablaSimulacion.Columns.Add("Estado Trabajo" + contadorTrabajosLlegados);
+            Taller.tablaSimulacion.Columns.Add("Llegada Trabajo" + contadorTrabajosLlegados);
         }
+
+
+        //--------------------------- Evento FIN ATENCION A
+        public void finAtencionA()
+        {
+            //Setteo de Evento y Reloj
+            this.Evento = eventoFinAtencionA;
+            this.Reloj = proximoFinAtencionA;
+
+            if (colaLlegadas > 0)
+            {
+
+            }
+            else
+                estadoCentroA = estadoLibre;
+        }
+
+        //----------------------------------------------------------------------------------------------------------------------------
 
         //Eventos asociadas a DISTRIBUCIONES
         private double calcularTiempoEntreLlegadas(double mediaLlegadas, double RND)
