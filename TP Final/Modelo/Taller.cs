@@ -62,11 +62,11 @@ namespace TP_Final.Modelo
                     fila.llegadaTrabajo();
                 }
                 // ------------ Evento FIN ATENCION A
-                if(proximoTiempo == fila.ProximoFinAtencionA)
+                else if(proximoTiempo == fila.ProximoFinAtencionA)
                 {
                     fila.finAtencionA();
                 }
-
+                
                 //----------------------------------------------------------- ESTADISTICAS
                 //Cantidad maxima de Trabajos en Sistema
                 if (filaAnterior.CantidadMaximaTrabajosEnSistema < fila.ContadorTrabajosEnSistema)

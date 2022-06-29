@@ -172,8 +172,8 @@ namespace TP_Final.Modelo
         public void llegadaTrabajo()
         {
             //Setteo de Evento y Reloj
-            this.Evento = eventoLlegadaTrabajo;
-            this.Reloj = proximaLlegadaTrabajo;
+            Evento = eventoLlegadaTrabajo;
+            Reloj = proximaLlegadaTrabajo;
 
             //Calculo de la proxima llegada
             RNDLlegadaTrabajo = Taller.generadorRNDLlegadaTrabajos.NextDouble();
@@ -215,15 +215,71 @@ namespace TP_Final.Modelo
         public void finAtencionA()
         {
             //Setteo de Evento y Reloj
-            this.Evento = eventoFinAtencionA;
-            this.Reloj = proximoFinAtencionA;
+            Evento = eventoFinAtencionA;
+            Reloj = proximoFinAtencionA;
 
-            if (colaLlegadas > 0)
+            //TODO:completar esta logica 
+            int indiceTrabajoAtendidoA = getIndiceTrabajoSiendoAtendidoA();
+            if (indiceTrabajoAtendidoA != -1)
             {
+                //Si el centro B esta libre, pasa a atenderse ahi
+                if (estadoCentroB == estadoLibre)
+                {
+                    Trabajos[indiceTrabajoAtendidoA].Estado = estadoSiendoAtendidoB;
+                    estadoCentroB = estadoOcupado;
+                }
+                //Si el centro B NO esta libre, se fija si tiene lugar en la cola
+                //Hay lugar en cola
+                else if(colaCentroB < 3)
+                {
+                    colaCentroB++;
+                }
+                //No hay lugar en cola --> detiene Atencion A
+                else
+                {
+
+                }
+            }
+
+            //El Centro A chequea si atender otro trabajo o se libera
+            if (getIndiceTrabajoEsperandoAtencionA() != -1)
+            {
+                //Actualizo estados de Centro A y trabajo
+                Trabajos[getIndiceTrabajoEsperandoAtencionA()].Estado = estadoSiendoAtendidoA;
+                estadoCentroA = estadoOcupado;
+
+                colaLlegadas--;
+
+                //Fin de Atencion A
+                RNDAtencionA = Taller.generadorRNDAtencionA.NextDouble();
+                TiempoAtencionA = calcularTiempoAtencionA(Taller.limiteInfAtencionA, Taller.limiteSupAtencionA, RNDAtencionA);
+                proximoFinAtencionA = Reloj + TiempoAtencionA;
 
             }
             else
                 estadoCentroA = estadoLibre;
+        }
+
+        private int getIndiceTrabajoSiendoAtendidoA()
+        {
+            for (int i = 0; i < Trabajos.Count; i++)
+            {
+                if (Trabajos[i].Estado == estadoSiendoAtendidoA)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        private int getIndiceTrabajoEsperandoAtencionA()
+        {
+            for (int i = 0; i < Trabajos.Count; i++)
+            {
+                if (Trabajos[i].Estado == estadoEsperandoAtencionA)
+                    return i;
+            }
+            return -1;
         }
 
         //----------------------------------------------------------------------------------------------------------------------------
