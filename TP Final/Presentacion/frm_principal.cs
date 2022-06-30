@@ -97,13 +97,13 @@ namespace TPFinal.Presentacion
                     dgvc.SortMode = DataGridViewColumnSortMode.NotSortable;
                 }
 
-                //lbl_cant_maxima_trabajos_value.Text = (Math.Truncate(1000 * taller.fila.CantidadMaxColaLavado) / 1000).ToString();
-                //lbl_tiempo_parada_centroA_value.Text = (Math.Truncate(10000 * taller.fila.maximoTiempoOciosoLavadores()) / 100).ToString() + "%";
-                //lbl_tiempo_prom_trabajo_value.Text = (Math.Truncate(1000000 * taller.fila.TiempoAtencionMinimoMecanicos) / 1000000).ToString();
+                lbl_cant_maxima_trabajos_value.Text = taller.Fila.CantidadMaximaTrabajosEnSistema.ToString();
+                lbl_tiempo_parada_centroA_value.Text = (Math.Truncate(1000 * taller.Fila.TiempoACCentroADetenido) / 1000).ToString();
+                lbl_tiempo_prom_trabajo_value.Text = (Math.Truncate(1000 * (taller.Fila.ContadorTrabajosFinalizados / taller.Fila.TiempoACTrabajosFinalizados)) / 1000).ToString();
 
                 ////carga de las tablas RK
-                //dgv_rk_instante_bloqueo.DataSource = taller.rungeKuttaInstanteBloqueo.tabla;
-                //dgv_rk_bloqueo_llegadas.DataSource = taller.rungeKuttaBloqueoCliente.tabla;
+                dgv_rk_1trabajo.DataSource = Taller.rungeKutta.Tabla1Trabajo;
+                dgv_rk_2trabajos.DataSource = Taller.rungeKutta.Tabla2Trabajos;
             }
         }
 

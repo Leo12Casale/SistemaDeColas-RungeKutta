@@ -188,7 +188,7 @@ namespace TP_Final.Modelo
             Reloj = proximaLlegadaTrabajo;
 
             //Calculo de la proxima llegada
-            RNDLlegadaTrabajo = Taller.generadorRNDLlegadaTrabajos.NextDouble();
+            RNDLlegadaTrabajo = Math.Truncate(1000 * Taller.generadorRNDLlegadaTrabajos.NextDouble()) / 1000;
             TiempoEntreLlegadas = calcularTiempoEntreLlegadas(RNDLlegadaTrabajo);
             ProximaLlegadaTrabajo = Reloj + TiempoEntreLlegadas;
 
@@ -199,7 +199,7 @@ namespace TP_Final.Modelo
             {
                 estadoCentroA = estadoOcupado;
                 indiceTrabajoCentroA = contadorTrabajosEnSistema;
-                RNDAtencionA = Taller.generadorRNDAtencionA.NextDouble();
+                RNDAtencionA = Math.Truncate(1000 * Taller.generadorRNDAtencionA.NextDouble()) / 1000;
                 TiempoAtencionA = calcularTiempoAtencionA(RNDAtencionA);
                 proximoFinAtencionA = Reloj + TiempoAtencionA;
 
@@ -246,8 +246,8 @@ namespace TP_Final.Modelo
                 //Tiempo Atencion Centro B
                 if (CrearRNDsNormal) //Si los RNDs no se crearon, crearlos
                 {
-                    RND1AtencionB = Taller.generadorRNDAtencionB.NextDouble();
-                    RND2AtencionB = Taller.generadorRNDAtencionB.NextDouble();
+                    RND1AtencionB = Math.Truncate(1000 * Taller.generadorRNDAtencionB.NextDouble()) / 1000;
+                    RND2AtencionB = Math.Truncate(1000 * Taller.generadorRNDAtencionB.NextDouble()) / 1000;
                     CrearRNDsNormal = false;
                 }
                 else
@@ -285,7 +285,7 @@ namespace TP_Final.Modelo
                 colaLlegadas--;
 
                 //Fin de Atencion A
-                RNDAtencionA = Taller.generadorRNDAtencionA.NextDouble();
+                RNDAtencionA = Math.Truncate(1000 * Taller.generadorRNDAtencionA.NextDouble())/1000;
                 TiempoAtencionA = calcularTiempoAtencionA(RNDAtencionA);
                 proximoFinAtencionA = Reloj + TiempoAtencionA;
             }
@@ -344,8 +344,8 @@ namespace TP_Final.Modelo
                 //Fin Atencion B
                 if (CrearRNDsNormal) //Si los RNDs no se crearon, crearlos
                 {
-                    RND1AtencionB = Taller.generadorRNDAtencionB.NextDouble();
-                    RND2AtencionB = Taller.generadorRNDAtencionB.NextDouble();
+                    RND1AtencionB = Math.Truncate(1000 * Taller.generadorRNDAtencionB.NextDouble()) / 1000;
+                    RND2AtencionB = Math.Truncate(1000 * Taller.generadorRNDAtencionB.NextDouble()) / 1000;
                     CrearRNDsNormal = false;
                 }
                 else
@@ -434,13 +434,45 @@ namespace TP_Final.Modelo
             Evento = eventoFinSecado;
             Reloj = tiempoFinSecadoMinimo;
 
+
+
             int indiceEquipo = getIndiceEquipoSecadoTiempoMinimo(tiempoFinSecadoMinimo);
+            int indiceTrabajo = -1;
 
             //TODO: chequear si el centro B está detenido para tomar el trabajo ese y que el centro B arranque de nuevo
+            //Si es del equipo 1 el trabajo
             if (EquiposSecado[indiceEquipo].FinSecado1 == tiempoFinSecadoMinimo)
             {
+                //Tomo el indice del trabajo
+                indiceTrabajo = EquiposSecado[indiceEquipo].IndiceTrabajo1;
 
+                //Actualizo estado equipo
+                EquiposSecado[indiceEquipo].FinSecado1 = 0;
+                if (EquiposSecado[indiceEquipo].FinSecado2 == 0)
+                    EquiposSecado[indiceEquipo].Estado = estadoLibre;
+                else
+                    EquiposSecado[indiceEquipo].Estado = estadoOcupadoEquipo2;
             }
+            else //Si es del equipo 2 el trabajo
+            {
+                //Tomo el indice del trabajo
+                indiceTrabajo = EquiposSecado[indiceEquipo].IndiceTrabajo2;
+
+                //Actualizo estado equipo
+                EquiposSecado[indiceEquipo].FinSecado2 = 0;
+                if (EquiposSecado[indiceEquipo].FinSecado1 == 0)
+                    EquiposSecado[indiceEquipo].Estado = estadoLibre;
+                else
+                    EquiposSecado[indiceEquipo].Estado = estadoOcupadoEquipo1;
+            }
+
+            Trabajos[indiceTrabajo].Estado = estadoDestruido;
+
+            //Estadisticas
+            contadorTrabajosEnSistema--;
+            contadorTrabajosFinalizados++;
+            tiempoACTrabajosFinalizados += (Reloj - Trabajos[indiceTrabajo].TiempoLlegada);
+
         }
 
         private int getIndiceEquipoSecadoTiempoMinimo(double tiempoFinSecadoMinimo)

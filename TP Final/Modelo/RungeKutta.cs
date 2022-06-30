@@ -16,7 +16,11 @@ namespace TPFinal.Modelo
         private double tiempoSecado1Trabajo;
         private double tiempoSecado2Trabajos;
 
-        public DataTable tabla;
+        private DataTable tabla1Trabajo;
+        private DataTable tabla2Trabajos;
+
+        public DataTable Tabla1Trabajo { get => tabla1Trabajo; set => tabla1Trabajo = value; }
+        public DataTable Tabla2Trabajos { get => tabla2Trabajos; set => tabla2Trabajos = value; }
 
         public RungeKutta()
         {
@@ -35,13 +39,12 @@ namespace TPFinal.Modelo
             fila.Tiempo = 0;
             fila.IndiceSecado = 100;
 
-            if (tabla == null)
-                tabla = crearTabla();
-
-            tabla.Rows.Add("Reloj:" + truncar(1000 * reloj) / 1000);
             switch (tipo)
             {
                 case unTrabajo:
+                    if (Tabla1Trabajo == null)
+                        Tabla1Trabajo = crearTabla();
+                    Tabla1Trabajo.Rows.Add("Reloj:" + truncar(1000 * reloj) / 1000);
                     while (true)
                     {
                         fila.K1 = ecuacionDiferencialUnTrabajo(fila.Tiempo, fila.IndiceSecado);
@@ -51,11 +54,11 @@ namespace TPFinal.Modelo
                         fila.TiempoSiguiente = (fila.Tiempo + h);
                         fila.IndiceSecadoSiguiente = (fila.IndiceSecado + (h/6) * (fila.K1 + 2*fila.K2 + 2*fila.K3 + fila.K4));
 
-                        agregarFilaTabla(fila);
+                        agregarFilaTabla(fila, Tabla1Trabajo);
 
                         if (fila.IndiceSecado <  1)
                         {
-                            tabla.Rows.Add();
+                            Tabla1Trabajo.Rows.Add();
                             tiempoSecado1Trabajo = fila.Tiempo;
                             return fila.Tiempo;
                         }
@@ -65,7 +68,10 @@ namespace TPFinal.Modelo
                         fila.IndiceSecado = fila.IndiceSecadoSiguiente;
                     }
 
-                case dosTrabajos: 
+                case dosTrabajos:
+                    if (Tabla2Trabajos == null)
+                        Tabla2Trabajos = crearTabla();
+                    Tabla2Trabajos.Rows.Add("Reloj:" + truncar(1000 * reloj) / 1000);
                     while (true)
                     {
                         fila.K1 = ecuacionDiferencialDosTrabajos(fila.Tiempo, fila.IndiceSecado);
@@ -75,11 +81,11 @@ namespace TPFinal.Modelo
                         fila.TiempoSiguiente = (fila.Tiempo + h);
                         fila.IndiceSecadoSiguiente = (fila.IndiceSecado + (h/6) * (fila.K1 + 2 * fila.K2 + 2 * fila.K3 + fila.K4));
 
-                        agregarFilaTabla(fila);
+                        agregarFilaTabla(fila, Tabla2Trabajos);
 
                         if (fila.IndiceSecado < 1)
                         {
-                            tabla.Rows.Add();
+                            Tabla2Trabajos.Rows.Add();
                             tiempoSecado2Trabajos = fila.Tiempo;
                             return fila.Tiempo;
                         }
@@ -105,7 +111,7 @@ namespace TPFinal.Modelo
 
         private double truncar(double numero)
         {
-            return Math.Truncate(1000 * numero) / 1000;
+            return Math.Truncate(10000 * numero) / 10000;
         }
 
         private DataTable crearTabla()
@@ -119,9 +125,9 @@ namespace TPFinal.Modelo
             return tabla;
         }
 
-        private void agregarFilaTabla(Fila fila)
+        private void agregarFilaTabla(Fila fila, DataTable tabla)
         { 
-            this.tabla.Rows.Add(truncar(fila.Tiempo), truncar(fila.IndiceSecado), truncar(fila.K1), truncar(fila.K2), truncar(fila.K3), truncar(fila.K4), truncar(fila.TiempoSiguiente), truncar(fila.IndiceSecadoSiguiente));
+            tabla.Rows.Add(truncar(fila.Tiempo), truncar(fila.IndiceSecado), truncar(fila.K1), truncar(fila.K2), truncar(fila.K3), truncar(fila.K4), truncar(fila.TiempoSiguiente), truncar(fila.IndiceSecadoSiguiente));
         }
 
         internal class Fila

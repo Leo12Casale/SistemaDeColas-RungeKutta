@@ -15,6 +15,9 @@ namespace TP_Final.Modelo
         public static double limiteSupAtencionA;
         public static double mediaAtencionB;
         public static double desvEstandarAtencionB;
+        private Fila fila;
+
+        internal Fila Fila { get => fila; set => fila = value; }
 
         public void simulacion(double cantSimulacion, double minDesde, double cantidadFilasAMostrar, double mediaLlegadas, double limiteInfAtencionA, double limiteSupAtencionA, double mediaAtencionB, double desvEstAtencionB)
         {
@@ -28,12 +31,12 @@ namespace TP_Final.Modelo
 
             //Fila inicial
             Fila filaAnterior = new Fila(0);
-            filaAnterior.RNDLlegadaTrabajo = generadorRNDLlegadaTrabajos.NextDouble();
+            filaAnterior.RNDLlegadaTrabajo = Math.Truncate(1000 * generadorRNDLlegadaTrabajos.NextDouble()) / 1000;
             filaAnterior.TiempoEntreLlegadas = -mediaLlegadas * Math.Log(1 - filaAnterior.RNDLlegadaTrabajo);
             filaAnterior.ProximaLlegadaTrabajo = filaAnterior.TiempoEntreLlegadas;
 
-            Fila fila = filaAnterior.copiarFila();
-            agregarFilaTabla(fila);
+            Fila = filaAnterior.copiarFila();
+            agregarFilaTabla(Fila);
 
 
             //Variables auxiliares
@@ -45,55 +48,55 @@ namespace TP_Final.Modelo
             while (contadorFilas <= 100)
             {
                 //Reiniciar RNDs y Tiempos en la nueva fila
-                fila.RNDLlegadaTrabajo = 0;
-                fila.TiempoEntreLlegadas = 0;
-                fila.RNDAtencionA = 0;
+                Fila.RNDLlegadaTrabajo = 0;
+                Fila.TiempoEntreLlegadas = 0;
+                Fila.RNDAtencionA = 0;
                 if (filaAnterior.CrearRNDsNormal)
                 {
-                    fila.RND1AtencionB = 0;
-                    fila.RND2AtencionB = 0;
+                    Fila.RND1AtencionB = 0;
+                    Fila.RND2AtencionB = 0;
                 }
                 else
                 {
-                    fila.RND1AtencionB = filaAnterior.RND1AtencionB;
-                    fila.RND2AtencionB = filaAnterior.RND2AtencionB;
+                    Fila.RND1AtencionB = filaAnterior.RND1AtencionB;
+                    Fila.RND2AtencionB = filaAnterior.RND2AtencionB;
                 }
-                fila.TiempoAtencionA = 0;
-                fila.TiempoAtencionB = 0;
-                fila.TiempoFinSecado = 0;
+                Fila.TiempoAtencionA = 0;
+                Fila.TiempoAtencionB = 0;
+                Fila.TiempoFinSecado = 0;
 
 
-                proximoTiempo = fila.calcularProximoTiempo(filaAnterior);
+                proximoTiempo = Fila.calcularProximoTiempo(filaAnterior);
 
                 // ---------------------------------------------------------- EVENTOS
                 // ------------ Evento LLEGADA TRABAJO
-                if (proximoTiempo == fila.ProximaLlegadaTrabajo)
+                if (proximoTiempo == Fila.ProximaLlegadaTrabajo)
                 {
-                    fila.llegadaTrabajo();
+                    Fila.llegadaTrabajo();
                 }
                 // ------------ Evento FIN ATENCION A
-                else if (proximoTiempo == fila.ProximoFinAtencionA)
+                else if (proximoTiempo == Fila.ProximoFinAtencionA)
                 {
-                    fila.finAtencionA();
+                    Fila.finAtencionA();
                 }
                 // ------------ Evento FIN ATENCION B
-                else if (proximoTiempo == fila.ProximoFinAtencionB)
+                else if (proximoTiempo == Fila.ProximoFinAtencionB)
                 {
-                    fila.finAtencionB();
+                    Fila.finAtencionB();
                 }
-                else if (proximoTiempo == fila.ProximoFinSecado)
+                else if (proximoTiempo == Fila.ProximoFinSecado)
                 {
-                    fila.finSecado(fila.ProximoFinSecado);
+                    Fila.finSecado(Fila.ProximoFinSecado);
                 }
 
                 //----------------------------------------------------------- ESTADISTICAS
                 //Cantidad maxima de Trabajos en Sistema
-                if (filaAnterior.CantidadMaximaTrabajosEnSistema < fila.ContadorTrabajosEnSistema)
-                    fila.CantidadMaximaTrabajosEnSistema = fila.ContadorTrabajosEnSistema;
+                if (filaAnterior.CantidadMaximaTrabajosEnSistema < Fila.ContadorTrabajosEnSistema)
+                    Fila.CantidadMaximaTrabajosEnSistema = Fila.ContadorTrabajosEnSistema;
 
-                if (fila.Reloj < cantSimulacion && contadorFilas < cantidadFilasAMostrar)
+                if (Fila.Reloj < cantSimulacion && contadorFilas < cantidadFilasAMostrar)
                 {
-                    agregarFilaTabla(fila);
+                    agregarFilaTabla(Fila);
                     contadorFilas++;
                 }
                 else
@@ -102,13 +105,13 @@ namespace TP_Final.Modelo
                 //Acumular tiempo de Centro A detenido
                 if (filaAnterior.EstadoCentroA == Fila.estadoDetenidoCentroA)
                 {
-                    fila.TiempoACCentroADetenido += fila.Reloj - filaAnterior.Reloj;
+                    Fila.TiempoACCentroADetenido += Fila.Reloj - filaAnterior.Reloj;
                 }
 
-                filaAnterior = fila.copiarFila();
+                filaAnterior = Fila.copiarFila();
             }
-            if (fila.ContadorTrabajosFinalizados != 0)
-                promedioTiempoTrabajos = fila.TiempoACTrabajosFinalizados / fila.ContadorTrabajosFinalizados;
+            if (Fila.ContadorTrabajosFinalizados != 0)
+                promedioTiempoTrabajos = Fila.TiempoACTrabajosFinalizados / Fila.ContadorTrabajosFinalizados;
         }
 
         private void generarTabla()
