@@ -160,7 +160,10 @@ namespace TP_Final.Modelo
             if (filaAnterior.ProximoFinAtencionB != 0)
                 proximoFinAtencionB = ProximoFinAtencionB;
             if (filaAnterior.tiempoMinimoEquipoSecado() != 0)
+            {
                 proximoFinSecado = tiempoMinimoEquipoSecado();
+                ProximoFinSecado = proximoFinSecado;
+            }
             return Math.Min(proximaLlegada, Math.Min(proximoFinAtencionA, Math.Min(proximoFinAtencionB, proximoFinSecado)));
         }
 
@@ -168,10 +171,12 @@ namespace TP_Final.Modelo
         {
             double tiempoMin = double.MaxValue;
             double tiempoMenorEquipo;
-            for (int i = 0; i < this.equiposSecado.Length; i++)
+            for (int i = 0; i < EquiposSecado.Length; i++)
             {
-                tiempoMenorEquipo = equiposSecado[i].getTiempoFinSecadoMenor();
-                if (tiempoMenorEquipo < tiempoMin)
+                if (EquiposSecado[i].Estado == estadoLibre)
+                    continue;
+                tiempoMenorEquipo = EquiposSecado[i].getTiempoFinSecadoMenor();
+                if (tiempoMenorEquipo != 0 && tiempoMenorEquipo < tiempoMin)
                     tiempoMin = tiempoMenorEquipo;
             }
             return tiempoMin;
@@ -599,7 +604,11 @@ namespace TP_Final.Modelo
 
         public double getTiempoFinSecadoMenor()
         {
-            if (this.finSecado1 < this.finSecado2)
+            if (this.finSecado1 == 0)
+                return finSecado2;
+            else if (this.finSecado2 == 0)
+                return finSecado1;
+            else if (this.finSecado1 < this.finSecado2)
                 return finSecado1;
             return finSecado2;
         }

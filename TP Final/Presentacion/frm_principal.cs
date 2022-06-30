@@ -99,7 +99,10 @@ namespace TPFinal.Presentacion
 
                 lbl_cant_maxima_trabajos_value.Text = taller.Fila.CantidadMaximaTrabajosEnSistema.ToString();
                 lbl_tiempo_parada_centroA_value.Text = (Math.Truncate(1000 * taller.Fila.TiempoACCentroADetenido) / 1000).ToString();
-                lbl_tiempo_prom_trabajo_value.Text = (Math.Truncate(1000 * (taller.Fila.ContadorTrabajosFinalizados / taller.Fila.TiempoACTrabajosFinalizados)) / 1000).ToString();
+                if (taller.Fila.ContadorTrabajosFinalizados == 0)
+                    lbl_tiempo_prom_trabajo_value.Text = "-";
+                else
+                    lbl_tiempo_prom_trabajo_value.Text = (Math.Truncate(1000 * (taller.Fila.ContadorTrabajosFinalizados / taller.Fila.TiempoACTrabajosFinalizados)) / 1000).ToString();
 
                 ////carga de las tablas RK
                 dgv_rk_1trabajo.DataSource = Taller.rungeKutta.Tabla1Trabajo;
