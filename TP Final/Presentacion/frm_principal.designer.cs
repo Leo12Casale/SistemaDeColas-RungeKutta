@@ -29,7 +29,6 @@ namespace TPFinal.Presentacion
     /// </summary>
     private void InitializeComponent()
     {
-            this.nud_tiempo_limite_sup_atencionA = new System.Windows.Forms.NumericUpDown();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -186,7 +185,7 @@ namespace TPFinal.Presentacion
             this.gb_metricas.Margin = new System.Windows.Forms.Padding(4);
             this.gb_metricas.Name = "gb_metricas";
             this.gb_metricas.Padding = new System.Windows.Forms.Padding(4);
-            this.gb_metricas.Size = new System.Drawing.Size(365, 229);
+            this.gb_metricas.Size = new System.Drawing.Size(365, 157);
             this.gb_metricas.TabIndex = 63;
             this.gb_metricas.TabStop = false;
             this.gb_metricas.Text = "Métricas";
@@ -623,7 +622,7 @@ namespace TPFinal.Presentacion
             this.tab_RK_1trabajo.Text = "RK - Un trabajo";
             this.tab_RK_1trabajo.UseVisualStyleBackColor = true;
             // 
-            // dgv_rk_instante_bloqueo
+            // dgv_rk_1trabajo
             // 
             this.dgv_rk_1trabajo.AllowUserToAddRows = false;
             this.dgv_rk_1trabajo.AllowUserToDeleteRows = false;
@@ -653,7 +652,7 @@ namespace TPFinal.Presentacion
             this.dgv_rk_1trabajo.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgv_rk_1trabajo.Location = new System.Drawing.Point(202, 17);
             this.dgv_rk_1trabajo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dgv_rk_1trabajo.Name = "dgv_rk_instante_bloqueo";
+            this.dgv_rk_1trabajo.Name = "dgv_rk_1trabajo";
             this.dgv_rk_1trabajo.ReadOnly = true;
             this.dgv_rk_1trabajo.RowHeadersVisible = false;
             this.dgv_rk_1trabajo.RowHeadersWidth = 51;
@@ -673,7 +672,7 @@ namespace TPFinal.Presentacion
             this.tab_RK_2trabajos.Text = "RK - Dos trabajos";
             this.tab_RK_2trabajos.UseVisualStyleBackColor = true;
             // 
-            // dgv_rk_bloqueo_llegadas
+            // dgv_rk_2trabajos
             // 
             this.dgv_rk_2trabajos.AllowUserToAddRows = false;
             this.dgv_rk_2trabajos.AllowUserToDeleteRows = false;
@@ -703,7 +702,7 @@ namespace TPFinal.Presentacion
             this.dgv_rk_2trabajos.DefaultCellStyle = dataGridViewCellStyle9;
             this.dgv_rk_2trabajos.Location = new System.Drawing.Point(202, 17);
             this.dgv_rk_2trabajos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dgv_rk_2trabajos.Name = "dgv_rk_bloqueo_llegadas";
+            this.dgv_rk_2trabajos.Name = "dgv_rk_2trabajos";
             this.dgv_rk_2trabajos.ReadOnly = true;
             this.dgv_rk_2trabajos.RowHeadersVisible = false;
             this.dgv_rk_2trabajos.RowHeadersWidth = 51;

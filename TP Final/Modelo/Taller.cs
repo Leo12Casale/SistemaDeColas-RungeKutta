@@ -33,7 +33,7 @@ namespace TP_Final.Modelo
             filaAnterior.ProximaLlegadaTrabajo = filaAnterior.TiempoEntreLlegadas;
 
             Fila fila = filaAnterior.copiarFila();
-            //agregarFilaTabla(fila);
+            agregarFilaTabla(fila);
 
 
             //Variables auxiliares
@@ -42,7 +42,7 @@ namespace TP_Final.Modelo
             double promedioTiempoTrabajos = 0;
 
             //while (fila.Reloj < cantSimulacion)
-            while (contadorFilas <= 2)
+            while (contadorFilas <= 100)
             {
                 //Reiniciar RNDs y Tiempos en la nueva fila
                 fila.RNDLlegadaTrabajo = 0;
@@ -62,20 +62,30 @@ namespace TP_Final.Modelo
                 fila.TiempoAtencionB = 0;
                 fila.TiempoFinSecado = 0;
 
-                proximoTiempo = fila.calcularProximoTiempo();
+
+                proximoTiempo = fila.calcularProximoTiempo(filaAnterior);
 
                 // ---------------------------------------------------------- EVENTOS
                 // ------------ Evento LLEGADA TRABAJO
-                if(proximoTiempo == fila.ProximaLlegadaTrabajo)
+                if (proximoTiempo == fila.ProximaLlegadaTrabajo)
                 {
                     fila.llegadaTrabajo();
                 }
                 // ------------ Evento FIN ATENCION A
-                else if(proximoTiempo == fila.ProximoFinAtencionA)
+                else if (proximoTiempo == fila.ProximoFinAtencionA)
                 {
                     fila.finAtencionA();
                 }
-                
+                // ------------ Evento FIN ATENCION B
+                else if (proximoTiempo == fila.ProximoFinAtencionB)
+                {
+                    fila.finAtencionB();
+                }
+                else if (proximoTiempo == fila.ProximoFinSecado)
+                {
+                    fila.finSecado(fila.ProximoFinSecado);
+                }
+
                 //----------------------------------------------------------- ESTADISTICAS
                 //Cantidad maxima de Trabajos en Sistema
                 if (filaAnterior.CantidadMaximaTrabajosEnSistema < fila.ContadorTrabajosEnSistema)
@@ -88,6 +98,14 @@ namespace TP_Final.Modelo
                 }
                 else
                     break;
+
+                //Acumular tiempo de Centro A detenido
+                if (filaAnterior.EstadoCentroA == Fila.estadoDetenidoCentroA)
+                {
+                    fila.TiempoACCentroADetenido += fila.Reloj - filaAnterior.Reloj;
+                }
+
+                filaAnterior = fila.copiarFila();
             }
             if (fila.ContadorTrabajosFinalizados != 0)
                 promedioTiempoTrabajos = fila.TiempoACTrabajosFinalizados / fila.ContadorTrabajosFinalizados;

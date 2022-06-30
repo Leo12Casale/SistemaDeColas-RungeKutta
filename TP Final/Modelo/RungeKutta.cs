@@ -13,6 +13,8 @@ namespace TPFinal.Modelo
 
         public const String unTrabajo = "1 trabajo";
         public const String dosTrabajos = "2 trabajos";
+        private double tiempoSecado1Trabajo;
+        private double tiempoSecado2Trabajos;
 
         public DataTable tabla;
 
@@ -21,8 +23,12 @@ namespace TPFinal.Modelo
             this.h = 1;
         }
 
-        public double integracionNumerica(double reloj, string tipo) //rndB es opcional (solo se usa para instante_bloqueo)
+        public double integracionNumerica(double reloj, string tipo) 
         {
+            if (tipo == unTrabajo && tiempoSecado1Trabajo.Equals(null))
+                return tiempoSecado1Trabajo;
+            if (tipo == dosTrabajos && tiempoSecado2Trabajos.Equals(null))
+                return tiempoSecado2Trabajos;
             Fila fila = new Fila();
 
             //Instante inicial M(0)=100
@@ -50,6 +56,7 @@ namespace TPFinal.Modelo
                         if (fila.IndiceSecado <  1)
                         {
                             tabla.Rows.Add();
+                            tiempoSecado1Trabajo = fila.Tiempo;
                             return fila.Tiempo;
                         }
 
@@ -73,6 +80,7 @@ namespace TPFinal.Modelo
                         if (fila.IndiceSecado < 1)
                         {
                             tabla.Rows.Add();
+                            tiempoSecado2Trabajos = fila.Tiempo;
                             return fila.Tiempo;
                         }
 

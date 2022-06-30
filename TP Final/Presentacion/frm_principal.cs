@@ -7,7 +7,7 @@ namespace TPFinal.Presentacion
 
         public frm_principal()
         {
-            InitializeComponent();          
+            InitializeComponent();
         }
 
         private void frm_principal_Load(object sender, EventArgs e)
@@ -15,7 +15,7 @@ namespace TPFinal.Presentacion
             btn_restablecer.Enabled = false;
             gb_metricas.Visible = false;
         }
-        
+
         private bool validarParametros()
         {
             if (nud_mostrar_desde_minutos.Value > nud_cant_minutos_simulacion.Value)
@@ -23,14 +23,14 @@ namespace TPFinal.Presentacion
                 MessageBox.Show("El minuto a partir del cual mostrar debe ser menor a la cantidad de minutos de simulación.", "Generación de Simulación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if(nud_tiempo_limite_sup_atencionA.Value < nud_tiempo_limite_inf_atencionA.Value)
+            if (nud_tiempo_limite_sup_atencionA.Value < nud_tiempo_limite_inf_atencionA.Value)
             {
                 MessageBox.Show("El tiempo límite superior de Atención del Centro A debe ser mayor al límite inferior del mismo.", "Generación de Simulación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             return true;
         }
-        
+
         private void activarParametros(bool activar)
         {
             if (activar)
@@ -50,7 +50,7 @@ namespace TPFinal.Presentacion
                 btn_generar.Enabled = true;
                 btn_restablecer.Enabled = false;
                 gb_metricas.Visible = false;
-                
+
                 //Limpieza tablas
                 dgv_simulacion.Columns.Clear();
                 tab_RK_1trabajo.Show();
@@ -86,6 +86,7 @@ namespace TPFinal.Presentacion
             if (validarParametros())
             {
                 activarParametros(false);
+
                 Taller taller = new Taller();
                 taller.simulacion((double)nud_cant_minutos_simulacion.Value, (double)nud_mostrar_desde_minutos.Value, (double)nud_mostrar_desde_filas.Value, (double)nud_tiempo_medio_llegadas.Value, (double)nud_tiempo_limite_inf_atencionA.Value, (double)nud_tiempo_limite_sup_atencionA.Value, (double)nud_media_atencionB.Value, (double)nud_DE_atencionB.Value);
 
