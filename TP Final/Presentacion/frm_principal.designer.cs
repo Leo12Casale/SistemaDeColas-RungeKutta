@@ -55,7 +55,7 @@ namespace TPFinal.Presentacion
             this.nud_DE_atencionB = new System.Windows.Forms.NumericUpDown();
             this.lbl_DE_atencionB = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.nud_mostrar_desde_filas = new System.Windows.Forms.NumericUpDown();
+            this.nud_mostrar_cantidad_filas = new System.Windows.Forms.NumericUpDown();
             this.lbl_mostrar_desde_filas = new System.Windows.Forms.Label();
             this.nud_mostrar_desde_minutos = new System.Windows.Forms.NumericUpDown();
             this.lbl_mostrar_desde_minutos = new System.Windows.Forms.Label();
@@ -84,7 +84,7 @@ namespace TPFinal.Presentacion
             this.gb_metricas.SuspendLayout();
             this.gb_parametros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_DE_atencionB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_mostrar_desde_filas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_mostrar_cantidad_filas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_mostrar_desde_minutos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_media_atencionB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_cant_minutos_simulacion)).BeginInit();
@@ -257,7 +257,7 @@ namespace TPFinal.Presentacion
             this.gb_parametros.Controls.Add(this.lbl_DE_atencionB);
             this.gb_parametros.Controls.Add(this.label1);
             this.gb_parametros.Controls.Add(nud_tiempo_limite_sup_atencionA);
-            this.gb_parametros.Controls.Add(this.nud_mostrar_desde_filas);
+            this.gb_parametros.Controls.Add(this.nud_mostrar_cantidad_filas);
             this.gb_parametros.Controls.Add(this.lbl_mostrar_desde_filas);
             this.gb_parametros.Controls.Add(this.nud_mostrar_desde_minutos);
             this.gb_parametros.Controls.Add(this.lbl_mostrar_desde_minutos);
@@ -334,23 +334,23 @@ namespace TPFinal.Presentacion
             // 
             // nud_mostrar_desde_filas
             // 
-            this.nud_mostrar_desde_filas.Location = new System.Drawing.Point(244, 116);
-            this.nud_mostrar_desde_filas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nud_mostrar_desde_filas.Maximum = new decimal(new int[] {
+            this.nud_mostrar_cantidad_filas.Location = new System.Drawing.Point(244, 116);
+            this.nud_mostrar_cantidad_filas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nud_mostrar_cantidad_filas.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.nud_mostrar_desde_filas.Name = "nud_mostrar_desde_filas";
-            this.nud_mostrar_desde_filas.Size = new System.Drawing.Size(88, 23);
-            this.nud_mostrar_desde_filas.TabIndex = 2;
-            this.nud_mostrar_desde_filas.Value = new decimal(new int[] {
+            this.nud_mostrar_cantidad_filas.Name = "nud_mostrar_desde_filas";
+            this.nud_mostrar_cantidad_filas.Size = new System.Drawing.Size(88, 23);
+            this.nud_mostrar_cantidad_filas.TabIndex = 2;
+            this.nud_mostrar_cantidad_filas.Value = new decimal(new int[] {
             400,
             0,
             0,
             0});
-            this.nud_mostrar_desde_filas.Click += new System.EventHandler(this.numActive);
-            this.nud_mostrar_desde_filas.Enter += new System.EventHandler(this.numActive);
+            this.nud_mostrar_cantidad_filas.Click += new System.EventHandler(this.numActive);
+            this.nud_mostrar_cantidad_filas.Enter += new System.EventHandler(this.numActive);
             // 
             // lbl_mostrar_desde_filas
             // 
@@ -737,7 +737,7 @@ namespace TPFinal.Presentacion
             this.gb_parametros.ResumeLayout(false);
             this.gb_parametros.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_DE_atencionB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_mostrar_desde_filas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_mostrar_cantidad_filas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_mostrar_desde_minutos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_media_atencionB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_cant_minutos_simulacion)).EndInit();
@@ -785,7 +785,7 @@ namespace TPFinal.Presentacion
         private System.Windows.Forms.TabPage tab_RK_2trabajos;
         private System.Windows.Forms.DataGridView dgv_rk_1trabajo;
         private System.Windows.Forms.DataGridView dgv_rk_2trabajos;
-        private System.Windows.Forms.NumericUpDown nud_mostrar_desde_filas;
+        private System.Windows.Forms.NumericUpDown nud_mostrar_cantidad_filas;
         private System.Windows.Forms.Label lbl_mostrar_desde_filas;
         private Label label1;
         private NumericUpDown nud_tiempo_limite_sup_atencionA;

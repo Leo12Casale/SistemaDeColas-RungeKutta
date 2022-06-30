@@ -36,16 +36,17 @@ namespace TP_Final.Modelo
             filaAnterior.ProximaLlegadaTrabajo = filaAnterior.TiempoEntreLlegadas;
 
             Fila = filaAnterior.copiarFila();
-            agregarFilaTabla(Fila);
+            agregarFilaTabla(Fila, 0);
 
 
             //Variables auxiliares
             int contadorFilas = 0;
             double proximoTiempo;
             double promedioTiempoTrabajos = 0;
+            int indiceTrabajosNoDestruidos = 0;
+            bool indiceCalculado = false;
 
-            //while (fila.Reloj < cantSimulacion)
-            while (contadorFilas <= 100)
+            while (fila.Reloj < cantSimulacion)
             {
                 //Reiniciar RNDs y Tiempos en la nueva fila
                 Fila.RNDLlegadaTrabajo = 0;
@@ -89,18 +90,24 @@ namespace TP_Final.Modelo
                     Fila.finSecado(Fila.ProximoFinSecado);
                 }
 
+                fila.setProximoFinSecado();
+
                 //----------------------------------------------------------- ESTADISTICAS
                 //Cantidad maxima de Trabajos en Sistema
                 if (filaAnterior.CantidadMaximaTrabajosEnSistema < Fila.ContadorTrabajosEnSistema)
                     Fila.CantidadMaximaTrabajosEnSistema = Fila.ContadorTrabajosEnSistema;
 
-                if (Fila.Reloj < cantSimulacion && contadorFilas < cantidadFilasAMostrar)
+                if (Fila.Reloj > minDesde && Fila.Reloj < cantSimulacion && contadorFilas < cantidadFilasAMostrar)
                 {
-                    agregarFilaTabla(Fila);
+                    if (!indiceCalculado)
+                    {
+                        indiceTrabajosNoDestruidos = fila.getCantidadTrabajosNoDestruidos();
+                        indiceCalculado = true;
+                    }
+                    agregarFilaTabla(Fila, indiceTrabajosNoDestruidos);
                     contadorFilas++;
                 }
                 else
-                    break;
 
                 //Acumular tiempo de Centro A detenido
                 if (filaAnterior.EstadoCentroA == Fila.estadoDetenidoCentroA)
@@ -124,9 +131,9 @@ namespace TP_Final.Modelo
             }
         }
 
-        private void agregarFilaTabla(Fila fila)
+        private void agregarFilaTabla(Fila fila, int indiceTrabajosDesdeMostrar)
         {
-            int tamañoFilaTabla = 38 + 2 * fila.Trabajos.Count;
+            int tamañoFilaTabla = 38 + 2 * (fila.Trabajos.Count - indiceTrabajosDesdeMostrar);
             string[] filaTabla = new string[tamañoFilaTabla];
             int indice = 0;
             filaTabla[indice++] = fila.Evento;
@@ -152,13 +159,13 @@ namespace TP_Final.Modelo
                 filaTabla[indice++] = beautify(fila.EquiposSecado[i].FinSecado2);
             }
             filaTabla[indice++] = fila.ColaLlegadas.ToString();
-            filaTabla[indice++] = fila.ColaCentroB.ToString();
+            filaTabla[indice++] = fila.ColaCentroB.Count.ToString();
             filaTabla[indice++] = fila.ContadorTrabajosEnSistema.ToString();
             filaTabla[indice++] = fila.CantidadMaximaTrabajosEnSistema.ToString();
             filaTabla[indice++] = (Math.Truncate(1000 * fila.TiempoACCentroADetenido) / 1000).ToString();
             filaTabla[indice++] = fila.ContadorTrabajosFinalizados.ToString();
             filaTabla[indice++] = (Math.Truncate(1000 * fila.TiempoACTrabajosFinalizados) / 1000).ToString();
-            for (int i = 0; i < fila.Trabajos.Count; i++)
+            for (int i = indiceTrabajosDesdeMostrar; i < fila.Trabajos.Count; i++)
             {
                 filaTabla[indice++] = fila.Trabajos[i].Estado;
                 filaTabla[indice++] = beautify(fila.Trabajos[i].TiempoLlegada);

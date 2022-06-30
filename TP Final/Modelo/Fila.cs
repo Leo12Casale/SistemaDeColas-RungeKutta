@@ -64,7 +64,7 @@ namespace TP_Final.Modelo
 
         //COLAS
         private int colaLlegadas;
-        private int colaCentroB; //Max. 3
+        private Queue<int> colaCentroB; //Max. 3
 
         //ESTADISTICAS
         private int contadorTrabajosEnSistema;
@@ -95,7 +95,7 @@ namespace TP_Final.Modelo
         public string EstadoCentroA { get => estadoCentroA; set => estadoCentroA = value; }
         public string EstadoCentroB { get => estadoCentroB; set => estadoCentroB = value; }
         public int ColaLlegadas { get => colaLlegadas; set => colaLlegadas = value; }
-        public int ColaCentroB { get => colaCentroB; set => colaCentroB = value; }
+        public Queue<int> ColaCentroB { get => colaCentroB; set => colaCentroB = value; }
         public int ContadorTrabajosEnSistema { get => contadorTrabajosEnSistema; set => contadorTrabajosEnSistema = value; }
         public int CantidadMaximaTrabajosEnSistema { get => cantidadMaximaTrabajosEnSistema; set => cantidadMaximaTrabajosEnSistema = value; }
         public double TiempoACCentroADetenido { get => tiempoACCentroADetenido; set => tiempoACCentroADetenido = value; }
@@ -113,7 +113,7 @@ namespace TP_Final.Modelo
             estadoCentroA = estadoLibre;
             estadoCentroB = estadoLibre;
             ColaLlegadas = 0;
-            ColaCentroB = 0;
+            ColaCentroB = new Queue<int>();
             ContadorTrabajosEnSistema = 0;
             CantidadMaximaTrabajosEnSistema = 0;
             TiempoACCentroADetenido = 0;
@@ -162,7 +162,6 @@ namespace TP_Final.Modelo
             if (filaAnterior.tiempoMinimoEquipoSecado() != 0)
             {
                 proximoFinSecado = tiempoMinimoEquipoSecado();
-                ProximoFinSecado = proximoFinSecado;
             }
             return Math.Min(proximaLlegada, Math.Min(proximoFinAtencionA, Math.Min(proximoFinAtencionB, proximoFinSecado)));
         }
@@ -246,7 +245,6 @@ namespace TP_Final.Modelo
                 estadoCentroB = estadoOcupado;
                 indiceTrabajoCentroB = indiceTrabajoCentroA;
 
-
                 //Fin Atencion B
                 //Tiempo Atencion Centro B
                 if (CrearRNDsNormal) //Si los RNDs no se crearon, crearlos
@@ -264,9 +262,9 @@ namespace TP_Final.Modelo
                 proximoFinAtencionB = Reloj + TiempoAtencionB;
             }
             //Si el centro B NO esta libre, se fija si tiene lugar en la cola
-            else if (colaCentroB < 3) //Si hay lugar en cola
+            else if (ColaCentroB.Count < 3) //Si hay lugar en cola
             {
-                colaCentroB++;
+                colaCentroB.Enqueue(indiceTrabajoCentroA);
                 Trabajos[indiceTrabajoCentroA].Estado = estadoEsperandoAtencionB;
             }
             //No hay lugar en cola --> detiene Atencion A
@@ -337,14 +335,12 @@ namespace TP_Final.Modelo
 
             //------ Cómo sigue el CENTRO B
             //Si hay trabajos en cola --> atenderlos
-            if (colaCentroB > 0)
+            if (ColaCentroB.Count > 0)
             {
                 //Actualizo estados de Centro B y trabajo
-                int indiceTrabajoEsperandoAtencionB = getIndiceTrabajoEsperandoAtencionB();
+                int indiceTrabajoEsperandoAtencionB = ColaCentroB.Dequeue();
                 Trabajos[indiceTrabajoEsperandoAtencionB].Estado = estadoSiendoAtendidoB;
                 indiceTrabajoCentroB = indiceTrabajoEsperandoAtencionB;
-
-                colaCentroB--;
 
                 //Fin Atencion B
                 if (CrearRNDsNormal) //Si los RNDs no se crearon, crearlos
@@ -492,6 +488,29 @@ namespace TP_Final.Modelo
             return -1;
         }
 
+        public void setProximoFinSecado()
+        {
+            double tiempoMinimo = double.MaxValue;
+            for (int i = 0; i < EquiposSecado.Length; i++)
+            {
+                if (EquiposSecado[i].Estado == estadoLibre)
+                    continue;
+                if (EquiposSecado[i].getTiempoFinSecadoMenor() < tiempoMinimo)
+                    tiempoMinimo = EquiposSecado[i].getTiempoFinSecadoMenor();
+            }
+            if (tiempoMinimo != double.MaxValue)
+                ProximoFinSecado = tiempoMinimo;
+        }
+
+        public int getCantidadTrabajosNoDestruidos()
+        {
+            for (int i = 0; i < Trabajos.Count; i++)
+            {
+                if (Trabajos[i].Estado != estadoDestruido)
+                    return i;
+            }
+            return 0;
+        }
 
         //----------------------------------------------------------------------------------------------------------------------------
 

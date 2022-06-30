@@ -25,13 +25,15 @@ namespace TPFinal.Modelo
         public RungeKutta()
         {
             this.h = 1;
+            tiempoSecado1Trabajo = 0;
+            tiempoSecado2Trabajos = 0;
         }
 
         public double integracionNumerica(double reloj, string tipo) 
         {
-            if (tipo == unTrabajo && tiempoSecado1Trabajo.Equals(null))
+            if (tipo == unTrabajo && tiempoSecado1Trabajo != 0)
                 return tiempoSecado1Trabajo;
-            if (tipo == dosTrabajos && tiempoSecado2Trabajos.Equals(null))
+            if (tipo == dosTrabajos && tiempoSecado2Trabajos != 0)
                 return tiempoSecado2Trabajos;
             Fila fila = new Fila();
 

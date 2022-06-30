@@ -38,7 +38,7 @@ namespace TPFinal.Presentacion
                 //Simulacion
                 nud_cant_minutos_simulacion.Enabled = true;
                 nud_mostrar_desde_minutos.Enabled = true;
-                nud_mostrar_desde_filas.Enabled = true;
+                nud_mostrar_cantidad_filas.Enabled = true;
                 //Distribuciones eventos
                 nud_tiempo_medio_llegadas.Enabled = true;
                 nud_tiempo_limite_inf_atencionA.Enabled = true;
@@ -62,7 +62,7 @@ namespace TPFinal.Presentacion
             {
                 nud_cant_minutos_simulacion.Enabled = false;
                 nud_mostrar_desde_minutos.Enabled = false;
-                nud_mostrar_desde_filas.Enabled = false;
+                nud_mostrar_cantidad_filas.Enabled = false;
                 nud_tiempo_medio_llegadas.Enabled = false;
                 nud_tiempo_limite_inf_atencionA.Enabled = false;
                 nud_tiempo_limite_sup_atencionA.Enabled = false;
@@ -88,7 +88,7 @@ namespace TPFinal.Presentacion
                 activarParametros(false);
 
                 Taller taller = new Taller();
-                taller.simulacion((double)nud_cant_minutos_simulacion.Value, (double)nud_mostrar_desde_minutos.Value, (double)nud_mostrar_desde_filas.Value, (double)nud_tiempo_medio_llegadas.Value, (double)nud_tiempo_limite_inf_atencionA.Value, (double)nud_tiempo_limite_sup_atencionA.Value, (double)nud_media_atencionB.Value, (double)nud_DE_atencionB.Value);
+                taller.simulacion((double)nud_cant_minutos_simulacion.Value, (double)nud_mostrar_desde_minutos.Value, (double)nud_mostrar_cantidad_filas.Value, (double)nud_tiempo_medio_llegadas.Value, (double)nud_tiempo_limite_inf_atencionA.Value, (double)nud_tiempo_limite_sup_atencionA.Value, (double)nud_media_atencionB.Value, (double)nud_DE_atencionB.Value);
 
                 dgv_simulacion.DataSource = Taller.tablaSimulacion;
 
@@ -102,7 +102,7 @@ namespace TPFinal.Presentacion
                 if (taller.Fila.ContadorTrabajosFinalizados == 0)
                     lbl_tiempo_prom_trabajo_value.Text = "-";
                 else
-                    lbl_tiempo_prom_trabajo_value.Text = (Math.Truncate(1000 * (taller.Fila.ContadorTrabajosFinalizados / taller.Fila.TiempoACTrabajosFinalizados)) / 1000).ToString();
+                    lbl_tiempo_prom_trabajo_value.Text = (Math.Truncate(1000 * (taller.Fila.TiempoACTrabajosFinalizados / taller.Fila.ContadorTrabajosFinalizados)) / 1000).ToString();
 
                 ////carga de las tablas RK
                 dgv_rk_1trabajo.DataSource = Taller.rungeKutta.Tabla1Trabajo;
