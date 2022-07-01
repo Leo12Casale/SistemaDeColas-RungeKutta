@@ -185,7 +185,7 @@ namespace TP_Final.Modelo
 
         //---------------------------------------------------------------- EVENTOS
         //--------------------- Evento LLEGADA TRABAJO
-        public void llegadaTrabajo()
+        public void llegadaTrabajo(double minDesde, double cantSimulacion, int contadorFilas, double cantidadFilasAMostrar)
         {
             //Setteo de Evento y Reloj
             Evento = eventoLlegadaTrabajo;
@@ -208,22 +208,29 @@ namespace TP_Final.Modelo
                 proximoFinAtencionA = Reloj + TiempoAtencionA;
 
                 //Agrego el trabajo a la fila
-                agregarTrabajoFila(estadoSiendoAtendidoA, Reloj);
+                Trabajo nuevoTrabajo = new Trabajo(estadoSiendoAtendidoA, reloj);
+                Trabajos.Add(nuevoTrabajo);
+
+                if (Reloj > minDesde && Reloj < cantSimulacion && contadorFilas < cantidadFilasAMostrar)
+                    agregarTrabajoTabla();
             }
             else //El trabajo va a la colaLlegada
             {
                 colaLlegadas.Enqueue(contadorTrabajosLlegados - 1);
-                agregarTrabajoFila(estadoEsperandoAtencionA, Reloj);
+
+                Trabajo nuevoTrabajo = new Trabajo(estadoEsperandoAtencionA, Reloj);
+                Trabajos.Add(nuevoTrabajo);
+
+                if (Reloj > minDesde && Reloj < cantSimulacion && contadorFilas < cantidadFilasAMostrar)
+                    agregarTrabajoTabla();
             }
 
             //Estadisticas
             contadorTrabajosEnSistema++;
         }
 
-        private void agregarTrabajoFila(string estadoTrabajo, double reloj)
+        private void agregarTrabajoTabla()
         {
-            Trabajo nuevoTrabajo = new Trabajo(estadoTrabajo, reloj);
-            Trabajos.Add(nuevoTrabajo);
             Taller.tablaSimulacion.Columns.Add("Estado Trabajo" + contadorTrabajosLlegados);
             Taller.tablaSimulacion.Columns.Add("Llegada Trabajo" + contadorTrabajosLlegados);
         }
@@ -300,15 +307,6 @@ namespace TP_Final.Modelo
             }
         }
 
-        private int getIndiceTrabajoEsperandoAtencionA()
-        {
-            for (int i = 0; i < Trabajos.Count; i++)
-            {
-                if (Trabajos[i].Estado == estadoEsperandoAtencionA)
-                    return i;
-            }
-            return -1;
-        }
 
         //--------------------------- Evento FIN ATENCION B
         public void finAtencionB()

@@ -73,7 +73,7 @@ namespace TP_Final.Modelo
                 // ------------ Evento LLEGADA TRABAJO
                 if (proximoTiempo == Fila.ProximaLlegadaTrabajo)
                 {
-                    Fila.llegadaTrabajo();
+                    Fila.llegadaTrabajo(minDesde, cantSimulacion, contadorFilas, cantidadFilasAMostrar);
                 }
                 // ------------ Evento FIN ATENCION A
                 else if (proximoTiempo == Fila.ProximoFinAtencionA)
