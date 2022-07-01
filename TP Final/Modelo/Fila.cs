@@ -63,7 +63,7 @@ namespace TP_Final.Modelo
         private EquipoSecado[] equiposSecado; //5 equipos
 
         //COLAS
-        private int colaLlegadas;
+        private Queue<int> colaLlegadas;
         private Queue<int> colaCentroB; //Max. 3
 
         //ESTADISTICAS
@@ -94,7 +94,7 @@ namespace TP_Final.Modelo
         public double ProximoFinSecado { get => proximoFinSecado; set => proximoFinSecado = value; }
         public string EstadoCentroA { get => estadoCentroA; set => estadoCentroA = value; }
         public string EstadoCentroB { get => estadoCentroB; set => estadoCentroB = value; }
-        public int ColaLlegadas { get => colaLlegadas; set => colaLlegadas = value; }
+        public Queue<int> ColaLlegadas { get => colaLlegadas; set => colaLlegadas = value; }
         public Queue<int> ColaCentroB { get => colaCentroB; set => colaCentroB = value; }
         public int ContadorTrabajosEnSistema { get => contadorTrabajosEnSistema; set => contadorTrabajosEnSistema = value; }
         public int CantidadMaximaTrabajosEnSistema { get => cantidadMaximaTrabajosEnSistema; set => cantidadMaximaTrabajosEnSistema = value; }
@@ -112,7 +112,7 @@ namespace TP_Final.Modelo
             Reloj = reloj;
             estadoCentroA = estadoLibre;
             estadoCentroB = estadoLibre;
-            ColaLlegadas = 0;
+            ColaLlegadas = new Queue<int>();
             ColaCentroB = new Queue<int>();
             ContadorTrabajosEnSistema = 0;
             CantidadMaximaTrabajosEnSistema = 0;
@@ -202,7 +202,7 @@ namespace TP_Final.Modelo
             if (estadoCentroA == estadoLibre)
             {
                 estadoCentroA = estadoOcupado;
-                indiceTrabajoCentroA = contadorTrabajosEnSistema;
+                indiceTrabajoCentroA = contadorTrabajosLlegados - 1;
                 RNDAtencionA = Math.Truncate(1000 * Taller.generadorRNDAtencionA.NextDouble()) / 1000;
                 TiempoAtencionA = calcularTiempoAtencionA(RNDAtencionA);
                 proximoFinAtencionA = Reloj + TiempoAtencionA;
@@ -212,7 +212,7 @@ namespace TP_Final.Modelo
             }
             else //El trabajo va a la colaLlegada
             {
-                colaLlegadas++;
+                colaLlegadas.Enqueue(contadorTrabajosLlegados - 1);
                 agregarTrabajoFila(estadoEsperandoAtencionA, Reloj);
             }
 
@@ -272,21 +272,20 @@ namespace TP_Final.Modelo
             {
                 estadoCentroA = estadoDetenido;
                 Trabajos[indiceTrabajoCentroA].Estado = estadoDetenidoCentroA;
+                proximoFinAtencionA = 0;
                 return;
             }
 
             //Cómo sigue el CENTRO A
             //El Centro A chequea si atender otro trabajo o se libera
-            if (colaLlegadas > 0)
+            if (colaLlegadas.Count > 0)
             {
-                int indiceTrabajoEsperandoAtencionA = getIndiceTrabajoEsperandoAtencionA();
+                int indiceTrabajoEsperandoAtencionA = colaLlegadas.Dequeue();
 
                 //Actualizo estados de Centro A y trabajo
                 Trabajos[indiceTrabajoEsperandoAtencionA].Estado = estadoSiendoAtendidoA;
                 estadoCentroA = estadoOcupado;
                 indiceTrabajoCentroA = indiceTrabajoEsperandoAtencionA;
-
-                colaLlegadas--;
 
                 //Fin de Atencion A
                 RNDAtencionA = Math.Truncate(1000 * Taller.generadorRNDAtencionA.NextDouble())/1000;
@@ -332,6 +331,7 @@ namespace TP_Final.Modelo
             {
                 estadoCentroB = estadoDetenido;
                 Trabajos[indiceTrabajoCentroB].Estado = estadoDetenidoCentroB;
+                proximoFinAtencionB = 0;
                 return;
             }
 
@@ -340,9 +340,8 @@ namespace TP_Final.Modelo
             if (ColaCentroB.Count > 0)
             {
                 //Actualizo estados de Centro B y trabajo
-                int indiceTrabajoEsperandoAtencionB = ColaCentroB.Dequeue();
-                Trabajos[indiceTrabajoEsperandoAtencionB].Estado = estadoSiendoAtendidoB;
-                indiceTrabajoCentroB = indiceTrabajoEsperandoAtencionB;
+                indiceTrabajoCentroB = ColaCentroB.Dequeue();
+                Trabajos[indiceTrabajoCentroB].Estado = estadoSiendoAtendidoB;
 
                 //Fin Atencion B
                 if (CrearRNDsNormal) //Si los RNDs no se crearon, crearlos
@@ -366,11 +365,11 @@ namespace TP_Final.Modelo
                     Trabajos[indiceTrabajoCentroA].Estado = estadoEsperandoAtencionB;
                     colaCentroB.Enqueue(indiceTrabajoCentroA);
 
-                    if(colaLlegadas > 0)
+                    if(colaLlegadas.Count > 0)
                     {
                         //Actualizo estados de Centro A y trabajo
                         estadoCentroA = estadoOcupado;
-                        indiceTrabajoCentroA = getIndiceTrabajoEsperandoAtencionA();
+                        indiceTrabajoCentroA = colaLlegadas.Dequeue();
                         Trabajos[indiceTrabajoCentroA].Estado = estadoSiendoAtendidoA;
 
                         //Fin Atencion A
@@ -378,7 +377,6 @@ namespace TP_Final.Modelo
                         tiempoAtencionA = calcularTiempoAtencionA(RNDAtencionA);
                         proximoFinAtencionA = Reloj + tiempoAtencionA;
 
-                        colaLlegadas--;
                     }
                     else //Liberar centro A
                     {
@@ -472,6 +470,8 @@ namespace TP_Final.Modelo
                 //Actualizo estado equipo segun si el centro B estaba detenido 
                 if (centroBDetenido)
                 {
+                    EquiposSecado[indiceEquipo].IndiceTrabajo1 = indiceTrabajoCentroB;
+
                     if (EquiposSecado[indiceEquipo].FinSecado2 == 0)
                     {
                         EquiposSecado[indiceEquipo].Estado = estadoOcupadoEquipo1;
@@ -483,7 +483,6 @@ namespace TP_Final.Modelo
                         TiempoFinSecado = Taller.rungeKutta.integracionNumerica(Reloj, RungeKutta.dosTrabajos);
                     }
                     EquiposSecado[indiceEquipo].FinSecado1 = Reloj + TiempoFinSecado;
-                    EquiposSecado[indiceEquipo].IndiceTrabajo1 = indiceTrabajoCentroB;
 
                     //Actualizo estado del trabajo que estaba detenido --> siendo secado
                     Trabajos[indiceTrabajoCentroB].Estado = estadoSiendoAtendidoSecado;
@@ -505,6 +504,8 @@ namespace TP_Final.Modelo
 
                 if (centroBDetenido) 
                 {
+                    EquiposSecado[indiceEquipo].IndiceTrabajo2 = indiceTrabajoCentroB;
+
                     if (EquiposSecado[indiceEquipo].FinSecado1 == 0)
                     {
                         EquiposSecado[indiceEquipo].Estado = estadoOcupadoEquipo2;
@@ -516,7 +517,6 @@ namespace TP_Final.Modelo
                         TiempoFinSecado = Taller.rungeKutta.integracionNumerica(Reloj, RungeKutta.dosTrabajos);
                     }
                     EquiposSecado[indiceEquipo].FinSecado2 = Reloj + TiempoFinSecado;
-                    EquiposSecado[indiceEquipo].IndiceTrabajo2 = indiceTrabajoCentroB;
 
                     //Actualizo estado del trabajo que estaba detenido --> siendo secado
                     Trabajos[indiceTrabajoCentroB].Estado = estadoSiendoAtendidoSecado;

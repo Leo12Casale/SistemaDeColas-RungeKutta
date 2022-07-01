@@ -75,7 +75,7 @@ namespace TPFinal.Presentacion
             this.dgv_rk_1trabajo = new System.Windows.Forms.DataGridView();
             this.tab_RK_2trabajos = new System.Windows.Forms.TabPage();
             this.dgv_rk_2trabajos = new System.Windows.Forms.DataGridView();
-            nud_tiempo_limite_sup_atencionA = new System.Windows.Forms.NumericUpDown();
+            this.nud_tiempo_limite_sup_atencionA = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(nud_tiempo_limite_sup_atencionA)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tab_simulacion.SuspendLayout();
@@ -351,6 +351,10 @@ namespace TPFinal.Presentacion
             0});
             this.nud_mostrar_cantidad_filas.Click += new System.EventHandler(this.numActive);
             this.nud_mostrar_cantidad_filas.Enter += new System.EventHandler(this.numActive);
+            this.nud_tiempo_limite_sup_atencionA.Click += new System.EventHandler(this.numActive);
+            this.nud_tiempo_limite_sup_atencionA.Enter += new System.EventHandler(this.numActive);
+            this.nud_DE_atencionB.Click += new System.EventHandler(this.numActive);
+            this.nud_DE_atencionB.Enter += new System.EventHandler(this.numActive);
             // 
             // lbl_mostrar_desde_filas
             // 
@@ -440,8 +444,6 @@ namespace TPFinal.Presentacion
             0,
             0,
             0});
-            this.nud_cant_minutos_simulacion.Click += new System.EventHandler(this.numActive);
-            this.nud_cant_minutos_simulacion.Enter += new System.EventHandler(this.numActive);
             // 
             // lbl_limite_inf_tiempo_atencionA
             // 

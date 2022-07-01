@@ -91,6 +91,10 @@ namespace TPFinal.Presentacion
                 taller.simulacion((double)nud_cant_minutos_simulacion.Value, (double)nud_mostrar_desde_minutos.Value, (double)nud_mostrar_cantidad_filas.Value, (double)nud_tiempo_medio_llegadas.Value, (double)nud_tiempo_limite_inf_atencionA.Value, (double)nud_tiempo_limite_sup_atencionA.Value, (double)nud_media_atencionB.Value, (double)nud_DE_atencionB.Value);
 
                 dgv_simulacion.DataSource = Taller.tablaSimulacion;
+                dgv_simulacion.Columns[0].Frozen = true;
+                dgv_simulacion.Columns[0].Width = 85;
+                dgv_simulacion.Columns[1].Frozen = true;
+                dgv_simulacion.Columns[1].Width = 50;
 
                 foreach (DataGridViewColumn dgvc in dgv_simulacion.Columns)
                 {

@@ -90,7 +90,6 @@ namespace TP_Final.Modelo
                     Fila.finSecado(Fila.ProximoFinSecado);
                 }
 
-                fila.setProximoFinSecado();
 
                 //----------------------------------------------------------- ESTADISTICAS
                 //Cantidad maxima de Trabajos en Sistema
@@ -104,13 +103,14 @@ namespace TP_Final.Modelo
                         indiceTrabajosNoDestruidos = fila.getCantidadTrabajosNoDestruidos();
                         indiceCalculado = true;
                     }
+                    fila.setProximoFinSecado();
                     agregarFilaTabla(Fila, indiceTrabajosNoDestruidos);
                     contadorFilas++;
                 }
                 else
 
                 //Acumular tiempo de Centro A detenido
-                if (filaAnterior.EstadoCentroA == Fila.estadoDetenidoCentroA)
+                if (filaAnterior.EstadoCentroA == Fila.estadoDetenido)
                 {
                     Fila.TiempoACCentroADetenido += Fila.Reloj - filaAnterior.Reloj;
                 }
@@ -158,7 +158,7 @@ namespace TP_Final.Modelo
                 filaTabla[indice++] = beautify(fila.EquiposSecado[i].FinSecado1);
                 filaTabla[indice++] = beautify(fila.EquiposSecado[i].FinSecado2);
             }
-            filaTabla[indice++] = fila.ColaLlegadas.ToString();
+            filaTabla[indice++] = fila.ColaLlegadas.Count.ToString();
             filaTabla[indice++] = fila.ColaCentroB.Count.ToString();
             filaTabla[indice++] = fila.ContadorTrabajosEnSistema.ToString();
             filaTabla[indice++] = fila.CantidadMaximaTrabajosEnSistema.ToString();
