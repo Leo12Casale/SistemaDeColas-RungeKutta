@@ -270,8 +270,9 @@ namespace TP_Final.Modelo
             //No hay lugar en cola --> detiene Atencion A
             else
             {
-                estadoCentroA = estadoDetenidoCentroA;
-                Trabajos[indiceTrabajoCentroA].Estado = estadoDetenido;
+                estadoCentroA = estadoDetenido;
+                Trabajos[indiceTrabajoCentroA].Estado = estadoDetenidoCentroA;
+                return;
             }
 
             //Cómo sigue el CENTRO A
@@ -329,8 +330,9 @@ namespace TP_Final.Modelo
             //Si no hay equipo secado libre, detener atención B
             else
             {
-                estadoCentroB = estadoDetenidoCentroB;
-                Trabajos[indiceTrabajoCentroB].Estado = estadoDetenido;
+                estadoCentroB = estadoDetenido;
+                Trabajos[indiceTrabajoCentroB].Estado = estadoDetenidoCentroB;
+                return;
             }
 
             //------ Cómo sigue el CENTRO B
@@ -356,6 +358,34 @@ namespace TP_Final.Modelo
                 }
                 TiempoAtencionB = calcularTiempoAtencionB(RND1AtencionB, RND2AtencionB, CrearRNDsNormal);
                 proximoFinAtencionB = Reloj + TiempoAtencionB;
+
+                //Chequeo si el centro A esta detenido
+                if (estadoCentroA == estadoDetenido)
+                {
+                    //Paso el trabajo detenido en A, a la cola de B (se liberó un lugar)
+                    Trabajos[indiceTrabajoCentroA].Estado = estadoEsperandoAtencionB;
+                    colaCentroB.Enqueue(indiceTrabajoCentroA);
+
+                    if(colaLlegadas > 0)
+                    {
+                        //Actualizo estados de Centro A y trabajo
+                        estadoCentroA = estadoOcupado;
+                        indiceTrabajoCentroA = getIndiceTrabajoEsperandoAtencionA();
+                        Trabajos[indiceTrabajoCentroA].Estado = estadoSiendoAtendidoA;
+
+                        //Fin Atencion A
+                        RNDAtencionA = Math.Truncate(1000 * Taller.generadorRNDAtencionA.NextDouble()) / 1000;
+                        tiempoAtencionA = calcularTiempoAtencionA(RNDAtencionA);
+                        proximoFinAtencionA = Reloj + tiempoAtencionA;
+
+                        colaLlegadas--;
+                    }
+                    else //Liberar centro A
+                    {
+                        indiceTrabajoCentroA = -1;
+                        estadoCentroA = estadoLibre;
+                    }
+                }
             }
             //Si NO hay trabajos en cola --> liberar centro
             else
@@ -417,16 +447,6 @@ namespace TP_Final.Modelo
             }
         }
 
-        private int getIndiceTrabajoEsperandoAtencionB()
-        {
-            for (int i = 0; i < Trabajos.Count; i++)
-            {
-                if (Trabajos[i].Estado == estadoEsperandoAtencionB)
-                    return i;
-            }
-            return -1;
-        }
-
 
         //-------------------------------- Evento FIN SECADO
         public void finSecado(double tiempoFinSecadoMinimo)
@@ -435,45 +455,103 @@ namespace TP_Final.Modelo
             Evento = eventoFinSecado;
             Reloj = tiempoFinSecadoMinimo;
 
-
-
             int indiceEquipo = getIndiceEquipoSecadoTiempoMinimo(tiempoFinSecadoMinimo);
             int indiceTrabajo = -1;
+            bool centroBDetenido = false;
 
             //TODO: chequear si el centro B está detenido para tomar el trabajo ese y que el centro B arranque de nuevo
-            //Si es del equipo 1 el trabajo
+            if (estadoCentroB == estadoDetenido)
+                centroBDetenido = true;
+
+            //Si es del equipo 1 el fin secado
             if (EquiposSecado[indiceEquipo].FinSecado1 == tiempoFinSecadoMinimo)
             {
                 //Tomo el indice del trabajo
                 indiceTrabajo = EquiposSecado[indiceEquipo].IndiceTrabajo1;
 
-                //Actualizo estado equipo
-                EquiposSecado[indiceEquipo].FinSecado1 = 0;
-                if (EquiposSecado[indiceEquipo].FinSecado2 == 0)
-                    EquiposSecado[indiceEquipo].Estado = estadoLibre;
-                else
-                    EquiposSecado[indiceEquipo].Estado = estadoOcupadoEquipo2;
+                //Actualizo estado equipo segun si el centro B estaba detenido 
+                if (centroBDetenido)
+                {
+                    if (EquiposSecado[indiceEquipo].FinSecado2 == 0)
+                    {
+                        EquiposSecado[indiceEquipo].Estado = estadoOcupadoEquipo1;
+                        TiempoFinSecado = Taller.rungeKutta.integracionNumerica(Reloj, RungeKutta.unTrabajo);
+                    }
+                    else //Lugar 2 del equipo ocupado tambien
+                    {
+                        EquiposSecado[indiceEquipo].Estado = estadoOcupado;
+                        TiempoFinSecado = Taller.rungeKutta.integracionNumerica(Reloj, RungeKutta.dosTrabajos);
+                    }
+                    EquiposSecado[indiceEquipo].FinSecado1 = Reloj + TiempoFinSecado;
+                    EquiposSecado[indiceEquipo].IndiceTrabajo1 = indiceTrabajoCentroB;
+
+                    //Actualizo estado del trabajo que estaba detenido --> siendo secado
+                    Trabajos[indiceTrabajoCentroB].Estado = estadoSiendoAtendidoSecado;
+                }
+                else //Centro B no esta detenido --> se libera el equipo que terminó el secado
+                {
+                    EquiposSecado[indiceEquipo].FinSecado1 = 0;
+                    if (EquiposSecado[indiceEquipo].FinSecado2 == 0)
+                        EquiposSecado[indiceEquipo].Estado = estadoLibre;
+                    else
+                        EquiposSecado[indiceEquipo].Estado = estadoOcupadoEquipo2;
+                }
             }
-            else //Si es del equipo 2 el trabajo
+            //Si es del equipo 2 el fin secado
+            else
             {
                 //Tomo el indice del trabajo
                 indiceTrabajo = EquiposSecado[indiceEquipo].IndiceTrabajo2;
 
-                //Actualizo estado equipo
-                EquiposSecado[indiceEquipo].FinSecado2 = 0;
-                if (EquiposSecado[indiceEquipo].FinSecado1 == 0)
-                    EquiposSecado[indiceEquipo].Estado = estadoLibre;
-                else
-                    EquiposSecado[indiceEquipo].Estado = estadoOcupadoEquipo1;
+                if (centroBDetenido) 
+                {
+                    if (EquiposSecado[indiceEquipo].FinSecado1 == 0)
+                    {
+                        EquiposSecado[indiceEquipo].Estado = estadoOcupadoEquipo2;
+                        TiempoFinSecado = Taller.rungeKutta.integracionNumerica(Reloj, RungeKutta.unTrabajo);
+                    }
+                    else //Lugar 1 ocupado tambien
+                    { 
+                        EquiposSecado[indiceEquipo].Estado = estadoOcupado;
+                        TiempoFinSecado = Taller.rungeKutta.integracionNumerica(Reloj, RungeKutta.dosTrabajos);
+                    }
+                    EquiposSecado[indiceEquipo].FinSecado2 = Reloj + TiempoFinSecado;
+                    EquiposSecado[indiceEquipo].IndiceTrabajo2 = indiceTrabajoCentroB;
+
+                    //Actualizo estado del trabajo que estaba detenido --> siendo secado
+                    Trabajos[indiceTrabajoCentroB].Estado = estadoSiendoAtendidoSecado;
+                }
+                else //Centro B no esta detenido --> se libera el equipo que terminó el secado
+                {
+                    EquiposSecado[indiceEquipo].FinSecado2 = 0;
+                    if (EquiposSecado[indiceEquipo].FinSecado1 == 0)
+                        EquiposSecado[indiceEquipo].Estado = estadoLibre;
+                    else
+                        EquiposSecado[indiceEquipo].Estado = estadoOcupadoEquipo1;
+                }
             }
 
+            //Actualizo estado del trabajo fin secado --> destruido
             Trabajos[indiceTrabajo].Estado = estadoDestruido;
+
+            //Chequeo si el centro B estaba detenido y ahora puede retomar su actividad
+            if (centroBDetenido)
+            {
+                //Si tiene cola el centro B --> atender
+                if(colaCentroB.Count > 0)
+                {
+                    estadoCentroB = estadoOcupado;
+                    indiceTrabajoCentroB = colaCentroB.Dequeue();
+                    Trabajos[indiceTrabajoCentroB].Estado = estadoSiendoAtendidoB;
+                }
+                else
+                    estadoCentroB = estadoLibre;
+            }
 
             //Estadisticas
             contadorTrabajosEnSistema--;
             contadorTrabajosFinalizados++;
             tiempoACTrabajosFinalizados += (Reloj - Trabajos[indiceTrabajo].TiempoLlegada);
-
         }
 
         private int getIndiceEquipoSecadoTiempoMinimo(double tiempoFinSecadoMinimo)
