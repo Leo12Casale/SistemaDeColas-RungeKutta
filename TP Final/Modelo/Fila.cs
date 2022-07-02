@@ -34,26 +34,28 @@ namespace TP_Final.Modelo
         public const string eventoDetencionAtencionB = "Detención Atención B";
         public const string eventoFinSecado = "Fin Secado";
 
+        Taller taller;
+
         //Vector estado
         private string evento;
-        private double reloj;
+        private float reloj;
 
         //EVENTOS
-        private double rndLlegadaTrabajo;
-        private double tiempoEntreLlegadas;
-        private double proximaLlegadaTrabajo;
+        private float rndLlegadaTrabajo;
+        private float tiempoEntreLlegadas;
+        private float proximaLlegadaTrabajo;
 
-        private double rndAtencionA;
-        private double tiempoAtencionA;
-        private double proximoFinAtencionA;
+        private float rndAtencionA;
+        private float tiempoAtencionA;
+        private float proximoFinAtencionA;
 
-        private double rnd1AtencionB;
-        private double rnd2AtencionB;
-        private double tiempoAtencionB;
-        private double proximoFinAtencionB;
+        private float rnd1AtencionB;
+        private float rnd2AtencionB;
+        private float tiempoAtencionB;
+        private float proximoFinAtencionB;
 
-        private double tiempoFinSecado;
-        private double proximoFinSecado;
+        private float tiempoFinSecado;
+        private float proximoFinSecado;
 
         //SERVIDORES
         private string estadoCentroA;
@@ -69,9 +71,9 @@ namespace TP_Final.Modelo
         //ESTADISTICAS
         private int contadorTrabajosEnSistema;
         private int cantidadMaximaTrabajosEnSistema;
-        private double tiempoACCentroADetenido;
+        private float tiempoACCentroADetenido;
         private int contadorTrabajosFinalizados;
-        private double tiempoACTrabajosFinalizados;
+        private float tiempoACTrabajosFinalizados;
 
         //OBJETOS TEMPORALES
         private List<Trabajo> trabajos;
@@ -79,36 +81,38 @@ namespace TP_Final.Modelo
         private bool crearRNDsNormal;
 
         public string Evento { get => evento; set => evento = value; }
-        public double Reloj { get => reloj; set => reloj = value; }
-        public double RNDLlegadaTrabajo { get => rndLlegadaTrabajo; set => rndLlegadaTrabajo = value; }
-        public double TiempoEntreLlegadas { get => tiempoEntreLlegadas; set => tiempoEntreLlegadas = value; }
-        public double ProximaLlegadaTrabajo { get => proximaLlegadaTrabajo; set => proximaLlegadaTrabajo = value; }
-        public double RNDAtencionA { get => rndAtencionA; set => rndAtencionA = value; }
-        public double TiempoAtencionA { get => tiempoAtencionA; set => tiempoAtencionA = value; }
-        public double ProximoFinAtencionA { get => proximoFinAtencionA; set => proximoFinAtencionA = value; }
-        public double RND1AtencionB { get => rnd1AtencionB; set => rnd1AtencionB = value; }
-        public double RND2AtencionB { get => rnd2AtencionB; set => rnd2AtencionB = value; }
-        public double TiempoAtencionB { get => tiempoAtencionB; set => tiempoAtencionB = value; }
-        public double ProximoFinAtencionB { get => proximoFinAtencionB; set => proximoFinAtencionB = value; }
-        public double TiempoFinSecado { get => tiempoFinSecado; set => tiempoFinSecado = value; }
-        public double ProximoFinSecado { get => proximoFinSecado; set => proximoFinSecado = value; }
+        public float Reloj { get => reloj; set => reloj = value; }
+        public float RNDLlegadaTrabajo { get => rndLlegadaTrabajo; set => rndLlegadaTrabajo = value; }
+        public float TiempoEntreLlegadas { get => tiempoEntreLlegadas; set => tiempoEntreLlegadas = value; }
+        public float ProximaLlegadaTrabajo { get => proximaLlegadaTrabajo; set => proximaLlegadaTrabajo = value; }
+        public float RNDAtencionA { get => rndAtencionA; set => rndAtencionA = value; }
+        public float TiempoAtencionA { get => tiempoAtencionA; set => tiempoAtencionA = value; }
+        public float ProximoFinAtencionA { get => proximoFinAtencionA; set => proximoFinAtencionA = value; }
+        public float RND1AtencionB { get => rnd1AtencionB; set => rnd1AtencionB = value; }
+        public float RND2AtencionB { get => rnd2AtencionB; set => rnd2AtencionB = value; }
+        public float TiempoAtencionB { get => tiempoAtencionB; set => tiempoAtencionB = value; }
+        public float ProximoFinAtencionB { get => proximoFinAtencionB; set => proximoFinAtencionB = value; }
+        public float TiempoFinSecado { get => tiempoFinSecado; set => tiempoFinSecado = value; }
+        public float ProximoFinSecado { get => proximoFinSecado; set => proximoFinSecado = value; }
         public string EstadoCentroA { get => estadoCentroA; set => estadoCentroA = value; }
         public string EstadoCentroB { get => estadoCentroB; set => estadoCentroB = value; }
         public Queue<int> ColaLlegadas { get => colaLlegadas; set => colaLlegadas = value; }
         public Queue<int> ColaCentroB { get => colaCentroB; set => colaCentroB = value; }
         public int ContadorTrabajosEnSistema { get => contadorTrabajosEnSistema; set => contadorTrabajosEnSistema = value; }
         public int CantidadMaximaTrabajosEnSistema { get => cantidadMaximaTrabajosEnSistema; set => cantidadMaximaTrabajosEnSistema = value; }
-        public double TiempoACCentroADetenido { get => tiempoACCentroADetenido; set => tiempoACCentroADetenido = value; }
+        public float TiempoACCentroADetenido { get => tiempoACCentroADetenido; set => tiempoACCentroADetenido = value; }
         public int ContadorTrabajosFinalizados { get => contadorTrabajosFinalizados; set => contadorTrabajosFinalizados = value; }
-        public double TiempoACTrabajosFinalizados { get => tiempoACTrabajosFinalizados; set => tiempoACTrabajosFinalizados = value; }
+        public float TiempoACTrabajosFinalizados { get => tiempoACTrabajosFinalizados; set => tiempoACTrabajosFinalizados = value; }
         internal EquipoSecado[] EquiposSecado { get => equiposSecado; set => equiposSecado = value; }
         internal List<Trabajo> Trabajos { get => trabajos; set => trabajos = value; }
         public int IndiceTrabajoCentroA { get => indiceTrabajoCentroA; set => indiceTrabajoCentroA = value; }
         public int IndiceTrabajoCentroB { get => indiceTrabajoCentroB; set => indiceTrabajoCentroB = value; }
         public bool CrearRNDsNormal { get => crearRNDsNormal; set => crearRNDsNormal = value; }
+        internal Taller Taller { get => taller; set => taller = value; }
 
-        public Fila(double reloj)
+        public Fila(float reloj, Taller taller)
         {
+            Taller = taller;
             Reloj = reloj;
             estadoCentroA = estadoLibre;
             estadoCentroB = estadoLibre;
@@ -127,6 +131,10 @@ namespace TP_Final.Modelo
             Trabajos = new List<Trabajo>();
             indiceTrabajoCentroA = -1;
             CrearRNDsNormal = true;
+            RNDLlegadaTrabajo = float.NaN;
+            RNDAtencionA = float.NaN;
+            RND1AtencionB = float.NaN;
+            RND2AtencionB = float.NaN;
         }
 
         public Fila copiarFila()
@@ -150,9 +158,9 @@ namespace TP_Final.Modelo
             return filaClon;
         }
 
-        public double calcularProximoTiempo(Fila filaAnterior)
+        public float calcularProximoTiempo(Fila filaAnterior)
         {
-            double proximaLlegada = double.MaxValue, proximoFinAtencionA = double.MaxValue, proximoFinAtencionB = double.MaxValue, proximoFinSecado = double.MaxValue;
+            float proximaLlegada = float.MaxValue, proximoFinAtencionA = float.MaxValue, proximoFinAtencionB = float.MaxValue, proximoFinSecado = float.MaxValue;
             if (filaAnterior.ProximaLlegadaTrabajo != 0)
                 proximaLlegada = ProximaLlegadaTrabajo;
             if (filaAnterior.ProximoFinAtencionA != 0)
@@ -166,10 +174,10 @@ namespace TP_Final.Modelo
             return Math.Min(proximaLlegada, Math.Min(proximoFinAtencionA, Math.Min(proximoFinAtencionB, proximoFinSecado)));
         }
 
-        private double tiempoMinimoEquipoSecado()
+        private float tiempoMinimoEquipoSecado()
         {
-            double tiempoMin = double.MaxValue;
-            double tiempoMenorEquipo;
+            float tiempoMin = float.MaxValue;
+            float tiempoMenorEquipo;
             for (int i = 0; i < EquiposSecado.Length; i++)
             {
                 if (EquiposSecado[i].Estado == estadoLibre)
@@ -178,41 +186,41 @@ namespace TP_Final.Modelo
                 if (tiempoMenorEquipo != 0 && tiempoMenorEquipo < tiempoMin)
                     tiempoMin = tiempoMenorEquipo;
             }
-            return tiempoMin;
+
+            return tiempoMin == float.MaxValue ? 0 : tiempoMin;
         }
 
 
 
         //---------------------------------------------------------------- EVENTOS
         //--------------------- Evento LLEGADA TRABAJO
-        public void llegadaTrabajo(double minDesde, double cantSimulacion, int contadorFilas, double cantidadFilasAMostrar)
+        public void llegadaTrabajo()
         {
             //Setteo de Evento y Reloj
-            Evento = eventoLlegadaTrabajo;
+            Evento = eventoLlegadaTrabajo + " " + (contadorTrabajosLlegados+1).ToString();
             Reloj = proximaLlegadaTrabajo;
 
             //Calculo de la proxima llegada
-            RNDLlegadaTrabajo = Math.Truncate(1000 * Taller.generadorRNDLlegadaTrabajos.NextDouble()) / 1000;
+            RNDLlegadaTrabajo = (float) (float) (float) Math.Truncate(1000 * Taller.generadorRNDLlegadaTrabajos.NextDouble()) / 1000;
             TiempoEntreLlegadas = calcularTiempoEntreLlegadas(RNDLlegadaTrabajo);
             ProximaLlegadaTrabajo = Reloj + TiempoEntreLlegadas;
 
             contadorTrabajosLlegados++;
 
-            //Atencion de A
+            //Atiendo el trabajo en centro A
             if (estadoCentroA == estadoLibre)
             {
                 estadoCentroA = estadoOcupado;
                 indiceTrabajoCentroA = contadorTrabajosLlegados - 1;
-                RNDAtencionA = Math.Truncate(1000 * Taller.generadorRNDAtencionA.NextDouble()) / 1000;
+
+                //Fin Atencion
+                RNDAtencionA = (float) (float) Math.Truncate(1000 * Taller.generadorRNDAtencionA.NextDouble()) / 1000;
                 TiempoAtencionA = calcularTiempoAtencionA(RNDAtencionA);
                 proximoFinAtencionA = Reloj + TiempoAtencionA;
 
-                //Agrego el trabajo a la fila
+                //Creo el trabajo y lo agrego a la tabla según lo que se quiera observar
                 Trabajo nuevoTrabajo = new Trabajo(estadoSiendoAtendidoA, reloj);
                 Trabajos.Add(nuevoTrabajo);
-
-                if (Reloj > minDesde && Reloj < cantSimulacion && contadorFilas < cantidadFilasAMostrar)
-                    agregarTrabajoTabla();
             }
             else //El trabajo va a la colaLlegada
             {
@@ -220,19 +228,10 @@ namespace TP_Final.Modelo
 
                 Trabajo nuevoTrabajo = new Trabajo(estadoEsperandoAtencionA, Reloj);
                 Trabajos.Add(nuevoTrabajo);
-
-                if (Reloj > minDesde && Reloj < cantSimulacion && contadorFilas < cantidadFilasAMostrar)
-                    agregarTrabajoTabla();
             }
 
             //Estadisticas
             contadorTrabajosEnSistema++;
-        }
-
-        private void agregarTrabajoTabla()
-        {
-            Taller.tablaSimulacion.Columns.Add("Estado Trabajo" + contadorTrabajosLlegados);
-            Taller.tablaSimulacion.Columns.Add("Llegada Trabajo" + contadorTrabajosLlegados);
         }
 
 
@@ -256,15 +255,13 @@ namespace TP_Final.Modelo
                 //Tiempo Atencion Centro B
                 if (CrearRNDsNormal) //Si los RNDs no se crearon, crearlos
                 {
-                    RND1AtencionB = Math.Truncate(1000 * Taller.generadorRNDAtencionB.NextDouble()) / 1000;
-                    RND2AtencionB = Math.Truncate(1000 * Taller.generadorRNDAtencionB.NextDouble()) / 1000;
+                    RND1AtencionB = (float) Math.Truncate(1000 * Taller.generadorRNDAtencionB.NextDouble()) / 1000;
+                    RND2AtencionB = (float) Math.Truncate(1000 * Taller.generadorRNDAtencionB.NextDouble()) / 1000;
                     CrearRNDsNormal = false;
                 }
-                else
-                //Si los RNDs se usaron una vez, usar los mismos y settear true para que la proxima vez se creen de nuevo
-                {
+                else //Si los RNDs se usaron una vez, usar los mismos y settear true para que la proxima vez se creen de nuevo
                     CrearRNDsNormal = true;
-                }
+
                 TiempoAtencionB = calcularTiempoAtencionB(RND1AtencionB, RND2AtencionB, CrearRNDsNormal);
                 proximoFinAtencionB = Reloj + TiempoAtencionB;
             }
@@ -295,7 +292,7 @@ namespace TP_Final.Modelo
                 indiceTrabajoCentroA = indiceTrabajoEsperandoAtencionA;
 
                 //Fin de Atencion A
-                RNDAtencionA = Math.Truncate(1000 * Taller.generadorRNDAtencionA.NextDouble())/1000;
+                RNDAtencionA = (float) Math.Truncate(1000 * Taller.generadorRNDAtencionA.NextDouble())/1000;
                 TiempoAtencionA = calcularTiempoAtencionA(RNDAtencionA);
                 proximoFinAtencionA = Reloj + TiempoAtencionA;
             }
@@ -344,15 +341,13 @@ namespace TP_Final.Modelo
                 //Fin Atencion B
                 if (CrearRNDsNormal) //Si los RNDs no se crearon, crearlos
                 {
-                    RND1AtencionB = Math.Truncate(1000 * Taller.generadorRNDAtencionB.NextDouble()) / 1000;
-                    RND2AtencionB = Math.Truncate(1000 * Taller.generadorRNDAtencionB.NextDouble()) / 1000;
+                    RND1AtencionB = (float) Math.Truncate(1000 * Taller.generadorRNDAtencionB.NextDouble()) / 1000;
+                    RND2AtencionB = (float) Math.Truncate(1000 * Taller.generadorRNDAtencionB.NextDouble()) / 1000;
                     CrearRNDsNormal = false;
                 }
-                else
-                //Si los RNDs se usaron una vez, usar los mismos y settear true para que la proxima vez se creen de nuevo
-                {
+                else //Si los RNDs se usaron una vez, usar los mismos y settear true para que la proxima vez se creen de nuevo
                     CrearRNDsNormal = true;
-                }
+
                 TiempoAtencionB = calcularTiempoAtencionB(RND1AtencionB, RND2AtencionB, CrearRNDsNormal);
                 proximoFinAtencionB = Reloj + TiempoAtencionB;
 
@@ -371,7 +366,7 @@ namespace TP_Final.Modelo
                         Trabajos[indiceTrabajoCentroA].Estado = estadoSiendoAtendidoA;
 
                         //Fin Atencion A
-                        RNDAtencionA = Math.Truncate(1000 * Taller.generadorRNDAtencionA.NextDouble()) / 1000;
+                        RNDAtencionA = (float) Math.Truncate(1000 * Taller.generadorRNDAtencionA.NextDouble()) / 1000;
                         tiempoAtencionA = calcularTiempoAtencionA(RNDAtencionA);
                         proximoFinAtencionA = Reloj + tiempoAtencionA;
 
@@ -380,6 +375,7 @@ namespace TP_Final.Modelo
                     {
                         indiceTrabajoCentroA = -1;
                         estadoCentroA = estadoLibre;
+                        proximoFinAtencionA = 0;
                     }
                 }
             }
@@ -417,7 +413,7 @@ namespace TP_Final.Modelo
             if (EquiposSecado[indiceEquipo].FinSecado1 == 0 && EquiposSecado[indiceEquipo].FinSecado2 == 0)
             {
                 EquiposSecado[indiceEquipo].Estado = estadoOcupadoEquipo1;
-                TiempoFinSecado = Taller.rungeKutta.integracionNumerica(Reloj, RungeKutta.unTrabajo);
+                TiempoFinSecado = (float) taller.RungeKutta.integracionNumerica(Reloj, RungeKutta.unTrabajo);
                 EquiposSecado[indiceEquipo].FinSecado1 = Reloj + TiempoFinSecado;
                 EquiposSecado[indiceEquipo].IndiceTrabajo1 = indiceTrabajoASecar;
             }
@@ -425,7 +421,7 @@ namespace TP_Final.Modelo
             //Equipo con 1 lugar libre --> integrar con 2 trabajos
             else
             {
-                TiempoFinSecado = Taller.rungeKutta.integracionNumerica(Reloj, RungeKutta.dosTrabajos);
+                TiempoFinSecado = (float) taller.RungeKutta.integracionNumerica(Reloj, RungeKutta.dosTrabajos);
                 EquiposSecado[indiceEquipo].Estado = estadoOcupado;
 
                 //Lugar 1 del equipo libre
@@ -445,7 +441,7 @@ namespace TP_Final.Modelo
 
 
         //-------------------------------- Evento FIN SECADO
-        public void finSecado(double tiempoFinSecadoMinimo)
+        public void finSecado(float tiempoFinSecadoMinimo)
         {
             //Setteo de Evento y Reloj
             Evento = eventoFinSecado;
@@ -455,15 +451,15 @@ namespace TP_Final.Modelo
             int indiceTrabajo = -1;
             bool centroBDetenido = false;
 
-            //TODO: chequear si el centro B está detenido para tomar el trabajo ese y que el centro B arranque de nuevo
             if (estadoCentroB == estadoDetenido)
                 centroBDetenido = true;
 
-            //Si es del equipo 1 el fin secado
+            //SECADO DE BOX 1
             if (EquiposSecado[indiceEquipo].FinSecado1 == tiempoFinSecadoMinimo)
             {
                 //Tomo el indice del trabajo
                 indiceTrabajo = EquiposSecado[indiceEquipo].IndiceTrabajo1;
+                Trabajos[indiceTrabajo].Estado = estadoDestruido;
 
                 //Actualizo estado equipo segun si el centro B estaba detenido 
                 if (centroBDetenido)
@@ -473,12 +469,12 @@ namespace TP_Final.Modelo
                     if (EquiposSecado[indiceEquipo].FinSecado2 == 0)
                     {
                         EquiposSecado[indiceEquipo].Estado = estadoOcupadoEquipo1;
-                        TiempoFinSecado = Taller.rungeKutta.integracionNumerica(Reloj, RungeKutta.unTrabajo);
+                        TiempoFinSecado = (float) taller.RungeKutta.integracionNumerica(Reloj, RungeKutta.unTrabajo);
                     }
                     else //Lugar 2 del equipo ocupado tambien
                     {
                         EquiposSecado[indiceEquipo].Estado = estadoOcupado;
-                        TiempoFinSecado = Taller.rungeKutta.integracionNumerica(Reloj, RungeKutta.dosTrabajos);
+                        TiempoFinSecado = (float) taller.RungeKutta.integracionNumerica(Reloj, RungeKutta.dosTrabajos);
                     }
                     EquiposSecado[indiceEquipo].FinSecado1 = Reloj + TiempoFinSecado;
 
@@ -494,11 +490,12 @@ namespace TP_Final.Modelo
                         EquiposSecado[indiceEquipo].Estado = estadoOcupadoEquipo2;
                 }
             }
-            //Si es del equipo 2 el fin secado
+            //SECADO DE BOX 2
             else
             {
                 //Tomo el indice del trabajo
                 indiceTrabajo = EquiposSecado[indiceEquipo].IndiceTrabajo2;
+                Trabajos[indiceTrabajo].Estado = estadoDestruido;
 
                 if (centroBDetenido) 
                 {
@@ -507,12 +504,12 @@ namespace TP_Final.Modelo
                     if (EquiposSecado[indiceEquipo].FinSecado1 == 0)
                     {
                         EquiposSecado[indiceEquipo].Estado = estadoOcupadoEquipo2;
-                        TiempoFinSecado = Taller.rungeKutta.integracionNumerica(Reloj, RungeKutta.unTrabajo);
+                        TiempoFinSecado = (float) taller.RungeKutta.integracionNumerica(Reloj, RungeKutta.unTrabajo);
                     }
                     else //Lugar 1 ocupado tambien
                     { 
                         EquiposSecado[indiceEquipo].Estado = estadoOcupado;
-                        TiempoFinSecado = Taller.rungeKutta.integracionNumerica(Reloj, RungeKutta.dosTrabajos);
+                        TiempoFinSecado = (float) taller.RungeKutta.integracionNumerica(Reloj, RungeKutta.dosTrabajos);
                     }
                     EquiposSecado[indiceEquipo].FinSecado2 = Reloj + TiempoFinSecado;
 
@@ -528,22 +525,63 @@ namespace TP_Final.Modelo
                         EquiposSecado[indiceEquipo].Estado = estadoOcupadoEquipo1;
                 }
             }
-
-            //Actualizo estado del trabajo fin secado --> destruido
-            Trabajos[indiceTrabajo].Estado = estadoDestruido;
-
+            
             //Chequeo si el centro B estaba detenido y ahora puede retomar su actividad
             if (centroBDetenido)
             {
                 //Si tiene cola el centro B --> atender
-                if(colaCentroB.Count > 0)
+                if (colaCentroB.Count > 0)
                 {
                     estadoCentroB = estadoOcupado;
                     indiceTrabajoCentroB = colaCentroB.Dequeue();
                     Trabajos[indiceTrabajoCentroB].Estado = estadoSiendoAtendidoB;
+
+                    //Fin Atencion B
+                    if (CrearRNDsNormal) //Si los RNDs no se crearon, crearlos
+                    {
+                        RND1AtencionB = (float) Math.Truncate(1000 * Taller.generadorRNDAtencionB.NextDouble()) / 1000;
+                        RND2AtencionB = (float) Math.Truncate(1000 * Taller.generadorRNDAtencionB.NextDouble()) / 1000;
+                        CrearRNDsNormal = false;
+                    }
+                    else //Si los RNDs se usaron una vez, usar los mismos y settear true para que la proxima vez se creen de nuevo
+                        CrearRNDsNormal = true;
+
+                    TiempoAtencionB = calcularTiempoAtencionB(RND1AtencionB, RND2AtencionB, CrearRNDsNormal);
+                    proximoFinAtencionB = Reloj + TiempoAtencionB;
+
+                    if(estadoCentroA == estadoDetenido)
+                    {
+                        //Paso el trabajo detenido en A, a la cola de B (se liberó un lugar)
+                        Trabajos[indiceTrabajoCentroA].Estado = estadoEsperandoAtencionB;
+                        colaCentroB.Enqueue(indiceTrabajoCentroA);
+
+                        if (colaLlegadas.Count > 0)
+                        {
+                            //Actualizo estados de Centro A y trabajo
+                            estadoCentroA = estadoOcupado;
+                            indiceTrabajoCentroA = colaLlegadas.Dequeue();
+                            Trabajos[indiceTrabajoCentroA].Estado = estadoSiendoAtendidoA;
+
+                            //Fin Atencion A
+                            RNDAtencionA = (float) Math.Truncate(1000 * Taller.generadorRNDAtencionA.NextDouble()) / 1000;
+                            tiempoAtencionA = calcularTiempoAtencionA(RNDAtencionA);
+                            proximoFinAtencionA = Reloj + tiempoAtencionA;
+
+                        }
+                        else //Liberar centro A
+                        {
+                            indiceTrabajoCentroA = -1;
+                            estadoCentroA = estadoLibre;
+                            proximoFinAtencionA = 0;
+                        }
+                    }
                 }
                 else
+                {
                     estadoCentroB = estadoLibre;
+                    indiceTrabajoCentroB = -1;
+                    proximoFinAtencionB = 0;
+                }
             }
 
             //Estadisticas
@@ -552,7 +590,7 @@ namespace TP_Final.Modelo
             tiempoACTrabajosFinalizados += (Reloj - Trabajos[indiceTrabajo].TiempoLlegada);
         }
 
-        private int getIndiceEquipoSecadoTiempoMinimo(double tiempoFinSecadoMinimo)
+        private int getIndiceEquipoSecadoTiempoMinimo(float tiempoFinSecadoMinimo)
         {
             for (int i = 0; i < EquiposSecado.Length; i++)
             {
@@ -566,7 +604,7 @@ namespace TP_Final.Modelo
 
         public void setProximoFinSecado()
         {
-            double tiempoMinimo = double.MaxValue;
+            float tiempoMinimo = float.MaxValue;
             for (int i = 0; i < EquiposSecado.Length; i++)
             {
                 if (EquiposSecado[i].Estado == estadoLibre)
@@ -574,7 +612,7 @@ namespace TP_Final.Modelo
                 if (EquiposSecado[i].getTiempoFinSecadoMenor() < tiempoMinimo)
                     tiempoMinimo = EquiposSecado[i].getTiempoFinSecadoMenor();
             }
-            if (tiempoMinimo != double.MaxValue)
+            if (tiempoMinimo != float.MaxValue)
                 ProximoFinSecado = tiempoMinimo;
         }
 
@@ -591,23 +629,29 @@ namespace TP_Final.Modelo
         //----------------------------------------------------------------------------------------------------------------------------
 
         //Eventos asociadas a DISTRIBUCIONES
-        private double calcularTiempoEntreLlegadas(double RND)
+        private float calcularTiempoEntreLlegadas(float RND)
         {
-            return -Taller.mediaLlegadas * Math.Log(1 - RND);
+            return -Taller.MediaLlegadas * (float)  Math.Log(1 - RND);
         }
 
-        private double calcularTiempoAtencionA(double RND)
+        private float calcularTiempoAtencionA(float RND)
         {
-            return Taller.limiteInfAtencionA + RND * (Taller.limiteSupAtencionA - Taller.limiteInfAtencionA);
+            return Taller.LimiteInfAtencionA + RND * (Taller.LimiteSupAtencionA - Taller.LimiteInfAtencionA);
         }
 
-        private double calcularTiempoAtencionB(double RND1, double RND2, bool segundoCalculo)
+        private float calcularTiempoAtencionB(float RND1, float RND2, bool segundoCalculo)
         {
+            float tiempo;
+            RND1 = RND1 != 0 ? RND1 : (float) 0.00001;
             if (!segundoCalculo)
             {
-                return (Math.Sqrt(-2 * Math.Log(RND1)) * Math.Cos(2 * Math.PI * RND2)) * Taller.desvEstandarAtencionB + Taller.mediaAtencionB;
+                tiempo = (float) (Math.Sqrt(-2 * Math.Log(RND1)) * Math.Cos(2 * Math.PI * RND2)) * Taller.DesvEstandarAtencionB + Taller.MediaAtencionB;
+                tiempo = tiempo > 0 ? tiempo : (float) 0.00001;
+                return tiempo;
             }
-            return (Math.Sqrt(-2 * Math.Log(RND1)) * Math.Sin(2 * Math.PI * RND2)) * Taller.desvEstandarAtencionB + Taller.mediaAtencionB;
+            tiempo = (float) (Math.Sqrt(-2 * Math.Log(RND1)) * Math.Sin(2 * Math.PI * RND2)) * Taller.DesvEstandarAtencionB + Taller.MediaAtencionB;
+            tiempo = tiempo > 0 ? tiempo : (float) 0.00001;
+            return tiempo;
         }
 
         public static List<String> getColumnas()
@@ -664,7 +708,7 @@ namespace TP_Final.Modelo
             columnas.Add("Tiempo AC trabajos finalizados");
 
             //OBJETOS TEMPORALES
-
+            columnas.Add("Trabajos --> (N° trabajo)Estado - Minutos Llegada");
             return columnas;
         }
     }
@@ -673,13 +717,13 @@ namespace TP_Final.Modelo
     {
         private string estado;
         private int indiceTrabajo1;
-        private double finSecado1;
+        private float finSecado1;
         private int indiceTrabajo2;
-        private double finSecado2;
+        private float finSecado2;
 
         public string Estado { get => estado; set => estado = value; }
-        public double FinSecado1 { get => finSecado1; set => finSecado1 = value; }
-        public double FinSecado2 { get => finSecado2; set => finSecado2 = value; }
+        public float FinSecado1 { get => finSecado1; set => finSecado1 = value; }
+        public float FinSecado2 { get => finSecado2; set => finSecado2 = value; }
         public int IndiceTrabajo1 { get => indiceTrabajo1; set => indiceTrabajo1 = value; }
         public int IndiceTrabajo2 { get => indiceTrabajo2; set => indiceTrabajo2 = value; }
 
@@ -690,20 +734,21 @@ namespace TP_Final.Modelo
             FinSecado2 = 0;
         }
 
-        public EquipoSecado(string estado, double finSecado1, double finSecado2)
+        public EquipoSecado(string estado, float finSecado1, float finSecado2)
         {
             Estado = estado;
             FinSecado1 = finSecado1;
             FinSecado2 = finSecado2;
         }
 
-        public double getTiempoFinSecadoMenor()
+        public float getTiempoFinSecadoMenor()
         {
-            if (this.finSecado1 == 0)
+            if (FinSecado1 == 0)
                 return finSecado2;
-            else if (this.finSecado2 == 0)
+            else if (FinSecado2 == 0)
                 return finSecado1;
-            else if (this.finSecado1 < this.finSecado2)
+
+            else if (FinSecado1 < FinSecado2)
                 return finSecado1;
             return finSecado2;
         }
@@ -712,12 +757,12 @@ namespace TP_Final.Modelo
     internal class Trabajo
     {
         private string estado;
-        private double tiempoLlegada;
+        private float tiempoLlegada;
 
         public string Estado { get => estado; set => estado = value; }
-        public double TiempoLlegada { get => tiempoLlegada; set => tiempoLlegada = value; }
+        public float TiempoLlegada { get => tiempoLlegada; set => tiempoLlegada = value; }
 
-        public Trabajo(string estado, double tiempoLlegada)
+        public Trabajo(string estado, float tiempoLlegada)
         {
             Estado = estado;
             TiempoLlegada = tiempoLlegada;

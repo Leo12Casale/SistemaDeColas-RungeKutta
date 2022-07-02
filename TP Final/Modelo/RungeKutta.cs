@@ -46,7 +46,7 @@ namespace TPFinal.Modelo
                 case unTrabajo:
                     if (Tabla1Trabajo == null)
                         Tabla1Trabajo = crearTabla();
-                    Tabla1Trabajo.Rows.Add("Reloj:" + truncar(1000 * reloj) / 1000);
+                    Tabla1Trabajo.Rows.Add("Reloj:" + truncar(reloj));
                     while (true)
                     {
                         fila.K1 = ecuacionDiferencialUnTrabajo(fila.Tiempo, fila.IndiceSecado);
@@ -73,7 +73,7 @@ namespace TPFinal.Modelo
                 case dosTrabajos:
                     if (Tabla2Trabajos == null)
                         Tabla2Trabajos = crearTabla();
-                    Tabla2Trabajos.Rows.Add("Reloj:" + truncar(1000 * reloj) / 1000);
+                    Tabla2Trabajos.Rows.Add("Reloj:" + truncar(reloj));
                     while (true)
                     {
                         fila.K1 = ecuacionDiferencialDosTrabajos(fila.Tiempo, fila.IndiceSecado);

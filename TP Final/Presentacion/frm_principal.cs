@@ -88,35 +88,44 @@ namespace TPFinal.Presentacion
                 activarParametros(false);
 
                 Taller taller = new Taller();
-                taller.simulacion((double)nud_cant_minutos_simulacion.Value, (double)nud_mostrar_desde_minutos.Value, (double)nud_mostrar_cantidad_filas.Value, (double)nud_tiempo_medio_llegadas.Value, (double)nud_tiempo_limite_inf_atencionA.Value, (double)nud_tiempo_limite_sup_atencionA.Value, (double)nud_media_atencionB.Value, (double)nud_DE_atencionB.Value);
+                taller.simulacion((float)nud_cant_minutos_simulacion.Value, (float)nud_mostrar_desde_minutos.Value, (float)nud_mostrar_cantidad_filas.Value, (float)nud_tiempo_medio_llegadas.Value, (float)nud_tiempo_limite_inf_atencionA.Value, (float)nud_tiempo_limite_sup_atencionA.Value, (float)nud_media_atencionB.Value, (float)nud_DE_atencionB.Value);
 
-                dgv_simulacion.DataSource = Taller.tablaSimulacion;
+                dgv_simulacion.DataSource = taller.TablaSimulacion;
                 dgv_simulacion.Columns[0].Frozen = true;
-                dgv_simulacion.Columns[0].Width = 85;
+                dgv_simulacion.Columns[0].Width = 110;
                 dgv_simulacion.Columns[1].Frozen = true;
-                dgv_simulacion.Columns[1].Width = 50;
+                dgv_simulacion.Columns[1].Width = 65;
+                dgv_simulacion.Columns[dgv_simulacion.Columns.Count - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                dgv_simulacion.Columns[dgv_simulacion.Columns.Count - 1].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
                 foreach (DataGridViewColumn dgvc in dgv_simulacion.Columns)
                 {
                     dgvc.SortMode = DataGridViewColumnSortMode.NotSortable;
+                    dgvc.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 }
 
+                //Carga de datos solicitados en consigna
                 lbl_cant_maxima_trabajos_value.Text = taller.Fila.CantidadMaximaTrabajosEnSistema.ToString();
-                lbl_tiempo_parada_centroA_value.Text = (Math.Truncate(1000 * taller.Fila.TiempoACCentroADetenido) / 1000).ToString();
+                lbl_tiempo_parada_centroA_value.Text = (Math.Truncate(1000 * taller.Fila.TiempoACCentroADetenido) / 1000).ToString() + " mins";
                 if (taller.Fila.ContadorTrabajosFinalizados == 0)
                     lbl_tiempo_prom_trabajo_value.Text = "-";
                 else
                     lbl_tiempo_prom_trabajo_value.Text = (Math.Truncate(1000 * (taller.Fila.TiempoACTrabajosFinalizados / taller.Fila.ContadorTrabajosFinalizados)) / 1000).ToString();
 
-                ////carga de las tablas RK
-                dgv_rk_1trabajo.DataSource = Taller.rungeKutta.Tabla1Trabajo;
-                dgv_rk_2trabajos.DataSource = Taller.rungeKutta.Tabla2Trabajos;
+                //Carga de las tablas RK
+                dgv_rk_1trabajo.DataSource = taller.RungeKutta.Tabla1Trabajo;
+                dgv_rk_2trabajos.DataSource = taller.RungeKutta.Tabla2Trabajos;
             }
         }
 
         private void btn_restablecer_Click(object sender, EventArgs e)
         {
             activarParametros(true);
+        }
+
+        private void tab_RK_1trabajo_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

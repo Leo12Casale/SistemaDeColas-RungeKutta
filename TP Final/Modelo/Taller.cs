@@ -1,61 +1,72 @@
 ﻿using System.Data;
+using System.Text;
 using TPFinal.Modelo;
 
 namespace TP_Final.Modelo
 {
     class Taller
     {
-        public static DataTable tablaSimulacion;
+        private DataTable tablaSimulacion;
         public static Random generadorRNDLlegadaTrabajos = new Random();
         public static Random generadorRNDAtencionA = new Random();
         public static Random generadorRNDAtencionB = new Random();
-        public static RungeKutta rungeKutta = new RungeKutta();
-        public static double mediaLlegadas;
-        public static double limiteInfAtencionA;
-        public static double limiteSupAtencionA;
-        public static double mediaAtencionB;
-        public static double desvEstandarAtencionB;
+        private RungeKutta rungeKutta = new RungeKutta();
+        private float mediaLlegadas;
+        private float limiteInfAtencionA;
+        private float limiteSupAtencionA;
+        private float mediaAtencionB;
+        private float desvEstandarAtencionB;
         private Fila fila;
 
         internal Fila Fila { get => fila; set => fila = value; }
+        internal RungeKutta RungeKutta { get => rungeKutta; set => rungeKutta = value; }
+        public float MediaLlegadas { get => mediaLlegadas; set => mediaLlegadas = value; }
+        public float LimiteInfAtencionA { get => limiteInfAtencionA; set => limiteInfAtencionA = value; }
+        public float LimiteSupAtencionA { get => limiteSupAtencionA; set => limiteSupAtencionA = value; }
+        public float MediaAtencionB { get => mediaAtencionB; set => mediaAtencionB = value; }
+        public float DesvEstandarAtencionB { get => desvEstandarAtencionB; set => desvEstandarAtencionB = value; }
+        public DataTable TablaSimulacion { get => tablaSimulacion; set => tablaSimulacion = value; }
 
-        public void simulacion(double cantSimulacion, double minDesde, double cantidadFilasAMostrar, double mediaLlegadas, double limiteInfAtencionA, double limiteSupAtencionA, double mediaAtencionB, double desvEstAtencionB)
+        public Taller()
         {
-            Taller.mediaLlegadas = mediaLlegadas;
-            Taller.limiteInfAtencionA = limiteInfAtencionA;
-            Taller.limiteSupAtencionA = limiteSupAtencionA;
-            Taller.mediaAtencionB = mediaAtencionB;
-            Taller.desvEstandarAtencionB = desvEstAtencionB;
+            RungeKutta = new RungeKutta();
+        }
+
+        public void simulacion(float cantSimulacion, float minDesde, float cantidadFilasAMostrar, float mediaLlegadas, float limiteInfAtencionA, float limiteSupAtencionA, float mediaAtencionB, float desvEstAtencionB)
+        {
+            MediaLlegadas = mediaLlegadas;
+            LimiteInfAtencionA = limiteInfAtencionA;
+            LimiteSupAtencionA = limiteSupAtencionA;
+            MediaAtencionB = mediaAtencionB;
+            DesvEstandarAtencionB = desvEstAtencionB;
 
             generarTabla();
 
             //Fila inicial
-            Fila filaAnterior = new Fila(0);
-            filaAnterior.RNDLlegadaTrabajo = Math.Truncate(1000 * generadorRNDLlegadaTrabajos.NextDouble()) / 1000;
-            filaAnterior.TiempoEntreLlegadas = -mediaLlegadas * Math.Log(1 - filaAnterior.RNDLlegadaTrabajo);
+            Fila filaAnterior = new Fila(0, this);
+            filaAnterior.RNDLlegadaTrabajo = (float) Math.Truncate(1000 * generadorRNDLlegadaTrabajos.NextDouble()) / 1000;
+            filaAnterior.TiempoEntreLlegadas = -mediaLlegadas * (float) Math.Log(1 - filaAnterior.RNDLlegadaTrabajo);
             filaAnterior.ProximaLlegadaTrabajo = filaAnterior.TiempoEntreLlegadas;
 
             Fila = filaAnterior.copiarFila();
-            agregarFilaTabla(Fila, 0);
+            agregarFilaTabla(Fila);
 
 
             //Variables auxiliares
             int contadorFilas = 0;
-            double proximoTiempo;
-            double promedioTiempoTrabajos = 0;
-            int indiceTrabajosNoDestruidos = 0;
-            bool indiceCalculado = false;
+            float proximoTiempo;
+            float promedioTiempoTrabajos = 0;
 
             while (fila.Reloj < cantSimulacion)
             {
                 //Reiniciar RNDs y Tiempos en la nueva fila
-                Fila.RNDLlegadaTrabajo = 0;
+                Fila.RNDLlegadaTrabajo = float.NaN;
                 Fila.TiempoEntreLlegadas = 0;
-                Fila.RNDAtencionA = 0;
+                Fila.RNDAtencionA = float.NaN;
                 if (filaAnterior.CrearRNDsNormal)
                 {
-                    Fila.RND1AtencionB = 0;
-                    Fila.RND2AtencionB = 0;
+                    Fila.RND1AtencionB = float.NaN;
+                    Fila.RND2AtencionB = float.NaN;
                 }
                 else
                 {
@@ -73,7 +84,7 @@ namespace TP_Final.Modelo
                 // ------------ Evento LLEGADA TRABAJO
                 if (proximoTiempo == Fila.ProximaLlegadaTrabajo)
                 {
-                    Fila.llegadaTrabajo(minDesde, cantSimulacion, contadorFilas, cantidadFilasAMostrar);
+                    Fila.llegadaTrabajo();
                 }
                 // ------------ Evento FIN ATENCION A
                 else if (proximoTiempo == Fila.ProximoFinAtencionA)
@@ -90,62 +101,69 @@ namespace TP_Final.Modelo
                     Fila.finSecado(Fila.ProximoFinSecado);
                 }
 
+                fila.setProximoFinSecado();
 
-                //----------------------------------------------------------- ESTADISTICAS
+                //------- ESTADISTICAS
                 //Cantidad maxima de Trabajos en Sistema
                 if (filaAnterior.CantidadMaximaTrabajosEnSistema < Fila.ContadorTrabajosEnSistema)
                     Fila.CantidadMaximaTrabajosEnSistema = Fila.ContadorTrabajosEnSistema;
-
-                if (Fila.Reloj > minDesde && Fila.Reloj < cantSimulacion && contadorFilas < cantidadFilasAMostrar)
-                {
-                    if (!indiceCalculado)
-                    {
-                        indiceTrabajosNoDestruidos = fila.getCantidadTrabajosNoDestruidos();
-                        indiceCalculado = true;
-                    }
-                    fila.setProximoFinSecado();
-                    agregarFilaTabla(Fila, indiceTrabajosNoDestruidos);
-                    contadorFilas++;
-                }
-                else
-
                 //Acumular tiempo de Centro A detenido
                 if (filaAnterior.EstadoCentroA == Fila.estadoDetenido)
                 {
                     Fila.TiempoACCentroADetenido += Fila.Reloj - filaAnterior.Reloj;
                 }
 
+                //AGREGAR FILA A TABLA
+                if (Fila.Reloj > minDesde && Fila.Reloj < cantSimulacion && contadorFilas < cantidadFilasAMostrar)
+                {
+                    agregarFilaTabla(Fila);
+                    contadorFilas++;
+                }
+
                 filaAnterior = Fila.copiarFila();
             }
+
             if (Fila.ContadorTrabajosFinalizados != 0)
                 promedioTiempoTrabajos = Fila.TiempoACTrabajosFinalizados / Fila.ContadorTrabajosFinalizados;
+
+            if(contadorFilas == cantidadFilasAMostrar)
+            agregarFilaTabla(filaAnterior);
         }
 
         private void generarTabla()
         {
-            tablaSimulacion = new DataTable();
+            TablaSimulacion = new DataTable();
             List<string> columnas = Fila.getColumnas();
             for (int i = 0; i < columnas.Count; i++)
             {
-                tablaSimulacion.Columns.Add(columnas[i]);
+                TablaSimulacion.Columns.Add(columnas[i]);
             }
         }
 
-        private void agregarFilaTabla(Fila fila, int indiceTrabajosDesdeMostrar)
+        private void agregarFilaTabla(Fila fila)
         {
-            int tamañoFilaTabla = 38 + 2 * (fila.Trabajos.Count - indiceTrabajosDesdeMostrar);
+            int indiceTrabajosNoDestruidos = 0;
+            for (int i = 0; i < fila.Trabajos.Count; i++)
+            {
+                if (fila.Trabajos[i].Estado != Fila.estadoDestruido)
+                {
+                    indiceTrabajosNoDestruidos = i;
+                    break;
+                }
+            }
+            int tamañoFilaTabla = 39;
             string[] filaTabla = new string[tamañoFilaTabla];
             int indice = 0;
             filaTabla[indice++] = fila.Evento;
             filaTabla[indice++] = (Math.Truncate(1000 * fila.Reloj) / 1000).ToString();
-            filaTabla[indice++] = beautify(fila.RNDLlegadaTrabajo);
+            filaTabla[indice++] = beautifyRND(fila.RNDLlegadaTrabajo);
             filaTabla[indice++] = beautify(fila.TiempoEntreLlegadas);
             filaTabla[indice++] = beautify(fila.ProximaLlegadaTrabajo);
-            filaTabla[indice++] = beautify(fila.RNDAtencionA);
+            filaTabla[indice++] = beautifyRND(fila.RNDAtencionA);
             filaTabla[indice++] = beautify(fila.TiempoAtencionA);
             filaTabla[indice++] = beautify(fila.ProximoFinAtencionA);
-            filaTabla[indice++] = beautify(fila.RND1AtencionB);
-            filaTabla[indice++] = beautify(fila.RND2AtencionB);
+            filaTabla[indice++] = beautifyRND(fila.RND1AtencionB);
+            filaTabla[indice++] = beautifyRND(fila.RND2AtencionB);
             filaTabla[indice++] = beautify(fila.TiempoAtencionB);
             filaTabla[indice++] = beautify(fila.ProximoFinAtencionB);
             filaTabla[indice++] = beautify(fila.TiempoFinSecado);
@@ -165,19 +183,33 @@ namespace TP_Final.Modelo
             filaTabla[indice++] = (Math.Truncate(1000 * fila.TiempoACCentroADetenido) / 1000).ToString();
             filaTabla[indice++] = fila.ContadorTrabajosFinalizados.ToString();
             filaTabla[indice++] = (Math.Truncate(1000 * fila.TiempoACTrabajosFinalizados) / 1000).ToString();
-            for (int i = indiceTrabajosDesdeMostrar; i < fila.Trabajos.Count; i++)
+            StringBuilder stringTrabajos = new StringBuilder("");
+            if (fila.Trabajos.Count > 0) 
             {
-                filaTabla[indice++] = fila.Trabajos[i].Estado;
-                filaTabla[indice++] = beautify(fila.Trabajos[i].TiempoLlegada);
+                for (int i = indiceTrabajosNoDestruidos; i < fila.Trabajos.Count; i++)
+                {
+                    if (fila.Trabajos[i].Estado == Fila.estadoDestruido)
+                        continue;
+                    stringTrabajos.Append("(" + (i + 1).ToString() + ")" + fila.Trabajos[i].Estado + "-" + beautify(fila.Trabajos[i].TiempoLlegada).ToString() + "    ");
+                }
             }
+            filaTabla[indice] = stringTrabajos.ToString();
 
-            tablaSimulacion.Rows.Add(filaTabla);
+            TablaSimulacion.Rows.Add(filaTabla);
         }
 
-        private string beautify(double number)
-        {
+        private string beautify(float number)
+        { 
             if (number == 0) return "";
-            else return (Math.Truncate(1000 * number) / 1000).ToString();
+
+            return (Math.Truncate(1000 * number) / 1000).ToString();
+        }
+        
+        private string beautifyRND(float number)
+        {
+            if (number.Equals(float.NaN))
+                return "";
+            return (Math.Truncate(1000 * number) / 1000).ToString();
         }
     }
 }
