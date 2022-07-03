@@ -17,6 +17,7 @@ namespace TP_Final.Modelo
         private float mediaAtencionB;
         private float desvEstandarAtencionB;
         private Fila fila;
+        private int cantidadMaxTrabajosMinuto;
 
         internal Fila Fila { get => fila; set => fila = value; }
         internal RungeKutta RungeKutta { get => rungeKutta; set => rungeKutta = value; }
@@ -26,13 +27,14 @@ namespace TP_Final.Modelo
         public float MediaAtencionB { get => mediaAtencionB; set => mediaAtencionB = value; }
         public float DesvEstandarAtencionB { get => desvEstandarAtencionB; set => desvEstandarAtencionB = value; }
         public DataTable TablaSimulacion { get => tablaSimulacion; set => tablaSimulacion = value; }
+        public int CantidadMaxTrabajosMinuto { get => cantidadMaxTrabajosMinuto; set => cantidadMaxTrabajosMinuto = value; }
 
         public Taller()
         {
             RungeKutta = new RungeKutta();
         }
 
-        public void simulacion(int cantSimulacion, float minDesde, int cantidadFilasAMostrar, float mediaLlegadas, float limiteInfAtencionA, float limiteSupAtencionA, float mediaAtencionB, float desvEstAtencionB)
+        public void simulacion(int cantSimulacion, float minDesde, int cantidadFilasAMostrar, int minutoCantMaxTrabajos, float mediaLlegadas, float limiteInfAtencionA, float limiteSupAtencionA, float mediaAtencionB, float desvEstAtencionB)
         {
             MediaLlegadas = mediaLlegadas;
             LimiteInfAtencionA = limiteInfAtencionA;
@@ -57,6 +59,7 @@ namespace TP_Final.Modelo
             int contadorFilas = 0;
             float proximoTiempo;
             float promedioTiempoTrabajos = 0;
+            bool cantidadMaxTrabajosSeteado = false;
 
             while (fila.Reloj < cantSimulacion)
             {
@@ -108,7 +111,7 @@ namespace TP_Final.Modelo
                     Fila.finSecado(Fila.ProximoFinSecado);
                 }
 
-                fila.setProximoFinSecado();
+                Fila.setProximoFinSecado();
 
                 //------- ESTADISTICAS
                 //Cantidad maxima de Trabajos en Sistema
@@ -116,8 +119,12 @@ namespace TP_Final.Modelo
                     Fila.CantidadMaximaTrabajosEnSistema = Fila.ContadorTrabajosEnSistema;
                 //Acumular tiempo de Centro A detenido
                 if (filaAnterior.EstadoCentroA == Fila.estadoDetenido)
-                {
                     Fila.TiempoACCentroADetenido += Fila.Reloj - filaAnterior.Reloj;
+                //Cantidad maxima de trabajos en el minuto indicado por el usuario
+                if (!cantidadMaxTrabajosSeteado && Fila.Reloj > minutoCantMaxTrabajos)
+                {
+                    cantidadMaxTrabajosMinuto = filaAnterior.CantidadMaximaTrabajosEnSistema;
+                    cantidadMaxTrabajosSeteado = true;
                 }
 
                 //AGREGAR FILA A TABLA

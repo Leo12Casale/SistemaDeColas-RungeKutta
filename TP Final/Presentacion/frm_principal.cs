@@ -104,7 +104,7 @@ namespace TPFinal.Presentacion
                 activarParametros(false);
 
                 Taller taller = new Taller();
-                taller.simulacion((int)nud_cant_minutos_simulacion.Value, (float)nud_mostrar_desde_minutos.Value, (int)nud_mostrar_cantidad_filas.Value, (float)nud_tiempo_medio_llegadas.Value, (float)nud_tiempo_limite_inf_atencionA.Value, (float)nud_tiempo_limite_sup_atencionA.Value, (float)nud_media_atencionB.Value, (float)nud_DE_atencionB.Value);
+                taller.simulacion((int)nud_cant_minutos_simulacion.Value, (float)nud_mostrar_desde_minutos.Value, (int)nud_mostrar_cantidad_filas.Value, (int)nud_cant_max_trabajos.Value, (float)nud_tiempo_medio_llegadas.Value, (float)nud_tiempo_limite_inf_atencionA.Value, (float)nud_tiempo_limite_sup_atencionA.Value, (float)nud_media_atencionB.Value, (float)nud_DE_atencionB.Value);
 
 
                 //Propiedades de la tabla principal
@@ -122,7 +122,8 @@ namespace TPFinal.Presentacion
 
                 //Carga de datos solicitados en consigna
                 lbl_cant_maxima_trabajos_value.Text = taller.Fila.CantidadMaximaTrabajosEnSistema.ToString();
-                lbl_cant_max_trabajos_min.Text = "Cantidad máxima de trabajos en minuto " + nud_cant_max_trabajos.Value.ToString() + ":" ;
+                lbl_cant_max_trabajos_min.Text = "Cantidad máxima de trabajos en minuto " + nud_cant_max_trabajos.Value.ToString() + ":";
+                lbl_cant_max_trabajos_min_value.Text = taller.CantidadMaxTrabajosMinuto.ToString();
                 lbl_tiempo_parada_centroA_value.Text = (Math.Truncate(1000 * taller.Fila.TiempoACCentroADetenido) / 1000).ToString() + " min.";
                 if (taller.Fila.ContadorTrabajosFinalizados == 0)
                     lbl_tiempo_prom_trabajo_value.Text = "-";

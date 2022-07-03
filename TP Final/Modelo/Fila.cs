@@ -676,21 +676,12 @@ namespace TP_Final.Modelo
             //SERVIDORES
             columnas.Add("Estado Centro A");
             columnas.Add("Estado Centro B");
-            columnas.Add("Estado Equipo1");
-            columnas.Add("Fin secado Equipo1 Lugar1");
-            columnas.Add("Fin secado Equipo1 Lugar2");
-            columnas.Add("Estado Equipo2");
-            columnas.Add("Fin secado Equipo2 Lugar1");
-            columnas.Add("Fin secado Equipo2 Lugar2");
-            columnas.Add("Estado Equipo3");
-            columnas.Add("Fin secado Equipo3 Lugar1");
-            columnas.Add("Fin secado Equipo3 Lugar2");
-            columnas.Add("Estado Equipo4");
-            columnas.Add("Fin secado Equipo4 Lugar1");
-            columnas.Add("Fin secado Equipo4 Lugar2");
-            columnas.Add("Estado Equipo5");
-            columnas.Add("Fin secado Equipo5 Lugar1");
-            columnas.Add("Fin secado Equipo5 Lugar2");
+            for (int i = 0; i < 5; i++)
+            {
+                columnas.Add("Estado Equipo" + (i + 1).ToString());
+                columnas.Add("Fin secado Equipo" + (i + 1).ToString() + " Lugar1");
+                columnas.Add("Fin secado Equipo" + (i + 1).ToString() + " Lugar2");
+            }
 
             //COLAS
             columnas.Add("Cola de Llegadas");
