@@ -14,6 +14,7 @@ namespace TPFinal.Presentacion
         {
             btn_restablecer.Enabled = false;
             gb_metricas.Visible = false;
+            gb_estados_trabajos.Visible = false;
             gb_ec_dif_1trabajo.Visible = false;
             gb_ec_dif_2trabajos.Visible = false;
         }
@@ -52,6 +53,7 @@ namespace TPFinal.Presentacion
                 btn_generar.Enabled = true;
                 btn_restablecer.Enabled = false;
                 gb_metricas.Visible = false;
+                gb_estados_trabajos.Visible = false;
                 gb_ec_dif_1trabajo.Visible = false;
                 gb_ec_dif_2trabajos.Visible = false;
 
@@ -76,6 +78,7 @@ namespace TPFinal.Presentacion
                 btn_generar.Enabled = false;
                 btn_restablecer.Enabled = true;
                 gb_metricas.Visible = true;
+                gb_estados_trabajos.Visible = true;
                 gb_ec_dif_1trabajo.Visible = true;
                 gb_ec_dif_2trabajos.Visible = true;
             }

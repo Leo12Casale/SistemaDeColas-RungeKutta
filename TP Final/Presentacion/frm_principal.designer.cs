@@ -43,6 +43,15 @@ namespace TPFinal.Presentacion
             this.tab_simulacion = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.gb_estados_trabajos = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.gb_metricas = new System.Windows.Forms.GroupBox();
             this.lbl_tiempo_prom_trabajo_value = new System.Windows.Forms.Label();
             this.lbl_tiempo_prom_trabajo = new System.Windows.Forms.Label();
@@ -86,6 +95,7 @@ namespace TPFinal.Presentacion
             this.tab_simulacion.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.gb_estados_trabajos.SuspendLayout();
             this.gb_metricas.SuspendLayout();
             this.gb_parametros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_tiempo_limite_sup_atencionA)).BeginInit();
@@ -115,7 +125,7 @@ namespace TPFinal.Presentacion
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1446, 885);
+            this.tabControl1.Size = new System.Drawing.Size(1446, 920);
             this.tabControl1.TabIndex = 3;
             // 
             // tab_simulacion
@@ -124,7 +134,7 @@ namespace TPFinal.Presentacion
             this.tab_simulacion.Location = new System.Drawing.Point(4, 24);
             this.tab_simulacion.Name = "tab_simulacion";
             this.tab_simulacion.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_simulacion.Size = new System.Drawing.Size(1438, 857);
+            this.tab_simulacion.Size = new System.Drawing.Size(1438, 892);
             this.tab_simulacion.TabIndex = 0;
             this.tab_simulacion.Text = "Simulación";
             this.tab_simulacion.UseVisualStyleBackColor = true;
@@ -142,11 +152,12 @@ namespace TPFinal.Presentacion
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1432, 851);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1432, 886);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.gb_estados_trabajos);
             this.panel2.Controls.Add(this.gb_metricas);
             this.panel2.Controls.Add(this.gb_parametros);
             this.panel2.Controls.Add(this.btn_generar);
@@ -154,8 +165,107 @@ namespace TPFinal.Presentacion
             this.panel2.Location = new System.Drawing.Point(4, 4);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(377, 820);
+            this.panel2.Size = new System.Drawing.Size(377, 874);
             this.panel2.TabIndex = 63;
+            // 
+            // gb_estados_trabajos
+            // 
+            this.gb_estados_trabajos.Controls.Add(this.label13);
+            this.gb_estados_trabajos.Controls.Add(this.label12);
+            this.gb_estados_trabajos.Controls.Add(this.label10);
+            this.gb_estados_trabajos.Controls.Add(this.label8);
+            this.gb_estados_trabajos.Controls.Add(this.label6);
+            this.gb_estados_trabajos.Controls.Add(this.label7);
+            this.gb_estados_trabajos.Controls.Add(this.label9);
+            this.gb_estados_trabajos.Controls.Add(this.label11);
+            this.gb_estados_trabajos.Location = new System.Drawing.Point(6, 613);
+            this.gb_estados_trabajos.Margin = new System.Windows.Forms.Padding(4);
+            this.gb_estados_trabajos.Name = "gb_estados_trabajos";
+            this.gb_estados_trabajos.Padding = new System.Windows.Forms.Padding(4);
+            this.gb_estados_trabajos.Size = new System.Drawing.Size(365, 241);
+            this.gb_estados_trabajos.TabIndex = 64;
+            this.gb_estados_trabajos.TabStop = false;
+            this.gb_estados_trabajos.Text = "Estados de Trabajos";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(24, 211);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(174, 15);
+            this.label13.TabIndex = 17;
+            this.label13.Text = "X: Destruido (Fuera del Sistema)";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(24, 185);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(178, 15);
+            this.label12.TabIndex = 16;
+            this.label12.Text = "SAS: Siendo Atendido en Secado";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(24, 160);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(141, 15);
+            this.label10.TabIndex = 15;
+            this.label10.Text = "DB: Detenido en Centro B";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(24, 136);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(187, 15);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "SAB: Siendo Atendido en Centro B";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(24, 111);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(205, 15);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "EAB: Esperando Atención de Centro B";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(24, 86);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(143, 15);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "DA: Detenido en Centro A";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(24, 59);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(189, 15);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "SAA: Siendo Atendido en Centro A";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(24, 32);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(207, 15);
+            this.label11.TabIndex = 8;
+            this.label11.Text = "EAA: Esperando Atención de Centro A";
             // 
             // gb_metricas
             // 
@@ -165,7 +275,7 @@ namespace TPFinal.Presentacion
             this.gb_metricas.Controls.Add(this.lbl_tiempo_parada_centroA);
             this.gb_metricas.Controls.Add(this.lbl_cant_maxima_trabajos_value);
             this.gb_metricas.Controls.Add(this.lbl_cant_maxima_trabajos);
-            this.gb_metricas.Location = new System.Drawing.Point(7, 451);
+            this.gb_metricas.Location = new System.Drawing.Point(7, 448);
             this.gb_metricas.Margin = new System.Windows.Forms.Padding(4);
             this.gb_metricas.Name = "gb_metricas";
             this.gb_metricas.Padding = new System.Windows.Forms.Padding(4);
@@ -582,7 +692,7 @@ namespace TPFinal.Presentacion
             this.panel4.Location = new System.Drawing.Point(388, 2);
             this.panel4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1041, 847);
+            this.panel4.Size = new System.Drawing.Size(1041, 882);
             this.panel4.TabIndex = 67;
             // 
             // dgv_simulacion
@@ -621,7 +731,7 @@ namespace TPFinal.Presentacion
             this.dgv_simulacion.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgv_simulacion.RowTemplate.Height = 24;
             this.dgv_simulacion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_simulacion.Size = new System.Drawing.Size(1032, 823);
+            this.dgv_simulacion.Size = new System.Drawing.Size(1032, 858);
             this.dgv_simulacion.TabIndex = 0;
             // 
             // tab_RK_1trabajo
@@ -631,7 +741,7 @@ namespace TPFinal.Presentacion
             this.tab_RK_1trabajo.Location = new System.Drawing.Point(4, 24);
             this.tab_RK_1trabajo.Name = "tab_RK_1trabajo";
             this.tab_RK_1trabajo.Padding = new System.Windows.Forms.Padding(3);
-            this.tab_RK_1trabajo.Size = new System.Drawing.Size(1438, 857);
+            this.tab_RK_1trabajo.Size = new System.Drawing.Size(1438, 892);
             this.tab_RK_1trabajo.TabIndex = 1;
             this.tab_RK_1trabajo.Text = "RK - Un trabajo";
             this.tab_RK_1trabajo.UseVisualStyleBackColor = true;
@@ -640,9 +750,9 @@ namespace TPFinal.Presentacion
             // 
             this.gb_ec_dif_1trabajo.Controls.Add(this.label3);
             this.gb_ec_dif_1trabajo.Controls.Add(this.label4);
-            this.gb_ec_dif_1trabajo.Location = new System.Drawing.Point(3, 17);
+            this.gb_ec_dif_1trabajo.Location = new System.Drawing.Point(46, 17);
             this.gb_ec_dif_1trabajo.Name = "gb_ec_dif_1trabajo";
-            this.gb_ec_dif_1trabajo.Size = new System.Drawing.Size(196, 150);
+            this.gb_ec_dif_1trabajo.Size = new System.Drawing.Size(215, 131);
             this.gb_ec_dif_1trabajo.TabIndex = 68;
             this.gb_ec_dif_1trabajo.TabStop = false;
             this.gb_ec_dif_1trabajo.Text = "Ecuación Diferencial ";
@@ -650,7 +760,7 @@ namespace TPFinal.Presentacion
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 41);
+            this.label3.Location = new System.Drawing.Point(6, 40);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(146, 15);
             this.label3.TabIndex = 65;
@@ -659,7 +769,7 @@ namespace TPFinal.Presentacion
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 96);
+            this.label4.Location = new System.Drawing.Point(6, 86);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(159, 15);
             this.label4.TabIndex = 66;
@@ -693,7 +803,7 @@ namespace TPFinal.Presentacion
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgv_rk_1trabajo.DefaultCellStyle = dataGridViewCellStyle6;
-            this.dgv_rk_1trabajo.Location = new System.Drawing.Point(202, 17);
+            this.dgv_rk_1trabajo.Location = new System.Drawing.Point(307, 17);
             this.dgv_rk_1trabajo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgv_rk_1trabajo.Name = "dgv_rk_1trabajo";
             this.dgv_rk_1trabajo.ReadOnly = true;
@@ -711,7 +821,7 @@ namespace TPFinal.Presentacion
             this.tab_RK_2trabajos.Controls.Add(this.dgv_rk_2trabajos);
             this.tab_RK_2trabajos.Location = new System.Drawing.Point(4, 24);
             this.tab_RK_2trabajos.Name = "tab_RK_2trabajos";
-            this.tab_RK_2trabajos.Size = new System.Drawing.Size(1438, 857);
+            this.tab_RK_2trabajos.Size = new System.Drawing.Size(1438, 892);
             this.tab_RK_2trabajos.TabIndex = 2;
             this.tab_RK_2trabajos.Text = "RK - Dos trabajos";
             this.tab_RK_2trabajos.UseVisualStyleBackColor = true;
@@ -720,9 +830,9 @@ namespace TPFinal.Presentacion
             // 
             this.gb_ec_dif_2trabajos.Controls.Add(this.label2);
             this.gb_ec_dif_2trabajos.Controls.Add(this.label5);
-            this.gb_ec_dif_2trabajos.Location = new System.Drawing.Point(3, 17);
+            this.gb_ec_dif_2trabajos.Location = new System.Drawing.Point(46, 17);
             this.gb_ec_dif_2trabajos.Name = "gb_ec_dif_2trabajos";
-            this.gb_ec_dif_2trabajos.Size = new System.Drawing.Size(196, 150);
+            this.gb_ec_dif_2trabajos.Size = new System.Drawing.Size(215, 128);
             this.gb_ec_dif_2trabajos.TabIndex = 69;
             this.gb_ec_dif_2trabajos.TabStop = false;
             this.gb_ec_dif_2trabajos.Text = "Ecuación Diferencial ";
@@ -773,7 +883,7 @@ namespace TPFinal.Presentacion
             dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgv_rk_2trabajos.DefaultCellStyle = dataGridViewCellStyle9;
-            this.dgv_rk_2trabajos.Location = new System.Drawing.Point(202, 17);
+            this.dgv_rk_2trabajos.Location = new System.Drawing.Point(306, 17);
             this.dgv_rk_2trabajos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgv_rk_2trabajos.Name = "dgv_rk_2trabajos";
             this.dgv_rk_2trabajos.ReadOnly = true;
@@ -790,7 +900,7 @@ namespace TPFinal.Presentacion
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(1446, 885);
+            this.ClientSize = new System.Drawing.Size(1446, 920);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -804,6 +914,8 @@ namespace TPFinal.Presentacion
             this.tab_simulacion.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.gb_estados_trabajos.ResumeLayout(false);
+            this.gb_estados_trabajos.PerformLayout();
             this.gb_metricas.ResumeLayout(false);
             this.gb_metricas.PerformLayout();
             this.gb_parametros.ResumeLayout(false);
@@ -875,5 +987,14 @@ namespace TPFinal.Presentacion
         private GroupBox gb_ec_dif_2trabajos;
         private Label label2;
         private Label label5;
+        private GroupBox gb_estados_trabajos;
+        private Label label13;
+        private Label label12;
+        private Label label10;
+        private Label label8;
+        private Label label6;
+        private Label label7;
+        private Label label9;
+        private Label label11;
     }
 }

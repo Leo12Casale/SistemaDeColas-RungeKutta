@@ -113,7 +113,7 @@ namespace TPFinal.Modelo
 
         private double truncar(double numero)
         {
-            return Math.Truncate(10000 * numero) / 10000;
+            return Math.Truncate(1000 * numero) / 1000;
         }
 
         private DataTable crearTabla()
