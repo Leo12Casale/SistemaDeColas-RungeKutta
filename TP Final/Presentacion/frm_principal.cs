@@ -23,12 +23,17 @@ namespace TPFinal.Presentacion
         {
             if (nud_mostrar_desde_minutos.Value > nud_cant_minutos_simulacion.Value)
             {
-                MessageBox.Show("El minuto a partir del cual mostrar debe ser menor a la cantidad de minutos de simulación.", "Generación de Simulación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El minuto a partir del cual mostrar, debe ser menor a la cantidad de minutos de simulación.", "Generación de Simulación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             if (nud_tiempo_limite_sup_atencionA.Value < nud_tiempo_limite_inf_atencionA.Value)
             {
-                MessageBox.Show("El tiempo límite superior de Atención del Centro A debe ser mayor al límite inferior del mismo.", "Generación de Simulación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El tiempo límite superior de Atención del Centro A, debe ser mayor al límite inferior del mismo.", "Generación de Simulación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (nud_cant_max_trabajos.Value > nud_cant_minutos_simulacion.Value)
+            {
+                MessageBox.Show("El minuto a partir del cual mostrar la cantidad máxima de trabajos, debe ser menor a la cantidad de minutos de simulación.", "Generación de Simulación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             return true;
@@ -48,6 +53,7 @@ namespace TPFinal.Presentacion
                 nud_tiempo_limite_sup_atencionA.Enabled = true;
                 nud_media_atencionB.Enabled = true;
                 nud_DE_atencionB.Enabled = true;
+                nud_cant_max_trabajos.Enabled = true;
 
 
                 btn_generar.Enabled = true;
@@ -74,6 +80,7 @@ namespace TPFinal.Presentacion
                 nud_tiempo_limite_sup_atencionA.Enabled = false;
                 nud_media_atencionB.Enabled = false;
                 nud_DE_atencionB.Enabled = false;
+                nud_cant_max_trabajos.Enabled = false;
 
                 btn_generar.Enabled = false;
                 btn_restablecer.Enabled = true;
@@ -99,25 +106,28 @@ namespace TPFinal.Presentacion
                 Taller taller = new Taller();
                 taller.simulacion((int)nud_cant_minutos_simulacion.Value, (float)nud_mostrar_desde_minutos.Value, (int)nud_mostrar_cantidad_filas.Value, (float)nud_tiempo_medio_llegadas.Value, (float)nud_tiempo_limite_inf_atencionA.Value, (float)nud_tiempo_limite_sup_atencionA.Value, (float)nud_media_atencionB.Value, (float)nud_DE_atencionB.Value);
 
+
+                //Propiedades de la tabla principal
                 dgv_simulacion.DataSource = taller.TablaSimulacion;
                 dgv_simulacion.Columns[0].Frozen = true;
                 dgv_simulacion.Columns[0].Width = 110;
+                dgv_simulacion.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
                 dgv_simulacion.Columns[1].Frozen = true;
                 dgv_simulacion.Columns[1].Width = 65;
                 dgv_simulacion.Columns[dgv_simulacion.Columns.Count - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
                 dgv_simulacion.Columns[dgv_simulacion.Columns.Count - 1].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
                 dgv_simulacion.Columns[dgv_simulacion.Columns.Count - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-
                 foreach (DataGridViewColumn dgvc in dgv_simulacion.Columns)
                     dgvc.SortMode = DataGridViewColumnSortMode.NotSortable;
 
                 //Carga de datos solicitados en consigna
                 lbl_cant_maxima_trabajos_value.Text = taller.Fila.CantidadMaximaTrabajosEnSistema.ToString();
+                lbl_cant_max_trabajos_min.Text = "Cantidad máxima de trabajos en minuto " + nud_cant_max_trabajos.Value.ToString() + ":" ;
                 lbl_tiempo_parada_centroA_value.Text = (Math.Truncate(1000 * taller.Fila.TiempoACCentroADetenido) / 1000).ToString() + " min.";
                 if (taller.Fila.ContadorTrabajosFinalizados == 0)
                     lbl_tiempo_prom_trabajo_value.Text = "-";
                 else
-                    lbl_tiempo_prom_trabajo_value.Text = (Math.Truncate(1000 * (taller.Fila.TiempoACTrabajosFinalizados / taller.Fila.ContadorTrabajosFinalizados)) / 1000).ToString();
+                    lbl_tiempo_prom_trabajo_value.Text = (Math.Truncate(1000 * (taller.Fila.TiempoACTrabajosFinalizados / taller.Fila.ContadorTrabajosFinalizados)) / 1000).ToString() + " min.";
 
                 //Carga de las tablas RK
                 dgv_rk_1trabajo.DataSource = taller.RungeKutta.Tabla1Trabajo;
@@ -128,6 +138,16 @@ namespace TPFinal.Presentacion
         private void btn_restablecer_Click(object sender, EventArgs e)
         {
             activarParametros(true);
+            nud_cant_minutos_simulacion.Value = 150;
+            nud_mostrar_desde_minutos.Value = 0;
+            nud_mostrar_cantidad_filas.Value = 400;
+            nud_cant_max_trabajos.Value = 50;
+
+            nud_tiempo_medio_llegadas.Value = 12;
+            nud_tiempo_limite_inf_atencionA.Value = 1;
+            nud_tiempo_limite_sup_atencionA.Value = 10;
+            nud_media_atencionB.Value = 8;
+            nud_DE_atencionB.Value = 5;
         }
     }
 }
