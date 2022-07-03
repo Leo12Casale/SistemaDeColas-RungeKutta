@@ -32,7 +32,7 @@ namespace TP_Final.Modelo
             RungeKutta = new RungeKutta();
         }
 
-        public void simulacion(float cantSimulacion, float minDesde, float cantidadFilasAMostrar, float mediaLlegadas, float limiteInfAtencionA, float limiteSupAtencionA, float mediaAtencionB, float desvEstAtencionB)
+        public void simulacion(int cantSimulacion, float minDesde, int cantidadFilasAMostrar, float mediaLlegadas, float limiteInfAtencionA, float limiteSupAtencionA, float mediaAtencionB, float desvEstAtencionB)
         {
             MediaLlegadas = mediaLlegadas;
             LimiteInfAtencionA = limiteInfAtencionA;
@@ -44,6 +44,7 @@ namespace TP_Final.Modelo
 
             //Fila inicial
             Fila filaAnterior = new Fila(0, this);
+            filaAnterior.Evento = "Inicio Simulación";
             filaAnterior.RNDLlegadaTrabajo = (float) Math.Truncate(1000 * generadorRNDLlegadaTrabajos.NextDouble()) / 1000;
             filaAnterior.TiempoEntreLlegadas = -mediaLlegadas * (float) Math.Log(1 - filaAnterior.RNDLlegadaTrabajo);
             filaAnterior.ProximaLlegadaTrabajo = filaAnterior.TiempoEntreLlegadas;
@@ -82,7 +83,13 @@ namespace TP_Final.Modelo
 
                 // ---------------------------------------------------------- EVENTOS
                 // ------------ Evento LLEGADA TRABAJO
-                if (proximoTiempo == Fila.ProximaLlegadaTrabajo)
+                if (proximoTiempo > cantSimulacion)
+                {
+                    filaAnterior = crearFilaFinSimulacion(filaAnterior, cantSimulacion);
+                    agregarFilaTabla(filaAnterior);
+                    break;
+                }
+                else if (proximoTiempo == Fila.ProximaLlegadaTrabajo)
                 {
                     Fila.llegadaTrabajo();
                 }
@@ -125,9 +132,6 @@ namespace TP_Final.Modelo
 
             if (Fila.ContadorTrabajosFinalizados != 0)
                 promedioTiempoTrabajos = Fila.TiempoACTrabajosFinalizados / Fila.ContadorTrabajosFinalizados;
-
-            if(contadorFilas == cantidadFilasAMostrar)
-            agregarFilaTabla(filaAnterior);
         }
 
         private void generarTabla()
@@ -210,6 +214,21 @@ namespace TP_Final.Modelo
             if (number.Equals(float.NaN))
                 return "";
             return (Math.Truncate(1000 * number) / 1000).ToString();
+        }
+
+        private Fila crearFilaFinSimulacion(Fila ultimaFila, float cantSimulacion)
+        {
+            ultimaFila.Reloj = cantSimulacion;
+            ultimaFila.Evento = "Fin Simulación";
+            ultimaFila.RNDLlegadaTrabajo = float.NaN;
+            ultimaFila.RNDAtencionA = float.NaN;
+            ultimaFila.RND1AtencionB = float.NaN;
+            ultimaFila.RND2AtencionB = float.NaN;
+            ultimaFila.TiempoEntreLlegadas = 0;
+            ultimaFila.TiempoAtencionA = 0;
+            ultimaFila.TiempoAtencionB = 0;
+            ultimaFila.TiempoFinSecado = 0;
+            return ultimaFila;
         }
     }
 }

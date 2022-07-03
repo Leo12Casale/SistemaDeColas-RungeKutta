@@ -14,6 +14,8 @@ namespace TPFinal.Presentacion
         {
             btn_restablecer.Enabled = false;
             gb_metricas.Visible = false;
+            gb_ec_dif_1trabajo.Visible = false;
+            gb_ec_dif_2trabajos.Visible = false;
         }
 
         private bool validarParametros()
@@ -50,6 +52,8 @@ namespace TPFinal.Presentacion
                 btn_generar.Enabled = true;
                 btn_restablecer.Enabled = false;
                 gb_metricas.Visible = false;
+                gb_ec_dif_1trabajo.Visible = false;
+                gb_ec_dif_2trabajos.Visible = false;
 
                 //Limpieza tablas
                 dgv_simulacion.Columns.Clear();
@@ -72,6 +76,8 @@ namespace TPFinal.Presentacion
                 btn_generar.Enabled = false;
                 btn_restablecer.Enabled = true;
                 gb_metricas.Visible = true;
+                gb_ec_dif_1trabajo.Visible = true;
+                gb_ec_dif_2trabajos.Visible = true;
             }
         }
 
@@ -88,7 +94,7 @@ namespace TPFinal.Presentacion
                 activarParametros(false);
 
                 Taller taller = new Taller();
-                taller.simulacion((float)nud_cant_minutos_simulacion.Value, (float)nud_mostrar_desde_minutos.Value, (float)nud_mostrar_cantidad_filas.Value, (float)nud_tiempo_medio_llegadas.Value, (float)nud_tiempo_limite_inf_atencionA.Value, (float)nud_tiempo_limite_sup_atencionA.Value, (float)nud_media_atencionB.Value, (float)nud_DE_atencionB.Value);
+                taller.simulacion((int)nud_cant_minutos_simulacion.Value, (float)nud_mostrar_desde_minutos.Value, (int)nud_mostrar_cantidad_filas.Value, (float)nud_tiempo_medio_llegadas.Value, (float)nud_tiempo_limite_inf_atencionA.Value, (float)nud_tiempo_limite_sup_atencionA.Value, (float)nud_media_atencionB.Value, (float)nud_DE_atencionB.Value);
 
                 dgv_simulacion.DataSource = taller.TablaSimulacion;
                 dgv_simulacion.Columns[0].Frozen = true;
@@ -97,12 +103,10 @@ namespace TPFinal.Presentacion
                 dgv_simulacion.Columns[1].Width = 65;
                 dgv_simulacion.Columns[dgv_simulacion.Columns.Count - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
                 dgv_simulacion.Columns[dgv_simulacion.Columns.Count - 1].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                dgv_simulacion.Columns[dgv_simulacion.Columns.Count - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
                 foreach (DataGridViewColumn dgvc in dgv_simulacion.Columns)
-                {
                     dgvc.SortMode = DataGridViewColumnSortMode.NotSortable;
-                    dgvc.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                }
 
                 //Carga de datos solicitados en consigna
                 lbl_cant_maxima_trabajos_value.Text = taller.Fila.CantidadMaximaTrabajosEnSistema.ToString();
@@ -121,11 +125,6 @@ namespace TPFinal.Presentacion
         private void btn_restablecer_Click(object sender, EventArgs e)
         {
             activarParametros(true);
-        }
-
-        private void tab_RK_1trabajo_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

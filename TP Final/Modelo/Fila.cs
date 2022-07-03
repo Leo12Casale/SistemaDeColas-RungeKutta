@@ -14,8 +14,8 @@ namespace TP_Final.Modelo
         public const string estadoLibre = "Libre";
         public const string estadoOcupado = "Ocupado";
         public const string estadoDetenido = "Detenido";
-        public const string estadoOcupadoEquipo1 = "Ocupado Equipo1";
-        public const string estadoOcupadoEquipo2 = "Ocupado Equipo2";
+        public const string estadoOcupadoEquipo1 = "Ocupado Lugar1";
+        public const string estadoOcupadoEquipo2 = "Ocupado Lugar2";
         //ESTADOS POSIBLES TRABAJOS
         public const string estadoEsperandoAtencionA = "EAA";
         public const string estadoSiendoAtendidoA = "SAA";
@@ -641,17 +641,13 @@ namespace TP_Final.Modelo
 
         private float calcularTiempoAtencionB(float RND1, float RND2, bool segundoCalculo)
         {
-            float tiempo;
             RND1 = RND1 != 0 ? RND1 : (float) 0.00001;
             if (!segundoCalculo)
             {
-                tiempo = (float) (Math.Sqrt(-2 * Math.Log(RND1)) * Math.Cos(2 * Math.PI * RND2)) * Taller.DesvEstandarAtencionB + Taller.MediaAtencionB;
-                tiempo = tiempo > 0 ? tiempo : (float) 0.00001;
-                return tiempo;
+                return (float) Math.Abs((Math.Sqrt(-2 * Math.Log(RND1)) * Math.Cos(2 * Math.PI * RND2)) * Taller.DesvEstandarAtencionB + Taller.MediaAtencionB);
+
             }
-            tiempo = (float) (Math.Sqrt(-2 * Math.Log(RND1)) * Math.Sin(2 * Math.PI * RND2)) * Taller.DesvEstandarAtencionB + Taller.MediaAtencionB;
-            tiempo = tiempo > 0 ? tiempo : (float) 0.00001;
-            return tiempo;
+            return (float) Math.Abs((Math.Sqrt(-2 * Math.Log(RND1)) * Math.Sin(2 * Math.PI * RND2)) * Taller.DesvEstandarAtencionB + Taller.MediaAtencionB);
         }
 
         public static List<String> getColumnas()
@@ -681,20 +677,20 @@ namespace TP_Final.Modelo
             columnas.Add("Estado Centro A");
             columnas.Add("Estado Centro B");
             columnas.Add("Estado Equipo1");
-            columnas.Add("Fin secado1 Equipo1");
-            columnas.Add("Fin secado2 Equipo1");
+            columnas.Add("Fin secado Equipo1 Lugar1");
+            columnas.Add("Fin secado Equipo1 Lugar2");
             columnas.Add("Estado Equipo2");
-            columnas.Add("Fin secado1 Equipo2");
-            columnas.Add("Fin secado2 Equipo2");
+            columnas.Add("Fin secado Equipo2 Lugar1");
+            columnas.Add("Fin secado Equipo2 Lugar2");
             columnas.Add("Estado Equipo3");
-            columnas.Add("Fin secado1 Equipo3");
-            columnas.Add("Fin secado2 Equipo3");
+            columnas.Add("Fin secado Equipo3 Lugar1");
+            columnas.Add("Fin secado Equipo3 Lugar2");
             columnas.Add("Estado Equipo4");
-            columnas.Add("Fin secado1 Equipo4");
-            columnas.Add("Fin secado2 Equipo4");
+            columnas.Add("Fin secado Equipo4 Lugar1");
+            columnas.Add("Fin secado Equipo4 Lugar2");
             columnas.Add("Estado Equipo5");
-            columnas.Add("Fin secado1 Equipo5");
-            columnas.Add("Fin secado2 Equipo5");
+            columnas.Add("Fin secado Equipo5 Lugar1");
+            columnas.Add("Fin secado Equipo5 Lugar2");
 
             //COLAS
             columnas.Add("Cola de Llegadas");

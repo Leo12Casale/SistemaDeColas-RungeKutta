@@ -73,11 +73,14 @@ namespace TPFinal.Presentacion
             this.panel4 = new System.Windows.Forms.Panel();
             this.dgv_simulacion = new System.Windows.Forms.DataGridView();
             this.tab_RK_1trabajo = new System.Windows.Forms.TabPage();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.gb_ec_dif_1trabajo = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.dgv_rk_1trabajo = new System.Windows.Forms.DataGridView();
             this.tab_RK_2trabajos = new System.Windows.Forms.TabPage();
+            this.gb_ec_dif_2trabajos = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.dgv_rk_2trabajos = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tab_simulacion.SuspendLayout();
@@ -96,9 +99,10 @@ namespace TPFinal.Presentacion
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_simulacion)).BeginInit();
             this.tab_RK_1trabajo.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.gb_ec_dif_1trabajo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_rk_1trabajo)).BeginInit();
             this.tab_RK_2trabajos.SuspendLayout();
+            this.gb_ec_dif_2trabajos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_rk_2trabajos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -277,12 +281,14 @@ namespace TPFinal.Presentacion
             0});
             this.nud_tiempo_limite_sup_atencionA.Name = "nud_tiempo_limite_sup_atencionA";
             this.nud_tiempo_limite_sup_atencionA.Size = new System.Drawing.Size(88, 23);
-            this.nud_tiempo_limite_sup_atencionA.TabIndex = 68;
+            this.nud_tiempo_limite_sup_atencionA.TabIndex = 5;
             this.nud_tiempo_limite_sup_atencionA.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
+            this.nud_tiempo_limite_sup_atencionA.Click += new System.EventHandler(this.numActive);
+            this.nud_tiempo_limite_sup_atencionA.Enter += new System.EventHandler(this.numActive);
             // 
             // lbl_distribucion_eventos
             // 
@@ -312,7 +318,7 @@ namespace TPFinal.Presentacion
             0});
             this.nud_DE_atencionB.Name = "nud_DE_atencionB";
             this.nud_DE_atencionB.Size = new System.Drawing.Size(88, 23);
-            this.nud_DE_atencionB.TabIndex = 65;
+            this.nud_DE_atencionB.TabIndex = 7;
             this.nud_DE_atencionB.Value = new decimal(new int[] {
             5,
             0,
@@ -416,7 +422,7 @@ namespace TPFinal.Presentacion
             65536});
             this.nud_media_atencionB.Name = "nud_media_atencionB";
             this.nud_media_atencionB.Size = new System.Drawing.Size(88, 23);
-            this.nud_media_atencionB.TabIndex = 5;
+            this.nud_media_atencionB.TabIndex = 6;
             this.nud_media_atencionB.Value = new decimal(new int[] {
             8,
             0,
@@ -447,6 +453,8 @@ namespace TPFinal.Presentacion
             0,
             0,
             0});
+            this.nud_cant_minutos_simulacion.Click += new System.EventHandler(this.numActive);
+            this.nud_cant_minutos_simulacion.Enter += new System.EventHandler(this.numActive);
             // 
             // lbl_limite_inf_tiempo_atencionA
             // 
@@ -614,11 +622,11 @@ namespace TPFinal.Presentacion
             this.dgv_simulacion.RowTemplate.Height = 24;
             this.dgv_simulacion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_simulacion.Size = new System.Drawing.Size(1032, 823);
-            this.dgv_simulacion.TabIndex = 62;
+            this.dgv_simulacion.TabIndex = 0;
             // 
             // tab_RK_1trabajo
             // 
-            this.tab_RK_1trabajo.Controls.Add(this.groupBox1);
+            this.tab_RK_1trabajo.Controls.Add(this.gb_ec_dif_1trabajo);
             this.tab_RK_1trabajo.Controls.Add(this.dgv_rk_1trabajo);
             this.tab_RK_1trabajo.Location = new System.Drawing.Point(4, 24);
             this.tab_RK_1trabajo.Name = "tab_RK_1trabajo";
@@ -628,25 +636,16 @@ namespace TPFinal.Presentacion
             this.tab_RK_1trabajo.Text = "RK - Un trabajo";
             this.tab_RK_1trabajo.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // gb_ec_dif_1trabajo
             // 
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(3, 17);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(196, 150);
-            this.groupBox1.TabIndex = 68;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Ecuación Diferencial ";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 96);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(159, 15);
-            this.label4.TabIndex = 66;
-            this.label4.Text = "Condición inicial: M(0) = 100";
+            this.gb_ec_dif_1trabajo.Controls.Add(this.label3);
+            this.gb_ec_dif_1trabajo.Controls.Add(this.label4);
+            this.gb_ec_dif_1trabajo.Location = new System.Drawing.Point(3, 17);
+            this.gb_ec_dif_1trabajo.Name = "gb_ec_dif_1trabajo";
+            this.gb_ec_dif_1trabajo.Size = new System.Drawing.Size(196, 150);
+            this.gb_ec_dif_1trabajo.TabIndex = 68;
+            this.gb_ec_dif_1trabajo.TabStop = false;
+            this.gb_ec_dif_1trabajo.Text = "Ecuación Diferencial ";
             // 
             // label3
             // 
@@ -656,6 +655,15 @@ namespace TPFinal.Presentacion
             this.label3.Size = new System.Drawing.Size(146, 15);
             this.label3.TabIndex = 65;
             this.label3.Text = "dM/dt = -0.05 M - 0.0001 t";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(18, 96);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(159, 15);
+            this.label4.TabIndex = 66;
+            this.label4.Text = "Condición inicial: M(0) = 100";
             // 
             // dgv_rk_1trabajo
             // 
@@ -699,6 +707,7 @@ namespace TPFinal.Presentacion
             // 
             // tab_RK_2trabajos
             // 
+            this.tab_RK_2trabajos.Controls.Add(this.gb_ec_dif_2trabajos);
             this.tab_RK_2trabajos.Controls.Add(this.dgv_rk_2trabajos);
             this.tab_RK_2trabajos.Location = new System.Drawing.Point(4, 24);
             this.tab_RK_2trabajos.Name = "tab_RK_2trabajos";
@@ -706,6 +715,35 @@ namespace TPFinal.Presentacion
             this.tab_RK_2trabajos.TabIndex = 2;
             this.tab_RK_2trabajos.Text = "RK - Dos trabajos";
             this.tab_RK_2trabajos.UseVisualStyleBackColor = true;
+            // 
+            // gb_ec_dif_2trabajos
+            // 
+            this.gb_ec_dif_2trabajos.Controls.Add(this.label2);
+            this.gb_ec_dif_2trabajos.Controls.Add(this.label5);
+            this.gb_ec_dif_2trabajos.Location = new System.Drawing.Point(3, 17);
+            this.gb_ec_dif_2trabajos.Name = "gb_ec_dif_2trabajos";
+            this.gb_ec_dif_2trabajos.Size = new System.Drawing.Size(196, 150);
+            this.gb_ec_dif_2trabajos.TabIndex = 69;
+            this.gb_ec_dif_2trabajos.TabStop = false;
+            this.gb_ec_dif_2trabajos.Text = "Ecuación Diferencial ";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 40);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(181, 15);
+            this.label2.TabIndex = 65;
+            this.label2.Text = "dM/dt = -0.05 M + 0,04 - 0.0001 t";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 85);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(159, 15);
+            this.label5.TabIndex = 66;
+            this.label5.Text = "Condición inicial: M(0) = 100";
             // 
             // dgv_rk_2trabajos
             // 
@@ -781,10 +819,12 @@ namespace TPFinal.Presentacion
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_simulacion)).EndInit();
             this.tab_RK_1trabajo.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.gb_ec_dif_1trabajo.ResumeLayout(false);
+            this.gb_ec_dif_1trabajo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_rk_1trabajo)).EndInit();
             this.tab_RK_2trabajos.ResumeLayout(false);
+            this.gb_ec_dif_2trabajos.ResumeLayout(false);
+            this.gb_ec_dif_2trabajos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_rk_2trabajos)).EndInit();
             this.ResumeLayout(false);
 
@@ -831,6 +871,9 @@ namespace TPFinal.Presentacion
         public TabPage tab_RK_1trabajo;
         private Label label4;
         private Label label3;
-        private GroupBox groupBox1;
+        private GroupBox gb_ec_dif_1trabajo;
+        private GroupBox gb_ec_dif_2trabajos;
+        private Label label2;
+        private Label label5;
     }
 }
