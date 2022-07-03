@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
+
 
 namespace TPFinal.Modelo
 {
     class RungeKutta
     {
-        private double h;
-
         public const String unTrabajo = "1 trabajo";
         public const String dosTrabajos = "2 trabajos";
+
+        private double h;
         private double tiempoSecado1Trabajo;
         private double tiempoSecado2Trabajos;
 

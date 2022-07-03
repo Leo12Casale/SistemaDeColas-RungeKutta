@@ -18,6 +18,8 @@ namespace TP_Final.Modelo
         private float mediaAtencionB;
         private float desvEstandarAtencionB;
         private int cantidadMaxTrabajosMinuto;
+        bool indiceTrabajosNoDestruidosCalculado;
+        int indiceTrabajosNoDestruidos;
 
         public DataTable TablaSimulacion { get => tablaSimulacion; set => tablaSimulacion = value; }
         internal Fila Fila { get => fila; set => fila = value; }
@@ -38,6 +40,8 @@ namespace TP_Final.Modelo
             GeneradorRNDLlegadaTrabajos = new Random();
             GeneradorRNDAtencionA = new Random();
             GeneradorRNDAtencionB = new Random();
+            indiceTrabajosNoDestruidosCalculado = false;
+            indiceTrabajosNoDestruidos = 0;
         }
 
         public void simulacion(int cantSimulacion, float minDesde, int cantidadFilasAMostrar, int minutoCantMaxTrabajos, float mediaLlegadas, float limiteInfAtencionA, float limiteSupAtencionA, float mediaAtencionB, float desvEstAtencionB)
@@ -59,7 +63,6 @@ namespace TP_Final.Modelo
 
             Fila = filaAnterior.copiarFila();
             agregarFilaTabla(Fila);
-
 
             //Variables auxiliares
             int contadorFilas = 0;
@@ -87,7 +90,7 @@ namespace TP_Final.Modelo
                 Fila.TiempoAtencionB = 0;
                 Fila.TiempoFinSecado = 0;
 
-
+                //Calcular tiempo de proximo evento
                 proximoTiempo = Fila.calcularProximoTiempo(filaAnterior);
 
                 //Cantidad maxima de trabajos en el minuto indicado por el usuario
@@ -97,14 +100,16 @@ namespace TP_Final.Modelo
                     cantidadMaxTrabajosSeteado = true;
                 }
 
-                // ---------------------------------------------------------- EVENTOS
-                // ------------ Evento LLEGADA TRABAJO
-                if (proximoTiempo > cantSimulacion) //Agego la ultima fila y termino la simulacion
+                //Si se supera el tiempo de simulación, agrego la ultima fila y termino la simulacion
+                if (proximoTiempo > cantSimulacion) 
                 {
                     crearFilaFinSimulacion(filaAnterior, cantSimulacion);
                     agregarFilaTabla(filaAnterior);
                     break;
                 }
+
+                // ---------------------------------------------------------- EVENTOS
+                // ------------ Evento LLEGADA TRABAJO
                 else if (proximoTiempo == Fila.ProximaLlegadaTrabajo)
                 {
                     Fila.llegadaTrabajo();
@@ -119,11 +124,13 @@ namespace TP_Final.Modelo
                 {
                     Fila.finAtencionB();
                 }
+                // ------------ Evento FIN SECADO
                 else if (proximoTiempo == Fila.ProximoFinSecado)
                 {
                     Fila.finSecado(Fila.ProximoFinSecado);
                 }
 
+                //Busco el menor tiempo de secado (proximo)
                 Fila.setProximoFinSecado();
 
                 //------- ESTADISTICAS
@@ -145,6 +152,7 @@ namespace TP_Final.Modelo
                 filaAnterior = Fila.copiarFila();
             }
 
+            //Setteo de metrica solicitada
             if (Fila.ContadorTrabajosFinalizados != 0)
                 promedioTiempoTrabajos = Fila.TiempoACTrabajosFinalizados / Fila.ContadorTrabajosFinalizados;
         }
@@ -159,13 +167,17 @@ namespace TP_Final.Modelo
 
         private void agregarFilaTabla(Fila fila)
         {
-            int indiceTrabajosNoDestruidos = 0;
-            for (int i = 0; i < fila.Trabajos.Count; i++)
+            //Tomo el indice 
+            if (!indiceTrabajosNoDestruidosCalculado)
             {
-                if (fila.Trabajos[i].Estado != Trabajo.estadoDestruido)
+                for (int i = 0; i < fila.Trabajos.Count; i++)
                 {
-                    indiceTrabajosNoDestruidos = i;
-                    break;
+                    if (fila.Trabajos[i].Estado != Trabajo.estadoDestruido)
+                    {
+                        indiceTrabajosNoDestruidos = i;
+                        indiceTrabajosNoDestruidosCalculado = true;
+                        break;
+                    }
                 }
             }
             int tamañoFilaTabla = 39;
