@@ -193,9 +193,9 @@ namespace TPFinal.Presentacion
             this.label13.Location = new System.Drawing.Point(24, 211);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(174, 15);
+            this.label13.Size = new System.Drawing.Size(189, 15);
             this.label13.TabIndex = 17;
-            this.label13.Text = "X: Destruido (Fuera del Sistema)";
+            this.label13.Text = "X:      Destruido (Fuera del Sistema)";
             // 
             // label12
             // 
@@ -203,9 +203,9 @@ namespace TPFinal.Presentacion
             this.label12.Location = new System.Drawing.Point(24, 185);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(178, 15);
+            this.label12.Size = new System.Drawing.Size(181, 15);
             this.label12.TabIndex = 16;
-            this.label12.Text = "SAS: Siendo Atendido en Secado";
+            this.label12.Text = "SAS:  Siendo Atendido en Secado";
             // 
             // label10
             // 
@@ -213,9 +213,9 @@ namespace TPFinal.Presentacion
             this.label10.Location = new System.Drawing.Point(24, 160);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(141, 15);
+            this.label10.Size = new System.Drawing.Size(150, 15);
             this.label10.TabIndex = 15;
-            this.label10.Text = "DB: Detenido en Centro B";
+            this.label10.Text = "DB:    Detenido en Centro B";
             // 
             // label8
             // 
@@ -223,9 +223,9 @@ namespace TPFinal.Presentacion
             this.label8.Location = new System.Drawing.Point(24, 136);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(187, 15);
+            this.label8.Size = new System.Drawing.Size(190, 15);
             this.label8.TabIndex = 14;
-            this.label8.Text = "SAB: Siendo Atendido en Centro B";
+            this.label8.Text = "SAB:  Siendo Atendido en Centro B";
             // 
             // label6
             // 
@@ -233,9 +233,9 @@ namespace TPFinal.Presentacion
             this.label6.Location = new System.Drawing.Point(24, 111);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(205, 15);
+            this.label6.Size = new System.Drawing.Size(208, 15);
             this.label6.TabIndex = 13;
-            this.label6.Text = "EAB: Esperando Atención de Centro B";
+            this.label6.Text = "EAB:  Esperando Atención de Centro B";
             // 
             // label7
             // 
@@ -243,9 +243,9 @@ namespace TPFinal.Presentacion
             this.label7.Location = new System.Drawing.Point(24, 86);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(143, 15);
+            this.label7.Size = new System.Drawing.Size(152, 15);
             this.label7.TabIndex = 12;
-            this.label7.Text = "DA: Detenido en Centro A";
+            this.label7.Text = "DA:    Detenido en Centro A";
             // 
             // label9
             // 
@@ -253,9 +253,9 @@ namespace TPFinal.Presentacion
             this.label9.Location = new System.Drawing.Point(24, 59);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(189, 15);
+            this.label9.Size = new System.Drawing.Size(192, 15);
             this.label9.TabIndex = 10;
-            this.label9.Text = "SAA: Siendo Atendido en Centro A";
+            this.label9.Text = "SAA:  Siendo Atendido en Centro A";
             // 
             // label11
             // 
@@ -263,9 +263,9 @@ namespace TPFinal.Presentacion
             this.label11.Location = new System.Drawing.Point(24, 32);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(207, 15);
+            this.label11.Size = new System.Drawing.Size(210, 15);
             this.label11.TabIndex = 8;
-            this.label11.Text = "EAA: Esperando Atención de Centro A";
+            this.label11.Text = "EAA:  Esperando Atención de Centro A";
             // 
             // gb_metricas
             // 

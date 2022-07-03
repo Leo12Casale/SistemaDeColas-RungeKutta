@@ -113,7 +113,7 @@ namespace TPFinal.Presentacion
 
                 //Carga de datos solicitados en consigna
                 lbl_cant_maxima_trabajos_value.Text = taller.Fila.CantidadMaximaTrabajosEnSistema.ToString();
-                lbl_tiempo_parada_centroA_value.Text = (Math.Truncate(1000 * taller.Fila.TiempoACCentroADetenido) / 1000).ToString() + " mins";
+                lbl_tiempo_parada_centroA_value.Text = (Math.Truncate(1000 * taller.Fila.TiempoACCentroADetenido) / 1000).ToString() + " min.";
                 if (taller.Fila.ContadorTrabajosFinalizados == 0)
                     lbl_tiempo_prom_trabajo_value.Text = "-";
                 else
