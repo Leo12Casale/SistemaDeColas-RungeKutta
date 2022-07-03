@@ -7,31 +7,37 @@ namespace TP_Final.Modelo
     class Taller
     {
         private DataTable tablaSimulacion;
-        public static Random generadorRNDLlegadaTrabajos = new Random();
-        public static Random generadorRNDAtencionA = new Random();
-        public static Random generadorRNDAtencionB = new Random();
+        private Fila fila;
+        private Random generadorRNDLlegadaTrabajos;
+        private Random generadorRNDAtencionA;
+        private Random generadorRNDAtencionB;
         private RungeKutta rungeKutta = new RungeKutta();
         private float mediaLlegadas;
         private float limiteInfAtencionA;
         private float limiteSupAtencionA;
         private float mediaAtencionB;
         private float desvEstandarAtencionB;
-        private Fila fila;
         private int cantidadMaxTrabajosMinuto;
 
+        public DataTable TablaSimulacion { get => tablaSimulacion; set => tablaSimulacion = value; }
         internal Fila Fila { get => fila; set => fila = value; }
+        public Random GeneradorRNDLlegadaTrabajos { get => generadorRNDLlegadaTrabajos; set => generadorRNDLlegadaTrabajos = value; }
+        public Random GeneradorRNDAtencionA { get => generadorRNDAtencionA; set => generadorRNDAtencionA = value; }
+        public Random GeneradorRNDAtencionB { get => generadorRNDAtencionB; set => generadorRNDAtencionB = value; }
         internal RungeKutta RungeKutta { get => rungeKutta; set => rungeKutta = value; }
         public float MediaLlegadas { get => mediaLlegadas; set => mediaLlegadas = value; }
         public float LimiteInfAtencionA { get => limiteInfAtencionA; set => limiteInfAtencionA = value; }
         public float LimiteSupAtencionA { get => limiteSupAtencionA; set => limiteSupAtencionA = value; }
         public float MediaAtencionB { get => mediaAtencionB; set => mediaAtencionB = value; }
         public float DesvEstandarAtencionB { get => desvEstandarAtencionB; set => desvEstandarAtencionB = value; }
-        public DataTable TablaSimulacion { get => tablaSimulacion; set => tablaSimulacion = value; }
         public int CantidadMaxTrabajosMinuto { get => cantidadMaxTrabajosMinuto; set => cantidadMaxTrabajosMinuto = value; }
 
         public Taller()
         {
             RungeKutta = new RungeKutta();
+            GeneradorRNDLlegadaTrabajos = new Random();
+            GeneradorRNDAtencionA = new Random();
+            GeneradorRNDAtencionB = new Random();
         }
 
         public void simulacion(int cantSimulacion, float minDesde, int cantidadFilasAMostrar, int minutoCantMaxTrabajos, float mediaLlegadas, float limiteInfAtencionA, float limiteSupAtencionA, float mediaAtencionB, float desvEstAtencionB)
@@ -47,7 +53,7 @@ namespace TP_Final.Modelo
             //Fila inicial
             Fila filaAnterior = new Fila(0, this);
             filaAnterior.Evento = "Inicio Simulación";
-            filaAnterior.RNDLlegadaTrabajo = (float) Math.Truncate(1000 * generadorRNDLlegadaTrabajos.NextDouble()) / 1000;
+            filaAnterior.RNDLlegadaTrabajo = (float) Math.Truncate(1000 * GeneradorRNDLlegadaTrabajos.NextDouble()) / 1000;
             filaAnterior.TiempoEntreLlegadas = -mediaLlegadas * (float) Math.Log(1 - filaAnterior.RNDLlegadaTrabajo);
             filaAnterior.ProximaLlegadaTrabajo = filaAnterior.TiempoEntreLlegadas;
 
@@ -61,7 +67,7 @@ namespace TP_Final.Modelo
             float promedioTiempoTrabajos = 0;
             bool cantidadMaxTrabajosSeteado = false;
 
-            while (fila.Reloj < cantSimulacion)
+            while (Fila.Reloj < cantSimulacion)
             {
                 //Reiniciar RNDs y Tiempos en la nueva fila
                 Fila.RNDLlegadaTrabajo = float.NaN;
@@ -84,11 +90,18 @@ namespace TP_Final.Modelo
 
                 proximoTiempo = Fila.calcularProximoTiempo(filaAnterior);
 
+                //Cantidad maxima de trabajos en el minuto indicado por el usuario
+                if (!cantidadMaxTrabajosSeteado && proximoTiempo > minutoCantMaxTrabajos)
+                {
+                    CantidadMaxTrabajosMinuto = filaAnterior.CantidadMaximaTrabajosEnSistema;
+                    cantidadMaxTrabajosSeteado = true;
+                }
+
                 // ---------------------------------------------------------- EVENTOS
                 // ------------ Evento LLEGADA TRABAJO
-                if (proximoTiempo > cantSimulacion)
+                if (proximoTiempo > cantSimulacion) //Agego la ultima fila y termino la simulacion
                 {
-                    filaAnterior = crearFilaFinSimulacion(filaAnterior, cantSimulacion);
+                    crearFilaFinSimulacion(filaAnterior, cantSimulacion);
                     agregarFilaTabla(filaAnterior);
                     break;
                 }
@@ -120,12 +133,7 @@ namespace TP_Final.Modelo
                 //Acumular tiempo de Centro A detenido
                 if (filaAnterior.EstadoCentroA == Fila.estadoDetenido)
                     Fila.TiempoACCentroADetenido += Fila.Reloj - filaAnterior.Reloj;
-                //Cantidad maxima de trabajos en el minuto indicado por el usuario
-                if (!cantidadMaxTrabajosSeteado && Fila.Reloj > minutoCantMaxTrabajos)
-                {
-                    cantidadMaxTrabajosMinuto = filaAnterior.CantidadMaximaTrabajosEnSistema;
-                    cantidadMaxTrabajosSeteado = true;
-                }
+
 
                 //AGREGAR FILA A TABLA
                 if (Fila.Reloj > minDesde && Fila.Reloj < cantSimulacion && contadorFilas < cantidadFilasAMostrar)
@@ -146,9 +154,7 @@ namespace TP_Final.Modelo
             TablaSimulacion = new DataTable();
             List<string> columnas = Fila.getColumnas();
             for (int i = 0; i < columnas.Count; i++)
-            {
                 TablaSimulacion.Columns.Add(columnas[i]);
-            }
         }
 
         private void agregarFilaTabla(Fila fila)
@@ -156,7 +162,7 @@ namespace TP_Final.Modelo
             int indiceTrabajosNoDestruidos = 0;
             for (int i = 0; i < fila.Trabajos.Count; i++)
             {
-                if (fila.Trabajos[i].Estado != Fila.estadoDestruido)
+                if (fila.Trabajos[i].Estado != Trabajo.estadoDestruido)
                 {
                     indiceTrabajosNoDestruidos = i;
                     break;
@@ -199,7 +205,7 @@ namespace TP_Final.Modelo
             {
                 for (int i = indiceTrabajosNoDestruidos; i < fila.Trabajos.Count; i++)
                 {
-                    if (fila.Trabajos[i].Estado == Fila.estadoDestruido)
+                    if (fila.Trabajos[i].Estado == Trabajo.estadoDestruido)
                         continue;
                     stringTrabajos.Append("(" + (i + 1).ToString() + ")" + fila.Trabajos[i].Estado + "-" + beautify(fila.Trabajos[i].TiempoLlegada).ToString() + "    ");
                 }
@@ -211,8 +217,8 @@ namespace TP_Final.Modelo
 
         private string beautify(float number)
         { 
-            if (number == 0) return "";
-
+            if (number == 0) 
+                return "";
             return (Math.Truncate(1000 * number) / 1000).ToString();
         }
         
@@ -223,7 +229,7 @@ namespace TP_Final.Modelo
             return (Math.Truncate(1000 * number) / 1000).ToString();
         }
 
-        private Fila crearFilaFinSimulacion(Fila ultimaFila, float cantSimulacion)
+        private void crearFilaFinSimulacion(Fila ultimaFila, float cantSimulacion)
         {
             ultimaFila.Reloj = cantSimulacion;
             ultimaFila.Evento = "Fin Simulación";
@@ -235,7 +241,6 @@ namespace TP_Final.Modelo
             ultimaFila.TiempoAtencionA = 0;
             ultimaFila.TiempoAtencionB = 0;
             ultimaFila.TiempoFinSecado = 0;
-            return ultimaFila;
         }
     }
 }
