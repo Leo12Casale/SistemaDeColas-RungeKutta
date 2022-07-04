@@ -115,11 +115,9 @@ namespace TPFinal.Modelo
         private DataTable crearTabla()
         {
             DataTable tabla = new DataTable();
-            string[] columnas = new string[] { "t", "M", "K1", "K2", "K3", "K4", "t(i+1)", "M(t+i)"};
+            string[] columnas = new string[] { "ti", "Mi", "K1", "K2", "K3", "K4", "t(i+1)", "M(t+i)"};
             for (int i = 0; i < columnas.Length; i++)
-            {
                 tabla.Columns.Add(columnas[i]);
-            }
             return tabla;
         }
 

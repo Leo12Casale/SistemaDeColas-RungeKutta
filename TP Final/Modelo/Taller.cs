@@ -18,7 +18,6 @@ namespace TP_Final.Modelo
         private float mediaAtencionB;
         private float desvEstandarAtencionB;
         private int cantidadMaxTrabajosMinuto;
-        bool indiceTrabajosNoDestruidosCalculado;
         int indiceTrabajosNoDestruidos;
 
         public DataTable TablaSimulacion { get => tablaSimulacion; set => tablaSimulacion = value; }
@@ -40,7 +39,6 @@ namespace TP_Final.Modelo
             GeneradorRNDLlegadaTrabajos = new Random();
             GeneradorRNDAtencionA = new Random();
             GeneradorRNDAtencionB = new Random();
-            indiceTrabajosNoDestruidosCalculado = false;
             indiceTrabajosNoDestruidos = 0;
         }
 
@@ -103,6 +101,12 @@ namespace TP_Final.Modelo
                 //Si se supera el tiempo de simulación, agrego la ultima fila y termino la simulacion
                 if (proximoTiempo > cantSimulacion) 
                 {
+                    //Acumular el tiempo si justo antes de finalizar la simlación, el centro A estaba detenido
+                    if (filaAnterior.EstadoCentroA == Fila.estadoDetenido)
+                    {
+                        filaAnterior.TiempoACCentroADetenido += cantSimulacion - filaAnterior.Reloj;
+                        Fila.TiempoACCentroADetenido = filaAnterior.TiempoACCentroADetenido;
+                    }
                     crearFilaFinSimulacion(filaAnterior, cantSimulacion);
                     agregarFilaTabla(filaAnterior);
                     break;
@@ -168,16 +172,12 @@ namespace TP_Final.Modelo
         private void agregarFilaTabla(Fila fila)
         {
             //Tomo el indice 
-            if (!indiceTrabajosNoDestruidosCalculado)
+            for (int i = indiceTrabajosNoDestruidos; i < fila.Trabajos.Count; i++)
             {
-                for (int i = 0; i < fila.Trabajos.Count; i++)
+                if (fila.Trabajos[i].Estado != Trabajo.estadoDestruido)
                 {
-                    if (fila.Trabajos[i].Estado != Trabajo.estadoDestruido)
-                    {
-                        indiceTrabajosNoDestruidos = i;
-                        indiceTrabajosNoDestruidosCalculado = true;
-                        break;
-                    }
+                    indiceTrabajosNoDestruidos = i;
+                    break;
                 }
             }
             int tamañoFilaTabla = 39;

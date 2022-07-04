@@ -39,6 +39,7 @@ namespace TPFinal.Presentacion
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,18 +48,18 @@ namespace TPFinal.Presentacion
             this.lbl_titulo.AutoSize = true;
             this.lbl_titulo.BackColor = System.Drawing.Color.Transparent;
             this.lbl_titulo.Font = new System.Drawing.Font("Microsoft YaHei UI", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbl_titulo.Location = new System.Drawing.Point(12, 11);
+            this.lbl_titulo.Location = new System.Drawing.Point(143, 27);
             this.lbl_titulo.Name = "lbl_titulo";
-            this.lbl_titulo.Size = new System.Drawing.Size(263, 40);
+            this.lbl_titulo.Size = new System.Drawing.Size(430, 40);
             this.lbl_titulo.TabIndex = 0;
-            this.lbl_titulo.Text = "TRABAJO FINAL";
+            this.lbl_titulo.Text = "TRABAJO PRÁCTICO FINAL";
             // 
             // lbl_subtitulo
             // 
             this.lbl_subtitulo.AutoSize = true;
             this.lbl_subtitulo.BackColor = System.Drawing.Color.Transparent;
             this.lbl_subtitulo.Font = new System.Drawing.Font("Microsoft YaHei UI", 17F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbl_subtitulo.Location = new System.Drawing.Point(14, 61);
+            this.lbl_subtitulo.Location = new System.Drawing.Point(12, 83);
             this.lbl_subtitulo.Name = "lbl_subtitulo";
             this.lbl_subtitulo.Size = new System.Drawing.Size(398, 30);
             this.lbl_subtitulo.TabIndex = 1;
@@ -69,7 +70,7 @@ namespace TPFinal.Presentacion
             this.lbl_integrantes.AutoSize = true;
             this.lbl_integrantes.BackColor = System.Drawing.Color.Transparent;
             this.lbl_integrantes.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbl_integrantes.Location = new System.Drawing.Point(17, 177);
+            this.lbl_integrantes.Location = new System.Drawing.Point(12, 224);
             this.lbl_integrantes.Name = "lbl_integrantes";
             this.lbl_integrantes.Size = new System.Drawing.Size(256, 20);
             this.lbl_integrantes.TabIndex = 2;
@@ -94,7 +95,7 @@ namespace TPFinal.Presentacion
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(365, 177);
+            this.label1.Location = new System.Drawing.Point(365, 224);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(284, 60);
             this.label1.TabIndex = 7;
@@ -106,7 +107,7 @@ namespace TPFinal.Presentacion
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(16, 151);
+            this.label2.Location = new System.Drawing.Point(12, 198);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(69, 19);
             this.label2.TabIndex = 6;
@@ -117,7 +118,7 @@ namespace TPFinal.Presentacion
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(364, 151);
+            this.label3.Location = new System.Drawing.Point(364, 198);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(80, 19);
             this.label3.TabIndex = 8;
@@ -147,6 +148,17 @@ namespace TPFinal.Presentacion
             this.label4.TabIndex = 10;
             this.label4.Text = "Facultad Regional de Córdoba\r\nSimulación 4K1 2022";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(12, 125);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(104, 21);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Ejercicio 311";
+            // 
             // frm_splash_screen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 16F);
@@ -156,6 +168,7 @@ namespace TPFinal.Presentacion
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(731, 390);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label3);
@@ -172,7 +185,7 @@ namespace TPFinal.Presentacion
             this.MaximizeBox = false;
             this.Name = "frm_splash_screen";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Trabajo Final";
+            this.Text = "Trabajo Práctico Final";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -190,5 +203,6 @@ namespace TPFinal.Presentacion
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label4;
+        private Label label5;
     }
 }

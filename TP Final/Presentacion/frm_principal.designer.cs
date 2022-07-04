@@ -117,6 +117,7 @@ namespace TPFinal.Presentacion
             this.tabControl1.Controls.Add(this.tab_RK_1trabajo);
             this.tabControl1.Controls.Add(this.tab_RK_2trabajos);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -333,11 +334,6 @@ namespace TPFinal.Presentacion
             65536});
             this.nud_tiempo_limite_sup_atencionA.Location = new System.Drawing.Point(244, 296);
             this.nud_tiempo_limite_sup_atencionA.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nud_tiempo_limite_sup_atencionA.Maximum = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
             this.nud_tiempo_limite_sup_atencionA.Minimum = new decimal(new int[] {
             1,
             0,
@@ -358,11 +354,11 @@ namespace TPFinal.Presentacion
             // 
             this.lbl_distribucion_eventos.AutoSize = true;
             this.lbl_distribucion_eventos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbl_distribucion_eventos.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lbl_distribucion_eventos.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbl_distribucion_eventos.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbl_distribucion_eventos.Location = new System.Drawing.Point(0, 183);
+            this.lbl_distribucion_eventos.Location = new System.Drawing.Point(6, 181);
             this.lbl_distribucion_eventos.Name = "lbl_distribucion_eventos";
-            this.lbl_distribucion_eventos.Size = new System.Drawing.Size(142, 15);
+            this.lbl_distribucion_eventos.Size = new System.Drawing.Size(166, 19);
             this.lbl_distribucion_eventos.TabIndex = 67;
             this.lbl_distribucion_eventos.Text = "Distribuciones de Eventos";
             // 
@@ -376,11 +372,6 @@ namespace TPFinal.Presentacion
             65536});
             this.nud_DE_atencionB.Location = new System.Drawing.Point(245, 372);
             this.nud_DE_atencionB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nud_DE_atencionB.Maximum = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
             this.nud_DE_atencionB.Name = "nud_DE_atencionB";
             this.nud_DE_atencionB.Size = new System.Drawing.Size(88, 23);
             this.nud_DE_atencionB.TabIndex = 8;
@@ -475,11 +466,6 @@ namespace TPFinal.Presentacion
             65536});
             this.nud_media_atencionB.Location = new System.Drawing.Point(244, 332);
             this.nud_media_atencionB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nud_media_atencionB.Maximum = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
             this.nud_media_atencionB.Minimum = new decimal(new int[] {
             1,
             0,
@@ -541,7 +527,7 @@ namespace TPFinal.Presentacion
             this.nud_tiempo_medio_llegadas.Location = new System.Drawing.Point(244, 215);
             this.nud_tiempo_medio_llegadas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nud_tiempo_medio_llegadas.Maximum = new decimal(new int[] {
-            60,
+            1000,
             0,
             0,
             0});
@@ -600,11 +586,6 @@ namespace TPFinal.Presentacion
             65536});
             this.nud_tiempo_limite_inf_atencionA.Location = new System.Drawing.Point(244, 256);
             this.nud_tiempo_limite_inf_atencionA.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nud_tiempo_limite_inf_atencionA.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
             this.nud_tiempo_limite_inf_atencionA.Name = "nud_tiempo_limite_inf_atencionA";
             this.nud_tiempo_limite_inf_atencionA.Size = new System.Drawing.Size(88, 23);
             this.nud_tiempo_limite_inf_atencionA.TabIndex = 5;
@@ -677,7 +658,7 @@ namespace TPFinal.Presentacion
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgv_simulacion.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dgv_simulacion.Location = new System.Drawing.Point(6, 18);
+            this.dgv_simulacion.Location = new System.Drawing.Point(0, 2);
             this.dgv_simulacion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgv_simulacion.Name = "dgv_simulacion";
             this.dgv_simulacion.ReadOnly = true;
@@ -686,7 +667,7 @@ namespace TPFinal.Presentacion
             this.dgv_simulacion.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgv_simulacion.RowTemplate.Height = 24;
             this.dgv_simulacion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv_simulacion.Size = new System.Drawing.Size(1032, 876);
+            this.dgv_simulacion.Size = new System.Drawing.Size(1038, 892);
             this.dgv_simulacion.TabIndex = 0;
             // 
             // tab_RK_1trabajo
