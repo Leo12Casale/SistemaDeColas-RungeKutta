@@ -11,7 +11,7 @@ namespace TP_Final.Modelo
         private Random generadorRNDLlegadaTrabajos;
         private Random generadorRNDAtencionA;
         private Random generadorRNDAtencionB;
-        private RungeKutta rungeKutta = new RungeKutta();
+        private RungeKutta rungeKutta;
         private float mediaLlegadas;
         private float limiteInfAtencionA;
         private float limiteSupAtencionA;
@@ -33,9 +33,9 @@ namespace TP_Final.Modelo
         public float DesvEstandarAtencionB { get => desvEstandarAtencionB; set => desvEstandarAtencionB = value; }
         public int CantidadMaxTrabajosMinuto { get => cantidadMaxTrabajosMinuto; set => cantidadMaxTrabajosMinuto = value; }
 
-        public Taller()
+        public Taller(float indiceMojadoInicial, float indiceMojadoFinal, float pasoIntegracion)
         {
-            RungeKutta = new RungeKutta();
+            RungeKutta = new RungeKutta(indiceMojadoInicial, indiceMojadoFinal, pasoIntegracion);
             GeneradorRNDLlegadaTrabajos = new Random();
             GeneradorRNDAtencionA = new Random();
             GeneradorRNDAtencionB = new Random();

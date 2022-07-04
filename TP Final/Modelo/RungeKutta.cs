@@ -11,31 +11,39 @@ namespace TPFinal.Modelo
         private double h;
         private double tiempoSecado1Trabajo;
         private double tiempoSecado2Trabajos;
+        private float indiceMojadoInicial;
+        private float indiceMojadoFinal;
 
         private DataTable tabla1Trabajo;
         private DataTable tabla2Trabajos;
 
         public DataTable Tabla1Trabajo { get => tabla1Trabajo; set => tabla1Trabajo = value; }
         public DataTable Tabla2Trabajos { get => tabla2Trabajos; set => tabla2Trabajos = value; }
+        public float IndiceMojadoInicial { get => indiceMojadoInicial; set => indiceMojadoInicial = value; }
+        public float IndiceMojadoFinal { get => indiceMojadoFinal; set => indiceMojadoFinal = value; }
+        public double TiempoSecado1Trabajo { get => tiempoSecado1Trabajo; set => tiempoSecado1Trabajo = value; }
+        public double TiempoSecado2Trabajos { get => tiempoSecado2Trabajos; set => tiempoSecado2Trabajos = value; }
 
-        public RungeKutta()
+        public RungeKutta(float indiceMojadoInicial, float indiceMojadoFinal, float h)
         {
-            this.h = 1;
-            tiempoSecado1Trabajo = 0;
-            tiempoSecado2Trabajos = 0;
+            this.h = h;
+            IndiceMojadoInicial = indiceMojadoInicial;
+            IndiceMojadoFinal = indiceMojadoFinal;
+            TiempoSecado1Trabajo = 0;
+            TiempoSecado2Trabajos = 0;
         }
 
         public double integracionNumerica(double reloj, string tipo) 
         {
-            if (tipo == unTrabajo && tiempoSecado1Trabajo != 0)
-                return tiempoSecado1Trabajo;
-            if (tipo == dosTrabajos && tiempoSecado2Trabajos != 0)
-                return tiempoSecado2Trabajos;
+            if (tipo == unTrabajo && TiempoSecado1Trabajo != 0)
+                return TiempoSecado1Trabajo;
+            if (tipo == dosTrabajos && TiempoSecado2Trabajos != 0)
+                return TiempoSecado2Trabajos;
             Fila fila = new Fila();
 
             //Instante inicial M(0)=100
             fila.Tiempo = 0;
-            fila.IndiceSecado = 100;
+            fila.IndiceSecado = IndiceMojadoInicial;
 
             switch (tipo)
             {
@@ -54,10 +62,9 @@ namespace TPFinal.Modelo
 
                         agregarFilaTabla(fila, Tabla1Trabajo);
 
-                        if (fila.IndiceSecado <  1)
+                        if (fila.IndiceSecado <  indiceMojadoFinal)
                         {
-                            Tabla1Trabajo.Rows.Add();
-                            tiempoSecado1Trabajo = fila.Tiempo;
+                            TiempoSecado1Trabajo = fila.Tiempo;
                             return fila.Tiempo;
                         }
 
@@ -81,10 +88,9 @@ namespace TPFinal.Modelo
 
                         agregarFilaTabla(fila, Tabla2Trabajos);
 
-                        if (fila.IndiceSecado < 1)
+                        if (fila.IndiceSecado < indiceMojadoFinal)
                         {
-                            Tabla2Trabajos.Rows.Add();
-                            tiempoSecado2Trabajos = fila.Tiempo;
+                            TiempoSecado2Trabajos = fila.Tiempo;
                             return fila.Tiempo;
                         }
 
