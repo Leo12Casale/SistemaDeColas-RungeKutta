@@ -141,10 +141,10 @@ namespace TPFinal.Presentacion
 
                     lbl_condicion_inicial_ec_dif_1trabajo.Text = "Condición Inicial: M(0) = " + nud_indice_mojado.Value.ToString();
                     lbl_condicion_final_ec_dif_1trabajo.Text = "Condición Final: M < " + nud_indice_seco.Value.ToString();
-                    lbl_resultado_RK_1trabajo.Text = "Resultado (M < " + nud_indice_seco.Value.ToString() + "): " + (Math.Truncate(1000 * taller.RungeKutta.TiempoSecado1Trabajo) / 1000).ToString() + " mins.";
+                    lbl_resultado_RK_1trabajo.Text = "Resultado (M < " + nud_indice_seco.Value.ToString() + "): " + (Math.Truncate(100 * taller.RungeKutta.TiempoSecado1Trabajo) / 100).ToString() + " mins.";
                     lbl_condicion_inicial_ec_dif_2trabajos.Text = "Condición Inicial: M(0) = " + nud_indice_mojado.Value.ToString();
                     lbl_condicion_final_ec_dif_2trabajos.Text = "Condición Final: M < " + nud_indice_seco.Value.ToString();
-                    lbl_resultado_RK_2trabajos.Text = "Resultado (M < " + nud_indice_seco.Value.ToString() + "): " + (Math.Truncate(1000 * taller.RungeKutta.TiempoSecado2Trabajos) / 1000).ToString() + " mins.";
+                    lbl_resultado_RK_2trabajos.Text = "Resultado (M < " + nud_indice_seco.Value.ToString() + "): " + (Math.Truncate(100 * taller.RungeKutta.TiempoSecado2Trabajos) / 100).ToString() + " mins.";
                 }
                 catch
                 {
@@ -180,6 +180,7 @@ namespace TPFinal.Presentacion
             dgv_simulacion.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dgv_simulacion.Columns[1].Frozen = true;
             dgv_simulacion.Columns[1].Width = 65;
+
             dgv_simulacion.Columns[dgv_simulacion.Columns.Count - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dgv_simulacion.Columns[dgv_simulacion.Columns.Count - 1].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dgv_simulacion.Columns[dgv_simulacion.Columns.Count - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;

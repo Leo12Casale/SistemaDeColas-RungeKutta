@@ -8,9 +8,9 @@ namespace TPFinal.Modelo
         public const String unTrabajo = "1 trabajo";
         public const String dosTrabajos = "2 trabajos";
 
-        private double h;
-        private double tiempoSecado1Trabajo;
-        private double tiempoSecado2Trabajos;
+        private float h;
+        private float tiempoSecado1Trabajo;
+        private float tiempoSecado2Trabajos;
         private float indiceMojadoInicial;
         private float indiceMojadoFinal;
 
@@ -21,8 +21,8 @@ namespace TPFinal.Modelo
         public DataTable Tabla2Trabajos { get => tabla2Trabajos; set => tabla2Trabajos = value; }
         public float IndiceMojadoInicial { get => indiceMojadoInicial; set => indiceMojadoInicial = value; }
         public float IndiceMojadoFinal { get => indiceMojadoFinal; set => indiceMojadoFinal = value; }
-        public double TiempoSecado1Trabajo { get => tiempoSecado1Trabajo; set => tiempoSecado1Trabajo = value; }
-        public double TiempoSecado2Trabajos { get => tiempoSecado2Trabajos; set => tiempoSecado2Trabajos = value; }
+        public float TiempoSecado1Trabajo { get => tiempoSecado1Trabajo; set => tiempoSecado1Trabajo = value; }
+        public float TiempoSecado2Trabajos { get => tiempoSecado2Trabajos; set => tiempoSecado2Trabajos = value; }
 
         public RungeKutta(float indiceMojadoInicial, float indiceMojadoFinal, float h)
         {
@@ -33,7 +33,7 @@ namespace TPFinal.Modelo
             TiempoSecado2Trabajos = 0;
         }
 
-        public double integracionNumerica(double reloj, string tipo) 
+        public float integracionNumerica(float reloj, string tipo) 
         {
             if (tipo == unTrabajo && TiempoSecado1Trabajo != 0)
                 return TiempoSecado1Trabajo;
@@ -64,8 +64,8 @@ namespace TPFinal.Modelo
 
                         if (fila.IndiceSecado <  indiceMojadoFinal)
                         {
-                            TiempoSecado1Trabajo = fila.Tiempo;
-                            return fila.Tiempo;
+                            TiempoSecado1Trabajo = truncar2Decimales(fila.Tiempo);
+                            return TiempoSecado1Trabajo;
                         }
 
                         //Para fila siguiente
@@ -90,8 +90,8 @@ namespace TPFinal.Modelo
 
                         if (fila.IndiceSecado < indiceMojadoFinal)
                         {
-                            TiempoSecado2Trabajos = fila.Tiempo;
-                            return fila.Tiempo;
+                            TiempoSecado2Trabajos = truncar2Decimales(fila.Tiempo);
+                            return TiempoSecado2Trabajos;
                         }
 
                         //Para fila siguiente
@@ -103,19 +103,24 @@ namespace TPFinal.Modelo
             }
         }
 
-        public double ecuacionDiferencialUnTrabajo(double tiempo, double indiceSecado)
+        public float ecuacionDiferencialUnTrabajo(float tiempo, float indiceSecado)
         {
-            return -0.05 * indiceSecado -0.0001 * tiempo;
+            return (float) (-0.05 * indiceSecado -0.0001 * tiempo);
         }
 
-        public double ecuacionDiferencialDosTrabajos(double tiempo, double indiceSecado)
+        public float ecuacionDiferencialDosTrabajos(float tiempo, float indiceSecado)
         {
-            return -0.05 * indiceSecado + 0.04 - 0.0001 * tiempo;
+            return (float) (-0.05 * indiceSecado + 0.04 - 0.0001 * tiempo);
         }
 
-        private double truncar(double numero)
+        private float truncar(float numero)
         {
-            return Math.Truncate(1000 * numero) / 1000;
+            return (float) Math.Truncate(1000 * numero) / 1000;
+        }
+
+        private float truncar2Decimales(float numero)
+        {
+            return (float)Math.Truncate(100 * numero) / 100;
         }
 
         private DataTable crearTabla()
@@ -129,28 +134,28 @@ namespace TPFinal.Modelo
 
         private void agregarFilaTabla(Fila fila, DataTable tabla)
         { 
-            tabla.Rows.Add(truncar(fila.Tiempo), truncar(fila.IndiceSecado), truncar(fila.K1), truncar(fila.K2), truncar(fila.K3), truncar(fila.K4), truncar(fila.TiempoSiguiente), truncar(fila.IndiceSecadoSiguiente));
+            tabla.Rows.Add(truncar2Decimales(fila.Tiempo).ToString(), truncar(fila.IndiceSecado), truncar(fila.K1), truncar(fila.K2), truncar(fila.K3), truncar(fila.K4), truncar(fila.TiempoSiguiente), truncar(fila.IndiceSecadoSiguiente));
         }
 
         internal class Fila
         {
-            private double tiempo;
-            private double indiceSecado;
-            private double k1;
-            private double k2;
-            private double k3;
-            private double k4;
-            private double tiempoSiguiente;
-            private double indiceSecadoSiguiente;
+            private float tiempo;
+            private float indiceSecado;
+            private float k1;
+            private float k2;
+            private float k3;
+            private float k4;
+            private float tiempoSiguiente;
+            private float indiceSecadoSiguiente;
 
-            public double Tiempo { get => tiempo; set => tiempo = value; }
-            public double IndiceSecado { get => indiceSecado; set => indiceSecado = value; }
-            public double K1 { get => k1; set => k1 = value; }
-            public double K2 { get => k2; set => k2 = value; }
-            public double K3 { get => k3; set => k3 = value; }
-            public double K4 { get => k4; set => k4 = value; }
-            public double TiempoSiguiente { get => tiempoSiguiente; set => tiempoSiguiente = value; }
-            public double IndiceSecadoSiguiente { get => indiceSecadoSiguiente; set => indiceSecadoSiguiente = value; }
+            public float Tiempo { get => tiempo; set => tiempo = value; }
+            public float IndiceSecado { get => indiceSecado; set => indiceSecado = value; }
+            public float K1 { get => k1; set => k1 = value; }
+            public float K2 { get => k2; set => k2 = value; }
+            public float K3 { get => k3; set => k3 = value; }
+            public float K4 { get => k4; set => k4 = value; }
+            public float TiempoSiguiente { get => tiempoSiguiente; set => tiempoSiguiente = value; }
+            public float IndiceSecadoSiguiente { get => indiceSecadoSiguiente; set => indiceSecadoSiguiente = value; }
         }
     }
 }

@@ -364,11 +364,6 @@ namespace TPFinal.Presentacion
             65536});
             this.nud_indice_seco.Location = new System.Drawing.Point(243, 397);
             this.nud_indice_seco.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nud_indice_seco.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
             this.nud_indice_seco.Name = "nud_indice_seco";
             this.nud_indice_seco.Size = new System.Drawing.Size(88, 23);
             this.nud_indice_seco.TabIndex = 10;
@@ -399,11 +394,6 @@ namespace TPFinal.Presentacion
             65536});
             this.nud_indice_mojado.Location = new System.Drawing.Point(243, 366);
             this.nud_indice_mojado.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nud_indice_mojado.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
             this.nud_indice_mojado.Name = "nud_indice_mojado";
             this.nud_indice_mojado.Size = new System.Drawing.Size(88, 23);
             this.nud_indice_mojado.TabIndex = 9;
@@ -515,6 +505,16 @@ namespace TPFinal.Presentacion
             65536});
             this.nud_DE_atencionB.Location = new System.Drawing.Point(243, 308);
             this.nud_DE_atencionB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nud_DE_atencionB.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nud_DE_atencionB.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             this.nud_DE_atencionB.Name = "nud_DE_atencionB";
             this.nud_DE_atencionB.Size = new System.Drawing.Size(88, 23);
             this.nud_DE_atencionB.TabIndex = 8;
