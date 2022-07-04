@@ -519,16 +519,20 @@ namespace TP_Final.Modelo
         private void calcularTiemposAtencionCentroB()
         {
             //Tiempo Atencion Centro B
-            if (CrearRNDsNormal) //Si los RNDs no se crearon, crearlos
+            float tiempoAtencionB = -1;
+            while (tiempoAtencionB < 0)
             {
-                RND1AtencionB = (float)Math.Truncate(1000 * Taller.GeneradorRNDAtencionB.NextDouble()) / 1000;
-                RND2AtencionB = (float)Math.Truncate(1000 * Taller.GeneradorRNDAtencionB.NextDouble()) / 1000;
-                CrearRNDsNormal = false;
+                if (CrearRNDsNormal) //Si los RNDs no se crearon, crearlos
+                {
+                    RND1AtencionB = (float)Math.Truncate(1000 * Taller.GeneradorRNDAtencionB.NextDouble()) / 1000;
+                    RND2AtencionB = (float)Math.Truncate(1000 * Taller.GeneradorRNDAtencionB.NextDouble()) / 1000;
+                    CrearRNDsNormal = false;
+                }
+                else //Si los RNDs se usaron una vez, usar los mismos y settear true para que la proxima vez se creen de nuevo
+                    CrearRNDsNormal = true;
+                tiempoAtencionB = calcularTiempoAtencionB(RND1AtencionB, RND2AtencionB, CrearRNDsNormal);
             }
-            else //Si los RNDs se usaron una vez, usar los mismos y settear true para que la proxima vez se creen de nuevo
-                CrearRNDsNormal = true;
-
-            TiempoAtencionB = calcularTiempoAtencionB(RND1AtencionB, RND2AtencionB, CrearRNDsNormal);
+            TiempoAtencionB = tiempoAtencionB;
             proximoFinAtencionB = Reloj + TiempoAtencionB;
         }
 
@@ -580,13 +584,13 @@ namespace TP_Final.Modelo
 
         private float calcularTiempoAtencionB(float RND1, float RND2, bool segundoCalculo)
         {
-            RND1 = RND1 != 0 ? RND1 : (float) 0.00001;
+            RND1 = RND1 != 0 ? RND1 : (float) 0.000001;
             if (!segundoCalculo)
             {
-                return (float) Math.Abs((Math.Sqrt(-2 * Math.Log(RND1)) * Math.Cos(2 * Math.PI * RND2)) * Taller.DesvEstandarAtencionB + Taller.MediaAtencionB);
+                return (float) (Math.Sqrt(-2 * Math.Log(RND1)) * Math.Cos(2 * Math.PI * RND2)) * Taller.DesvEstandarAtencionB + Taller.MediaAtencionB;
 
             }
-            return (float) Math.Abs((Math.Sqrt(-2 * Math.Log(RND1)) * Math.Sin(2 * Math.PI * RND2)) * Taller.DesvEstandarAtencionB + Taller.MediaAtencionB);
+            return (float) (Math.Sqrt(-2 * Math.Log(RND1)) * Math.Sin(2 * Math.PI * RND2)) * Taller.DesvEstandarAtencionB + Taller.MediaAtencionB;
         }
 
         public static List<String> getColumnas()
@@ -627,10 +631,10 @@ namespace TP_Final.Modelo
             columnas.Add("Cola de Centro B (máx. 3)");
 
             //ESTADÍSTICAS
-            columnas.Add("Contador de Trabajos en Sistema");
+            columnas.Add("Cantidad de Trabajos en Sistema");
             columnas.Add("Cantidad Máxima de Trabajos en Sistema");
             columnas.Add("Tiempo AC de Centro A detenido");
-            columnas.Add("Contador de Trabajos Finalizados");
+            columnas.Add("Cantidad de Trabajos Finalizados");
             columnas.Add("Tiempo AC de Permanencia Trabajos Finalizados");
 
             //OBJETOS TEMPORALES

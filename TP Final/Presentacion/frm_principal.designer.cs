@@ -173,7 +173,7 @@ namespace TPFinal.Presentacion
             this.gb_metricas.Controls.Add(this.lbl_tiempo_parada_centroA);
             this.gb_metricas.Controls.Add(this.lbl_cant_maxima_trabajos_value);
             this.gb_metricas.Controls.Add(this.lbl_cant_maxima_trabajos);
-            this.gb_metricas.Location = new System.Drawing.Point(8, 487);
+            this.gb_metricas.Location = new System.Drawing.Point(8, 497);
             this.gb_metricas.Margin = new System.Windows.Forms.Padding(4);
             this.gb_metricas.Name = "gb_metricas";
             this.gb_metricas.Padding = new System.Windows.Forms.Padding(4);
@@ -195,7 +195,7 @@ namespace TPFinal.Presentacion
             // lbl_cant_max_trabajos_min
             // 
             this.lbl_cant_max_trabajos_min.AutoSize = true;
-            this.lbl_cant_max_trabajos_min.Location = new System.Drawing.Point(11, 64);
+            this.lbl_cant_max_trabajos_min.Location = new System.Drawing.Point(9, 64);
             this.lbl_cant_max_trabajos_min.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_cant_max_trabajos_min.Name = "lbl_cant_max_trabajos_min";
             this.lbl_cant_max_trabajos_min.Size = new System.Drawing.Size(246, 15);
@@ -215,7 +215,7 @@ namespace TPFinal.Presentacion
             // lbl_tiempo_prom_trabajo
             // 
             this.lbl_tiempo_prom_trabajo.AutoSize = true;
-            this.lbl_tiempo_prom_trabajo.Location = new System.Drawing.Point(11, 125);
+            this.lbl_tiempo_prom_trabajo.Location = new System.Drawing.Point(9, 125);
             this.lbl_tiempo_prom_trabajo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_tiempo_prom_trabajo.Name = "lbl_tiempo_prom_trabajo";
             this.lbl_tiempo_prom_trabajo.Size = new System.Drawing.Size(226, 15);
@@ -235,7 +235,7 @@ namespace TPFinal.Presentacion
             // lbl_tiempo_parada_centroA
             // 
             this.lbl_tiempo_parada_centroA.AutoSize = true;
-            this.lbl_tiempo_parada_centroA.Location = new System.Drawing.Point(11, 95);
+            this.lbl_tiempo_parada_centroA.Location = new System.Drawing.Point(9, 95);
             this.lbl_tiempo_parada_centroA.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_tiempo_parada_centroA.Name = "lbl_tiempo_parada_centroA";
             this.lbl_tiempo_parada_centroA.Size = new System.Drawing.Size(260, 15);
@@ -255,12 +255,12 @@ namespace TPFinal.Presentacion
             // lbl_cant_maxima_trabajos
             // 
             this.lbl_cant_maxima_trabajos.AutoSize = true;
-            this.lbl_cant_maxima_trabajos.Location = new System.Drawing.Point(11, 36);
+            this.lbl_cant_maxima_trabajos.Location = new System.Drawing.Point(9, 36);
             this.lbl_cant_maxima_trabajos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_cant_maxima_trabajos.Name = "lbl_cant_maxima_trabajos";
-            this.lbl_cant_maxima_trabajos.Size = new System.Drawing.Size(200, 15);
+            this.lbl_cant_maxima_trabajos.Size = new System.Drawing.Size(270, 15);
             this.lbl_cant_maxima_trabajos.TabIndex = 8;
-            this.lbl_cant_maxima_trabajos.Text = "Cant. máx. de trabajos en el Sistema:";
+            this.lbl_cant_maxima_trabajos.Text = "Cant. máx. de trabajos en el Sistema (Simulación):";
             // 
             // gb_parametros
             // 
@@ -535,7 +535,7 @@ namespace TPFinal.Presentacion
             1,
             0,
             0,
-            65536});
+            0});
             this.nud_tiempo_medio_llegadas.Name = "nud_tiempo_medio_llegadas";
             this.nud_tiempo_medio_llegadas.Size = new System.Drawing.Size(88, 23);
             this.nud_tiempo_medio_llegadas.TabIndex = 4;
@@ -599,10 +599,10 @@ namespace TPFinal.Presentacion
             // 
             // btn_generar
             // 
-            this.btn_generar.Location = new System.Drawing.Point(191, 431);
+            this.btn_generar.Location = new System.Drawing.Point(190, 432);
             this.btn_generar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_generar.Name = "btn_generar";
-            this.btn_generar.Size = new System.Drawing.Size(178, 50);
+            this.btn_generar.Size = new System.Drawing.Size(182, 50);
             this.btn_generar.TabIndex = 0;
             this.btn_generar.Text = "Generar Simulación";
             this.btn_generar.UseVisualStyleBackColor = true;
@@ -610,10 +610,10 @@ namespace TPFinal.Presentacion
             // 
             // btn_restablecer
             // 
-            this.btn_restablecer.Location = new System.Drawing.Point(7, 431);
+            this.btn_restablecer.Location = new System.Drawing.Point(7, 432);
             this.btn_restablecer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_restablecer.Name = "btn_restablecer";
-            this.btn_restablecer.Size = new System.Drawing.Size(178, 50);
+            this.btn_restablecer.Size = new System.Drawing.Size(182, 50);
             this.btn_restablecer.TabIndex = 1;
             this.btn_restablecer.Text = "Restablecer";
             this.btn_restablecer.UseVisualStyleBackColor = true;

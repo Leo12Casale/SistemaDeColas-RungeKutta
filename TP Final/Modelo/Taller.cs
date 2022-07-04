@@ -247,8 +247,11 @@ namespace TP_Final.Modelo
             ultimaFila.Evento = "Fin Simulación";
             ultimaFila.RNDLlegadaTrabajo = float.NaN;
             ultimaFila.RNDAtencionA = float.NaN;
-            ultimaFila.RND1AtencionB = float.NaN;
-            ultimaFila.RND2AtencionB = float.NaN;
+            if(ultimaFila.CrearRNDsNormal != false)
+            {
+                ultimaFila.RND1AtencionB = float.NaN;
+                ultimaFila.RND2AtencionB = float.NaN;
+            }
             ultimaFila.TiempoEntreLlegadas = 0;
             ultimaFila.TiempoAtencionA = 0;
             ultimaFila.TiempoAtencionB = 0;
