@@ -97,6 +97,18 @@ namespace TPFinal.Presentacion
             this.label2 = new System.Windows.Forms.Label();
             this.lbl_condicion_inicial_ec_dif_2trabajos = new System.Windows.Forms.Label();
             this.dgv_rk_2trabajos = new System.Windows.Forms.DataGridView();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tab_simulacion.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -123,6 +135,8 @@ namespace TPFinal.Presentacion
             this.tab_RK_2trabajos.SuspendLayout();
             this.gb_ec_dif_2trabajos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_rk_2trabajos)).BeginInit();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -130,6 +144,7 @@ namespace TPFinal.Presentacion
             this.tabControl1.Controls.Add(this.tab_simulacion);
             this.tabControl1.Controls.Add(this.tab_RK_1trabajo);
             this.tabControl1.Controls.Add(this.tab_RK_2trabajos);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -1014,6 +1029,132 @@ namespace TPFinal.Presentacion
             this.dgv_rk_2trabajos.Size = new System.Drawing.Size(1034, 824);
             this.dgv_rk_2trabajos.TabIndex = 64;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.pictureBox1);
+            this.tabPage1.Controls.Add(this.label15);
+            this.tabPage1.Controls.Add(this.label11);
+            this.tabPage1.Controls.Add(this.label12);
+            this.tabPage1.Controls.Add(this.label13);
+            this.tabPage1.Controls.Add(this.label14);
+            this.tabPage1.Controls.Add(this.label9);
+            this.tabPage1.Controls.Add(this.label10);
+            this.tabPage1.Controls.Add(this.label8);
+            this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.label4);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(1438, 910);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "Estados de Trabajos";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(449, 103);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(501, 488);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label15.Location = new System.Drawing.Point(600, 41);
+            this.label15.Name = "label15";
+            this.label15.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label15.Size = new System.Drawing.Size(209, 32);
+            this.label15.TabIndex = 11;
+            this.label15.Text = "Diagrama de Flujo";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(73, 313);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(88, 15);
+            this.label11.TabIndex = 8;
+            this.label11.Text = "X     - Destruido";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(73, 283);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(183, 15);
+            this.label12.TabIndex = 7;
+            this.label12.Text = "SAS - Siendo Atendido en Secado";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(73, 253);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(152, 15);
+            this.label13.TabIndex = 6;
+            this.label13.Text = "DB   - Detenido en Centro B";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(73, 223);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(192, 15);
+            this.label14.TabIndex = 5;
+            this.label14.Text = "SAB - Siendo Atendido en Centro B";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(73, 193);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(210, 15);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "EAB - Esperando Atención de Centro B";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(73, 163);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(157, 15);
+            this.label10.TabIndex = 3;
+            this.label10.Text = "DA   - Detenido en Centro A ";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(73, 133);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(194, 15);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "SAA - Siendo Atendido en Centro A";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(73, 103);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(215, 15);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "EAA - Esperando Atención de Centro A ";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(50, 41);
+            this.label4.Name = "label4";
+            this.label4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label4.Size = new System.Drawing.Size(222, 32);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Estados de Trabajos";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frm_principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1059,6 +1200,9 @@ namespace TPFinal.Presentacion
             this.gb_ec_dif_2trabajos.ResumeLayout(false);
             this.gb_ec_dif_2trabajos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_rk_2trabajos)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
     }
@@ -1123,5 +1267,17 @@ namespace TPFinal.Presentacion
         private Label lbl_resultado_RK_2trabajos;
         private NumericUpDown nud_paso_integracion;
         private Label lbl_paso_integracion;
+        private TabPage tabPage1;
+        private Label label4;
+        private Label label11;
+        private Label label12;
+        private Label label13;
+        private Label label14;
+        private Label label9;
+        private Label label10;
+        private Label label8;
+        private Label label5;
+        private PictureBox pictureBox1;
+        private Label label15;
     }
 }

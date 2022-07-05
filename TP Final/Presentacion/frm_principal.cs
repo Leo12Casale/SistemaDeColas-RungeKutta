@@ -115,29 +115,14 @@ namespace TPFinal.Presentacion
                     dgv_simulacion.DataSource = taller.TablaSimulacion;
 
                     //Propiedades de la tabla principal
-                    setPropiedadesTabla(dgv_simulacion);
+                    setPropiedadesTablaSimulacion();
 
                     //Carga de datos solicitados en consigna
                     cargarMetricas(taller);
 
                     //Carga y setteo de estilos de las tablas RK
-                    tab_RK_1trabajo.Show();
-                    if (taller.RungeKutta.Tabla1Trabajo != null)
-                    {
-                        gb_ec_dif_1trabajo.Visible = true;
-                        dgv_rk_1trabajo.DataSource = taller.RungeKutta.Tabla1Trabajo;
-                        dgv_rk_1trabajo.Rows[dgv_rk_1trabajo.Rows.Count - 1].Cells[0].Style.BackColor = Color.IndianRed;
-                        dgv_rk_1trabajo.Rows[dgv_rk_1trabajo.Rows.Count - 1].Cells[1].Style.BackColor = Color.IndianRed;
-                    }
-
-                    tab_RK_2trabajos.Show();
-                    if (taller.RungeKutta.Tabla2Trabajos != null)
-                    {
-                        gb_ec_dif_2trabajos.Visible = true;
-                        dgv_rk_2trabajos.DataSource = taller.RungeKutta.Tabla2Trabajos;
-                        dgv_rk_2trabajos.Rows[dgv_rk_2trabajos.Rows.Count - 1].Cells[0].Style.BackColor = Color.IndianRed;
-                        dgv_rk_2trabajos.Rows[dgv_rk_2trabajos.Rows.Count - 1].Cells[1].Style.BackColor = Color.IndianRed;
-                    }
+                    setPropiedadesTablasRK(taller);
+                    
 
                     lbl_condicion_inicial_ec_dif_1trabajo.Text = "Condición Inicial: M(0) = " + nud_indice_mojado.Value.ToString();
                     lbl_condicion_final_ec_dif_1trabajo.Text = "Condición Final: M < " + nud_indice_seco.Value.ToString();
@@ -173,10 +158,10 @@ namespace TPFinal.Presentacion
             nud_paso_integracion.Value = 1;
         }
 
-        private void setPropiedadesTabla(DataGridView dataGridView)
+        private void setPropiedadesTablaSimulacion()
         {
             dgv_simulacion.Columns[0].Frozen = true;
-            dgv_simulacion.Columns[0].Width = 110;
+            dgv_simulacion.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dgv_simulacion.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dgv_simulacion.Columns[1].Frozen = true;
             dgv_simulacion.Columns[1].Width = 65;
@@ -187,6 +172,27 @@ namespace TPFinal.Presentacion
 
             foreach (DataGridViewColumn dgvc in dgv_simulacion.Columns)
                 dgvc.SortMode = DataGridViewColumnSortMode.NotSortable;
+        }
+
+        private void setPropiedadesTablasRK(Taller taller)
+        {
+            tab_RK_1trabajo.Show();
+            if (taller.RungeKutta.Tabla1Trabajo != null)
+            {
+                gb_ec_dif_1trabajo.Visible = true;
+                dgv_rk_1trabajo.DataSource = taller.RungeKutta.Tabla1Trabajo;
+                dgv_rk_1trabajo.Rows[dgv_rk_1trabajo.Rows.Count - 1].Cells[0].Style.BackColor = Color.IndianRed;
+                dgv_rk_1trabajo.Rows[dgv_rk_1trabajo.Rows.Count - 1].Cells[1].Style.BackColor = Color.IndianRed;
+            }
+
+            tab_RK_2trabajos.Show();
+            if (taller.RungeKutta.Tabla2Trabajos != null)
+            {
+                gb_ec_dif_2trabajos.Visible = true;
+                dgv_rk_2trabajos.DataSource = taller.RungeKutta.Tabla2Trabajos;
+                dgv_rk_2trabajos.Rows[dgv_rk_2trabajos.Rows.Count - 1].Cells[0].Style.BackColor = Color.IndianRed;
+                dgv_rk_2trabajos.Rows[dgv_rk_2trabajos.Rows.Count - 1].Cells[1].Style.BackColor = Color.IndianRed;
+            }
         }
 
         private void cargarMetricas(Taller taller)
