@@ -210,7 +210,6 @@ namespace TP_Final.Modelo
                 Trabajo nuevoTrabajo = new Trabajo(Trabajo.estadoEsperandoAtencionA, Reloj);
                 Trabajos.Add(nuevoTrabajo);
             }
-
             //Estadisticas
             contadorTrabajosEnSistema++;
         }
@@ -475,6 +474,8 @@ namespace TP_Final.Modelo
             }
             if (tiempoMinimo != float.MaxValue)
                 ProximoFinSecado = tiempoMinimo;
+            else
+                ProximoFinSecado = 0;
         }
 
         public int getCantidadTrabajosNoDestruidos()
@@ -570,7 +571,6 @@ namespace TP_Final.Modelo
         }
 
         //--------------------------------------------------------------------------------------------------------------------
-
         //Eventos asociadas a DISTRIBUCIONES
         private float calcularTiempoEntreLlegadas(float RND)
         {

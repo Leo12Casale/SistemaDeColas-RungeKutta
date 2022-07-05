@@ -337,7 +337,7 @@ namespace TPFinal.Presentacion
             0,
             0,
             131072});
-            this.nud_paso_integracion.Location = new System.Drawing.Point(243, 428);
+            this.nud_paso_integracion.Location = new System.Drawing.Point(256, 428);
             this.nud_paso_integracion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nud_paso_integracion.Maximum = new decimal(new int[] {
             10,
@@ -363,11 +363,11 @@ namespace TPFinal.Presentacion
             // lbl_paso_integracion
             // 
             this.lbl_paso_integracion.AutoSize = true;
-            this.lbl_paso_integracion.Location = new System.Drawing.Point(96, 430);
+            this.lbl_paso_integracion.Location = new System.Drawing.Point(113, 430);
             this.lbl_paso_integracion.Name = "lbl_paso_integracion";
-            this.lbl_paso_integracion.Size = new System.Drawing.Size(132, 15);
+            this.lbl_paso_integracion.Size = new System.Drawing.Size(124, 15);
             this.lbl_paso_integracion.TabIndex = 73;
-            this.lbl_paso_integracion.Text = "Paso de Integración (h):";
+            this.lbl_paso_integracion.Text = "Paso de Integración h:";
             // 
             // nud_indice_seco
             // 
@@ -377,7 +377,7 @@ namespace TPFinal.Presentacion
             0,
             0,
             65536});
-            this.nud_indice_seco.Location = new System.Drawing.Point(243, 397);
+            this.nud_indice_seco.Location = new System.Drawing.Point(256, 397);
             this.nud_indice_seco.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nud_indice_seco.Name = "nud_indice_seco";
             this.nud_indice_seco.Size = new System.Drawing.Size(88, 23);
@@ -393,11 +393,11 @@ namespace TPFinal.Presentacion
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(7, 399);
+            this.label7.Location = new System.Drawing.Point(58, 399);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(220, 15);
+            this.label7.Size = new System.Drawing.Size(179, 15);
             this.label7.TabIndex = 72;
-            this.label7.Text = "Índice de Mojado Final (Trabajo seco) < :";
+            this.label7.Text = "Índice (%) de Mojado Final M < :";
             // 
             // nud_indice_mojado
             // 
@@ -407,7 +407,7 @@ namespace TPFinal.Presentacion
             0,
             0,
             65536});
-            this.nud_indice_mojado.Location = new System.Drawing.Point(243, 366);
+            this.nud_indice_mojado.Location = new System.Drawing.Point(256, 366);
             this.nud_indice_mojado.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nud_indice_mojado.Name = "nud_indice_mojado";
             this.nud_indice_mojado.Size = new System.Drawing.Size(88, 23);
@@ -423,11 +423,11 @@ namespace TPFinal.Presentacion
             // lbl_indice_mojado
             // 
             this.lbl_indice_mojado.AutoSize = true;
-            this.lbl_indice_mojado.Location = new System.Drawing.Point(69, 368);
+            this.lbl_indice_mojado.Location = new System.Drawing.Point(66, 368);
             this.lbl_indice_mojado.Name = "lbl_indice_mojado";
-            this.lbl_indice_mojado.Size = new System.Drawing.Size(158, 15);
+            this.lbl_indice_mojado.Size = new System.Drawing.Size(171, 15);
             this.lbl_indice_mojado.TabIndex = 70;
-            this.lbl_indice_mojado.Text = "Índice de Mojado Inicial (M):";
+            this.lbl_indice_mojado.Text = "Índice (%) de Mojado Inicial M:";
             // 
             // label6
             // 
@@ -443,7 +443,7 @@ namespace TPFinal.Presentacion
             // 
             // nud_cant_max_trabajos
             // 
-            this.nud_cant_max_trabajos.Location = new System.Drawing.Point(243, 118);
+            this.nud_cant_max_trabajos.Location = new System.Drawing.Point(256, 116);
             this.nud_cant_max_trabajos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nud_cant_max_trabajos.Maximum = new decimal(new int[] {
             200000,
@@ -464,7 +464,7 @@ namespace TPFinal.Presentacion
             // lbl_cant_max_trabajos
             // 
             this.lbl_cant_max_trabajos.AutoSize = true;
-            this.lbl_cant_max_trabajos.Location = new System.Drawing.Point(45, 120);
+            this.lbl_cant_max_trabajos.Location = new System.Drawing.Point(58, 118);
             this.lbl_cant_max_trabajos.Name = "lbl_cant_max_trabajos";
             this.lbl_cant_max_trabajos.Size = new System.Drawing.Size(182, 15);
             this.lbl_cant_max_trabajos.TabIndex = 68;
@@ -480,7 +480,7 @@ namespace TPFinal.Presentacion
             0,
             0,
             65536});
-            this.nud_tiempo_limite_sup_atencionA.Location = new System.Drawing.Point(242, 243);
+            this.nud_tiempo_limite_sup_atencionA.Location = new System.Drawing.Point(256, 244);
             this.nud_tiempo_limite_sup_atencionA.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nud_tiempo_limite_sup_atencionA.Minimum = new decimal(new int[] {
             1,
@@ -518,7 +518,7 @@ namespace TPFinal.Presentacion
             0,
             0,
             65536});
-            this.nud_DE_atencionB.Location = new System.Drawing.Point(243, 308);
+            this.nud_DE_atencionB.Location = new System.Drawing.Point(256, 308);
             this.nud_DE_atencionB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nud_DE_atencionB.Maximum = new decimal(new int[] {
             50,
@@ -544,7 +544,7 @@ namespace TPFinal.Presentacion
             // lbl_DE_atencionB
             // 
             this.lbl_DE_atencionB.AutoSize = true;
-            this.lbl_DE_atencionB.Location = new System.Drawing.Point(10, 310);
+            this.lbl_DE_atencionB.Location = new System.Drawing.Point(24, 310);
             this.lbl_DE_atencionB.Name = "lbl_DE_atencionB";
             this.lbl_DE_atencionB.Size = new System.Drawing.Size(216, 15);
             this.lbl_DE_atencionB.TabIndex = 66;
@@ -553,7 +553,7 @@ namespace TPFinal.Presentacion
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 245);
+            this.label1.Location = new System.Drawing.Point(36, 246);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(204, 15);
             this.label1.TabIndex = 64;
@@ -561,7 +561,7 @@ namespace TPFinal.Presentacion
             // 
             // nud_mostrar_cantidad_filas
             // 
-            this.nud_mostrar_cantidad_filas.Location = new System.Drawing.Point(244, 87);
+            this.nud_mostrar_cantidad_filas.Location = new System.Drawing.Point(256, 85);
             this.nud_mostrar_cantidad_filas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nud_mostrar_cantidad_filas.Maximum = new decimal(new int[] {
             1000,
@@ -582,7 +582,7 @@ namespace TPFinal.Presentacion
             // lbl_mostrar_desde_filas
             // 
             this.lbl_mostrar_desde_filas.AutoSize = true;
-            this.lbl_mostrar_desde_filas.Location = new System.Drawing.Point(145, 89);
+            this.lbl_mostrar_desde_filas.Location = new System.Drawing.Point(157, 87);
             this.lbl_mostrar_desde_filas.Name = "lbl_mostrar_desde_filas";
             this.lbl_mostrar_desde_filas.Size = new System.Drawing.Size(83, 15);
             this.lbl_mostrar_desde_filas.TabIndex = 62;
@@ -591,7 +591,7 @@ namespace TPFinal.Presentacion
             // 
             // nud_mostrar_desde_minutos
             // 
-            this.nud_mostrar_desde_minutos.Location = new System.Drawing.Point(244, 54);
+            this.nud_mostrar_desde_minutos.Location = new System.Drawing.Point(256, 54);
             this.nud_mostrar_desde_minutos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nud_mostrar_desde_minutos.Maximum = new decimal(new int[] {
             200000,
@@ -607,7 +607,7 @@ namespace TPFinal.Presentacion
             // lbl_mostrar_desde_minutos
             // 
             this.lbl_mostrar_desde_minutos.AutoSize = true;
-            this.lbl_mostrar_desde_minutos.Location = new System.Drawing.Point(89, 56);
+            this.lbl_mostrar_desde_minutos.Location = new System.Drawing.Point(101, 56);
             this.lbl_mostrar_desde_minutos.Name = "lbl_mostrar_desde_minutos";
             this.lbl_mostrar_desde_minutos.Size = new System.Drawing.Size(139, 15);
             this.lbl_mostrar_desde_minutos.TabIndex = 60;
@@ -622,7 +622,7 @@ namespace TPFinal.Presentacion
             0,
             0,
             65536});
-            this.nud_media_atencionB.Location = new System.Drawing.Point(243, 276);
+            this.nud_media_atencionB.Location = new System.Drawing.Point(256, 276);
             this.nud_media_atencionB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nud_media_atencionB.Minimum = new decimal(new int[] {
             1,
@@ -642,7 +642,7 @@ namespace TPFinal.Presentacion
             // 
             // nud_cant_minutos_simulacion
             // 
-            this.nud_cant_minutos_simulacion.Location = new System.Drawing.Point(244, 23);
+            this.nud_cant_minutos_simulacion.Location = new System.Drawing.Point(256, 23);
             this.nud_cant_minutos_simulacion.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nud_cant_minutos_simulacion.Maximum = new decimal(new int[] {
             200000,
@@ -668,7 +668,7 @@ namespace TPFinal.Presentacion
             // lbl_limite_inf_tiempo_atencionA
             // 
             this.lbl_limite_inf_tiempo_atencionA.AutoSize = true;
-            this.lbl_limite_inf_tiempo_atencionA.Location = new System.Drawing.Point(7, 213);
+            this.lbl_limite_inf_tiempo_atencionA.Location = new System.Drawing.Point(21, 214);
             this.lbl_limite_inf_tiempo_atencionA.Name = "lbl_limite_inf_tiempo_atencionA";
             this.lbl_limite_inf_tiempo_atencionA.Size = new System.Drawing.Size(219, 15);
             this.lbl_limite_inf_tiempo_atencionA.TabIndex = 51;
@@ -682,7 +682,7 @@ namespace TPFinal.Presentacion
             0,
             0,
             65536});
-            this.nud_tiempo_medio_llegadas.Location = new System.Drawing.Point(242, 180);
+            this.nud_tiempo_medio_llegadas.Location = new System.Drawing.Point(256, 180);
             this.nud_tiempo_medio_llegadas.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nud_tiempo_medio_llegadas.Maximum = new decimal(new int[] {
             1000,
@@ -708,7 +708,7 @@ namespace TPFinal.Presentacion
             // lbl_media_atencionB
             // 
             this.lbl_media_atencionB.AutoSize = true;
-            this.lbl_media_atencionB.Location = new System.Drawing.Point(53, 278);
+            this.lbl_media_atencionB.Location = new System.Drawing.Point(67, 278);
             this.lbl_media_atencionB.Name = "lbl_media_atencionB";
             this.lbl_media_atencionB.Size = new System.Drawing.Size(173, 15);
             this.lbl_media_atencionB.TabIndex = 52;
@@ -717,7 +717,7 @@ namespace TPFinal.Presentacion
             // lbl_tiempo_medio_llegadas
             // 
             this.lbl_tiempo_medio_llegadas.AutoSize = true;
-            this.lbl_tiempo_medio_llegadas.Location = new System.Drawing.Point(9, 182);
+            this.lbl_tiempo_medio_llegadas.Location = new System.Drawing.Point(22, 182);
             this.lbl_tiempo_medio_llegadas.Name = "lbl_tiempo_medio_llegadas";
             this.lbl_tiempo_medio_llegadas.Size = new System.Drawing.Size(218, 15);
             this.lbl_tiempo_medio_llegadas.TabIndex = 50;
@@ -727,7 +727,7 @@ namespace TPFinal.Presentacion
             // lbl_cant_minutos_simulacion
             // 
             this.lbl_cant_minutos_simulacion.AutoSize = true;
-            this.lbl_cant_minutos_simulacion.Location = new System.Drawing.Point(30, 25);
+            this.lbl_cant_minutos_simulacion.Location = new System.Drawing.Point(42, 25);
             this.lbl_cant_minutos_simulacion.Name = "lbl_cant_minutos_simulacion";
             this.lbl_cant_minutos_simulacion.Size = new System.Drawing.Size(198, 15);
             this.lbl_cant_minutos_simulacion.TabIndex = 53;
@@ -742,7 +742,7 @@ namespace TPFinal.Presentacion
             0,
             0,
             65536});
-            this.nud_tiempo_limite_inf_atencionA.Location = new System.Drawing.Point(242, 211);
+            this.nud_tiempo_limite_inf_atencionA.Location = new System.Drawing.Point(256, 212);
             this.nud_tiempo_limite_inf_atencionA.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nud_tiempo_limite_inf_atencionA.Name = "nud_tiempo_limite_inf_atencionA";
             this.nud_tiempo_limite_inf_atencionA.Size = new System.Drawing.Size(88, 23);

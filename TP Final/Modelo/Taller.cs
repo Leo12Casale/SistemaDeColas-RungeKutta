@@ -107,6 +107,7 @@ namespace TP_Final.Modelo
                         filaAnterior.TiempoACCentroADetenido += cantSimulacion - filaAnterior.Reloj;
                         Fila.TiempoACCentroADetenido = filaAnterior.TiempoACCentroADetenido;
                     }
+                    filaAnterior.setProximoFinSecado();
                     crearFilaFinSimulacion(filaAnterior, cantSimulacion);
                     agregarFilaTabla(filaAnterior);
                     break;

@@ -35,36 +35,34 @@ namespace TPFinal.Presentacion
                 MessageBox.Show("El minuto a partir del cual mostrar la cantidad máxima de trabajos, debe ser menor a la cantidad de minutos de simulación.", "Generación de Simulación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if(nud_indice_mojado.Value < nud_indice_seco.Value)
-            {
-                MessageBox.Show("El índice inicial de Mojado (M) del Trabajo, debe ser mayor al índice final de Mojado (M).", "Generación de Simulación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
             return true;
         }
 
         private void restablecerParametros(bool restablecer)
         {
+            //Simulacion
+            nud_cant_minutos_simulacion.Enabled = restablecer;
+            nud_mostrar_desde_minutos.Enabled = restablecer;
+            nud_mostrar_cantidad_filas.Enabled = restablecer;
+            //Distribuciones eventos
+            nud_tiempo_medio_llegadas.Enabled = restablecer;
+            nud_tiempo_limite_inf_atencionA.Enabled = restablecer;
+            nud_tiempo_limite_sup_atencionA.Enabled = restablecer;
+            nud_media_atencionB.Enabled = restablecer;
+            nud_DE_atencionB.Enabled = restablecer;
+            nud_cant_max_trabajos.Enabled = restablecer;
+            //RK
+            nud_indice_mojado.Enabled = restablecer;
+            nud_indice_seco.Enabled = restablecer;
+            nud_paso_integracion.Enabled = restablecer;
+
+            btn_generar.Enabled = restablecer;
+            btn_restablecer.Enabled = !restablecer;
+            gb_metricas.Visible = !restablecer;
+
             if (restablecer)
             {
-                //Simulacion
-                nud_cant_minutos_simulacion.Enabled = true;
-                nud_mostrar_desde_minutos.Enabled = true;
-                nud_mostrar_cantidad_filas.Enabled = true;
-                //Distribuciones eventos
-                nud_tiempo_medio_llegadas.Enabled = true;
-                nud_tiempo_limite_inf_atencionA.Enabled = true;
-                nud_tiempo_limite_sup_atencionA.Enabled = true;
-                nud_media_atencionB.Enabled = true;
-                nud_DE_atencionB.Enabled = true;
-                nud_cant_max_trabajos.Enabled = true;
-                nud_indice_mojado.Enabled = true;
-                nud_indice_seco.Enabled = true;
-                nud_paso_integracion.Enabled = true;
-
-                btn_generar.Enabled = true;
-                btn_restablecer.Enabled = false;
-                gb_metricas.Visible = false;
+                //Ocultar lbls de RK
                 gb_ec_dif_1trabajo.Visible = false;
                 gb_ec_dif_2trabajos.Visible = false;
 
@@ -74,25 +72,6 @@ namespace TPFinal.Presentacion
                 tab_RK_2trabajos.Show();
                 dgv_rk_1trabajo.Columns.Clear();
                 dgv_rk_2trabajos.Columns.Clear();
-            }
-            else
-            {
-                nud_cant_minutos_simulacion.Enabled = false;
-                nud_mostrar_desde_minutos.Enabled = false;
-                nud_mostrar_cantidad_filas.Enabled = false;
-                nud_tiempo_medio_llegadas.Enabled = false;
-                nud_tiempo_limite_inf_atencionA.Enabled = false;
-                nud_tiempo_limite_sup_atencionA.Enabled = false;
-                nud_media_atencionB.Enabled = false;
-                nud_DE_atencionB.Enabled = false;
-                nud_cant_max_trabajos.Enabled = false;
-                nud_indice_mojado.Enabled = false;
-                nud_indice_seco.Enabled = false;
-                nud_paso_integracion.Enabled = false;
-
-                btn_generar.Enabled = false;
-                btn_restablecer.Enabled = true;
-                gb_metricas.Visible = true;
             }
         }
 
@@ -120,16 +99,11 @@ namespace TPFinal.Presentacion
                     //Carga de datos solicitados en consigna
                     cargarMetricas(taller);
 
-                    //Carga y setteo de estilos de las tablas RK
+                    //Carga y setteo de estilos de las tablas Runge Kutta
                     setPropiedadesTablasRK(taller);
-                    
 
-                    lbl_condicion_inicial_ec_dif_1trabajo.Text = "Condición Inicial: M(0) = " + nud_indice_mojado.Value.ToString();
-                    lbl_condicion_final_ec_dif_1trabajo.Text = "Condición Final: M < " + nud_indice_seco.Value.ToString();
-                    lbl_resultado_RK_1trabajo.Text = "Resultado (M < " + nud_indice_seco.Value.ToString() + "): " + (Math.Truncate(100 * taller.RungeKutta.TiempoSecado1Trabajo) / 100).ToString() + " mins.";
-                    lbl_condicion_inicial_ec_dif_2trabajos.Text = "Condición Inicial: M(0) = " + nud_indice_mojado.Value.ToString();
-                    lbl_condicion_final_ec_dif_2trabajos.Text = "Condición Final: M < " + nud_indice_seco.Value.ToString();
-                    lbl_resultado_RK_2trabajos.Text = "Resultado (M < " + nud_indice_seco.Value.ToString() + "): " + (Math.Truncate(100 * taller.RungeKutta.TiempoSecado2Trabajos) / 100).ToString() + " mins.";
+                    //Carga y setteo de labels de integracion de Runge Kutta
+                    setLabelsRK(taller);
                 }
                 catch
                 {
@@ -193,6 +167,16 @@ namespace TPFinal.Presentacion
                 dgv_rk_2trabajos.Rows[dgv_rk_2trabajos.Rows.Count - 1].Cells[0].Style.BackColor = Color.IndianRed;
                 dgv_rk_2trabajos.Rows[dgv_rk_2trabajos.Rows.Count - 1].Cells[1].Style.BackColor = Color.IndianRed;
             }
+        }
+
+        private void setLabelsRK(Taller taller)
+        {
+            lbl_condicion_inicial_ec_dif_1trabajo.Text = "Condición Inicial: M(0) = " + nud_indice_mojado.Value.ToString();
+            lbl_condicion_final_ec_dif_1trabajo.Text = "Condición Final: M < " + nud_indice_seco.Value.ToString();
+            lbl_resultado_RK_1trabajo.Text = "Resultado (M < " + nud_indice_seco.Value.ToString() + "): " + (Math.Truncate(100 * taller.RungeKutta.TiempoSecado1Trabajo) / 100).ToString() + " mins.";
+            lbl_condicion_inicial_ec_dif_2trabajos.Text = "Condición Inicial: M(0) = " + nud_indice_mojado.Value.ToString();
+            lbl_condicion_final_ec_dif_2trabajos.Text = "Condición Final: M < " + nud_indice_seco.Value.ToString();
+            lbl_resultado_RK_2trabajos.Text = "Resultado (M < " + nud_indice_seco.Value.ToString() + "): " + (Math.Truncate(100 * taller.RungeKutta.TiempoSecado2Trabajos) / 100).ToString() + " mins.";
         }
 
         private void cargarMetricas(Taller taller)
